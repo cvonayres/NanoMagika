@@ -49,7 +49,6 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Message_ManaPotion)
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Message_HealthCrystal)
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Message_ManaCrystal)
 
-
 //const FString Msg = FString::Printf(TEXT("GE Tag: %s), Tag.GetTagName())
 //GEngine->AddOnScreenDebugMessage(1,8.f, FColor::Blue, Msg);
 	

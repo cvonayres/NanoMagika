@@ -34,8 +34,9 @@
 /NODEFAULTLIB:"LIBCD"
 /NODEFAULTLIB:"LIBCPD"
 /FUNCTIONPADMIN:6
-"C:\GAS\NanoMagika\Intermediate\Build\Win64\x64\NanoMagikaEditor\Development\Engine\SharedPCH.Engine.Cpp20.InclOrderUnreal5_0.h.obj"
+"C:\GAS\NanoMagika\Intermediate\Build\Win64\x64\NanoMagikaEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
 "C:\GAS\NanoMagika\Plugins\GameFeatures\NmRoSPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\NmRoSPluginRuntime\Module.NmRoSPluginRuntime.cpp.obj"
+"C:\GAS\NanoMagika\Plugins\GameFeatures\NmRoSPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\NmRoSPluginRuntime\UDGameplayTags.cpp.obj"
 "C:\GAS\NanoMagika\Plugins\GameFeatures\NmRoSPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\NmRoSPluginRuntime\Default.rc2.res"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\CoreUObject\UnrealEditor-CoreUObject.lib"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\Engine\UnrealEditor-Engine.lib"

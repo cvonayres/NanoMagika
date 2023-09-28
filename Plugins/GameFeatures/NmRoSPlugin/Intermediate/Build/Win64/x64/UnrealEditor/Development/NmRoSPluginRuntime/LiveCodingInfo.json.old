@@ -4,8 +4,9 @@
 		"Module.NmRoSPluginRuntime.cpp.obj": [
 			"NmRoSAttributes.gen.cpp.obj",
 			"NmRoSPluginRuntime.init.gen.cpp.obj",
+			"NmRoSPluginRuntimeModule.cpp.obj",
 			"NmRoSAttributes.cpp.obj",
-			"NmRoSPluginRuntimeModule.cpp.obj"
+			"UDGameplayTags.cpp.obj"
 		]
 	}
 }

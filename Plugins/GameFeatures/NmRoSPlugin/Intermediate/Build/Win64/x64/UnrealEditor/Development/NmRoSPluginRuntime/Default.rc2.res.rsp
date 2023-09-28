@@ -73,7 +73,7 @@
 /DBUILD_VERSION=++UE5+Release-5.3-CL-28051148
 /DBUILD_ICON_FILE_NAME="\"..\\Build\\Windows\\Resources\\Default.ico\""
 /DPROJECT_COMPANY_NAME=ECM
-/DPROJECT_COPYRIGHT_STRING="Copyright ECM"
+/DPROJECT_COPYRIGHT_STRING="Copyright ECM."
 /DPROJECT_PRODUCT_NAME="NanoMagika: Rise of the Sentinal"
 /DPROJECT_PRODUCT_IDENTIFIER=NanoMagika
 /fo "C:\GAS\NanoMagika\Plugins\GameFeatures\NmRoSPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\NmRoSPluginRuntime\Default.rc2.res"

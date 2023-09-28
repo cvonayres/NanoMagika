@@ -1,4 +1,4 @@
-﻿#include "UDGameplayTags.h"
+﻿#include "ECMGasTags.h"
 
 /** Declares the "Vital Attributes" gameplay tag. */
 UE_DEFINE_GAMEPLAY_TAG(TAG_Attributes_Vital_VitalityMatrix, "Attribute.Vital.VitalityMatrix")
@@ -47,4 +47,3 @@ UE_DEFINE_GAMEPLAY_TAG(TAG_Message_HealthPotion, "Message.HealthPotion");
 UE_DEFINE_GAMEPLAY_TAG(TAG_Message_ManaPotion, "Message.ManaPotion");
 UE_DEFINE_GAMEPLAY_TAG(TAG_Message_HealthCrystal, "Message.HealthCrystal");
 UE_DEFINE_GAMEPLAY_TAG(TAG_Message_ManaCrystal, "Message.ManaCrystal");
-

@@ -1,0 +1,20 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\nmrospluginruntime\\module.nmrospluginruntime.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\gas\\nanomagika\\intermediate\\build\\win64\\x64\\nanomagikaeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "Includes": [
+            "c:\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\nmrospluginruntime\\definitions.nmrospluginruntime.h",
+            "c:\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\nmrosattributes.gen.cpp",
+            "c:\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\player\\nmrosattributes.h",
+            "c:\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\nmrosattributes.generated.h",
+            "c:\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\nmrospluginruntime.init.gen.cpp",
+            "c:\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\nmrospluginruntimemodule.cpp",
+            "c:\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\nmrospluginruntimemodule.h",
+            "c:\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\player\\nmrosattributes.cpp"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

@@ -5,6 +5,15 @@
 #include "NanoMagika/UI/WidgetController/ECMOverlayWidgetController.h"
 #include "Blueprint/UserWidget.h"
 
+AECMHUD::AECMHUD()
+{
+}
+
+void AECMHUD::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
 void AECMHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
 {
 	checkf(OverlayWidgetClass, TEXT("Overlay Widget Class uninitialized, please fill out BP_ECMHUD"))

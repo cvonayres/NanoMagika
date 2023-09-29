@@ -15,18 +15,26 @@ class NANOMAGIKA_API AECMCharacter : public AECMCharacterBase
 public:
 	AECMCharacter();
 
+	// Server / Client Ready
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
+
+	/** Combat Interface */
+	virtual int32 GetPlayerLevel() override;
+	/** end Combat Interface */
 	
 protected:
 	virtual void BeginPlay() override;
 
+	// Init Ability System
 	virtual void InitAbilityActorInfo() override;
 
 private:
 	UPROPERTY()
 	class AECMPlayerController* ControllerRef;
-
+	UPROPERTY()
+	class AECMPlayerState* PlayerStateRef;
+	
 	// Called from Player Controller
 	void UpdatedViewMode();
 

@@ -23,26 +23,35 @@ void AECMCharacterBase::BeginPlay()
 	Super::BeginPlay();
 }
 
+// Empty function, called in child classes
 void AECMCharacterBase::InitAbilityActorInfo()
 {
 }
 
+// Setup Primary and Secondary Attributes
 void AECMCharacterBase::InitDefaultAttributes() const
 {
 	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
+	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
 }
 
+// Generic Apply Effect To Self
 void AECMCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const
 {
 	check(IsValid(GetAbilitySystemComponent()));
 	check(GameplayEffectClass);
-	
-	const FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+
+	// Create Effect Spec Handle
+	FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+	ContextHandle.AddSourceObject(this);
 	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(GameplayEffectClass,Level,ContextHandle);
+
+	// Apply gameplay effect to Self
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(),AbilitySystemComponent);
 }
 
+/* Hightlight Interface */
 void AECMCharacterBase::HighlightActor()
 {
 	GetMesh()->SetRenderCustomDepth(true);
@@ -51,7 +60,6 @@ void AECMCharacterBase::HighlightActor()
 	// Blueprint implementable event
 	Highlighted(true);
 }
-
 void AECMCharacterBase::UnHightlighActor()
 {
 	GetMesh()->SetRenderCustomDepth(false);
@@ -60,8 +68,15 @@ void AECMCharacterBase::UnHightlighActor()
 	// Blueprint implementable event
 	Highlighted(false);
 }
+/* end Hightlight Interface */
 
+/* Ability System Interface */
 UAbilitySystemComponent* AECMCharacterBase::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
 }
+/* end Ability System Interface */
+
+/* Combat Interface */
+
+/* end Combat Interface */

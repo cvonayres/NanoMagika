@@ -16,6 +16,7 @@ AECMCharacter::AECMCharacter()
 	GetCharacterMovement()->bSnapToPlaneAtStart = true;
 }
 
+// Server side ready
 void AECMCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
@@ -27,6 +28,7 @@ void AECMCharacter::PossessedBy(AController* NewController)
 	InitAbilityActorInfo();
 }
 
+// Client side ready
 void AECMCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
@@ -38,6 +40,7 @@ void AECMCharacter::OnRep_PlayerState()
 	InitAbilityActorInfo();
 }
 
+// Begin Play
 void AECMCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -45,6 +48,39 @@ void AECMCharacter::BeginPlay()
 	UpdatedViewMode();
 }
 
+// Init Ability System for character
+void AECMCharacter::InitAbilityActorInfo()
+{
+	PlayerStateRef =  GetPlayerState<AECMPlayerState>();
+	check(PlayerStateRef);
+
+	// Get Ability System Component
+	AbilitySystemComponent = PlayerStateRef->GetAbilitySystemComponent();
+
+	// Set callbacks on ECM Ability System Component
+	Cast<UECMAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
+
+	// Sets callbacks for Native Ability System Component
+	AbilitySystemComponent->InitAbilityActorInfo(PlayerStateRef, this);
+
+	// Get Attribute Set
+	AttributeSet = PlayerStateRef->GetAttributeSet();
+
+	// Initialise Primary Attributes
+	InitDefaultAttributes();
+	
+	// Gets Player controller and cast ability system and attribute set to Overlap
+	if(AECMPlayerController* ECMPlayerController = Cast<AECMPlayerController>(GetController()))
+	{
+		if(AECMHUD* ECMHUD = Cast<AECMHUD>(ECMPlayerController->GetHUD()))
+		{
+			ECMHUD->InitOverlay(ECMPlayerController, PlayerStateRef, AbilitySystemComponent ,AttributeSet);
+		}
+	}
+	
+}
+
+// Blueprint callable function
 void AECMCharacter::UpdatedViewMode()
 {
 	if(!ControllerRef) return;
@@ -65,34 +101,13 @@ void AECMCharacter::UpdatedViewMode()
 	}
 }
 
-void AECMCharacter::InitAbilityActorInfo()
+/* Combat Interface */
+int32 AECMCharacter::GetPlayerLevel()
 {
-	AECMPlayerState* ECMPlayerState =  GetPlayerState<AECMPlayerState>();
-	check(ECMPlayerState);
-
-	// Get Ability System Component
-	AbilitySystemComponent = ECMPlayerState->GetAbilitySystemComponent();
-
-	// Set callbacks on ECM Ability System Component
-	Cast<UECMAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
-
-	// Sets callbacks for Native Ability System Component
-	AbilitySystemComponent->InitAbilityActorInfo(ECMPlayerState, this);
-
-	// Get Attribute Set
-	AttributeSet = ECMPlayerState->GetAttributeSet();
-
-	// Initialise Primary Attributes
-	InitDefaultAttributes();
-	
-	// Gets Player controller and cast ability system and attribute set to Overlap
-	if(AECMPlayerController* ECMPlayerController = Cast<AECMPlayerController>(GetController()))
+	if(PlayerStateRef)
 	{
-		if(AECMHUD* ECMHUD = Cast<AECMHUD>(ECMPlayerController->GetHUD()))
-		{
-			//ECMHUD->InitOverlay(ECMPlayerController, ECMPlayerState, AbilitySystemComponent ,AttributeSet);
-		}
+		return PlayerStateRef->GetPlayerLevel();
 	}
-	
+	return 0;
 }
-
+/* end Combat Interface */

@@ -145,6 +145,7 @@ void UECMAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData&
 		UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Props.TargetActor);
 	}
 }
+#pragma endregion Clamping
 
 // Replicate attributes
 void UECMAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -190,10 +191,8 @@ void UECMAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	
 	// Tertiary Attributes to be replicated
 	#pragma region RepTertiaryAttributes
-		DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, Level, COND_None, REPNOTIFY_Always);
 	#pragma endregion RepTertiaryAttributes
 }
-#pragma endregion Clamping
 
 #pragma region RefNofifies
 // Macro for creating  repetitive Repfunctions
@@ -236,7 +235,6 @@ DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, ReactionSpeed)
 DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, DimensionalPocketCapacity)
 
 // Tertiary - Gameplay Attributes
-DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, Level)
 
 // Undefine the macro to prevent possible interference with other code
 #undef DEFINE_ATTRIBUTE_REPNOTIFY

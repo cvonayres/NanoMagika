@@ -10,147 +10,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c842db6e-4adc-44c8-8f65-3e2dd4cae9f9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NanoMagika.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NanoMagika.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NanoMagika/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NanoMagika/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Animations/Idle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Animations/Idle.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Animations/IdleWalkRun.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Animations/IdleWalkRun.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Animations/Run.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Animations/Run.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Animations/Walk.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Animations/Walk.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_ArmGuard_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_ArmGuard_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_ArmGuard_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_ArmGuard_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_ArmGuard_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_ArmGuard_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Belt_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Belt_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Belt_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Belt_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Belt_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Belt_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Body_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Body_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Body_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Body_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Body_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Body_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Eyes_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Eyes_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Eyes_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Eyes_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Eyes_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Eyes_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Hair_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Hair_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Hair_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Hair_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Hair_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Hair_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Tunic_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Tunic_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Tunic_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Tunic_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Tunic_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/Character_low_Tunic_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/M_ArmGuard.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/M_ArmGuard.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/M_Belt.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/M_Belt.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/M_Body.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/M_Body.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/M_Eyes.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/M_Eyes.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/M_Hair.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/M_Hair.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/M_Tunic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Materials/M_Tunic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/PA_Aura.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/PA_Aura.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/SKM_Aura.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/SKM_Aura.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/SK_Aura.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/SK_Aura.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/M_Floaty.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/M_Floaty.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/M_Staff.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/M_Staff.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Floaty_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Floaty_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Floaty_Emissive.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Floaty_Emissive.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Floaty_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Floaty_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Floaty_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Floaty_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Top_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Top_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Top_Emissive.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Top_Emissive.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Top_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Top_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Top_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/Materials/Staff_low_Top_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/PA_Staff.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/PA_Staff.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/SKM_Staff.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/SKM_Staff.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/SK_Staff.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/SK_Staff.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/SM_Staff.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Characters/Aura/Staff/SM_Staff.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Effects/Fire/M_Distortion.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Effects/Fire/M_Distortion.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Effects/Fire/M_Fire.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Effects/Fire/M_Fire.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Effects/Fire/NS_Fire.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Effects/Fire/NS_Fire.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Effects/Shared/noise_blur_min.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Effects/Shared/noise_blur_min.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Animations/Slingshot/BS_Goblin_Slingshot_IdleRun.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Animations/Slingshot/BS_Goblin_Slingshot_IdleRun.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Animations/Slingshot/Idle_Slingshot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Animations/Slingshot/Idle_Slingshot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Animations/Slingshot/Running_Slingshot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Animations/Slingshot/Running_Slingshot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Animations/Spear/BS_GoblinSpear_IdleRun.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Animations/Spear/BS_GoblinSpear_IdleRun.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Animations/Spear/Idle_Spear2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Animations/Spear/Idle_Spear2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Animations/Spear/Run_Spear_fix.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Animations/Spear/Run_Spear_fix.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Materials/Goblin_low_M_Goblin_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Materials/Goblin_low_M_Goblin_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Materials/Goblin_low_M_Goblin_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Materials/Goblin_low_M_Goblin_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Materials/Goblin_low_M_Goblin_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Materials/Goblin_low_M_Goblin_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Materials/M_Goblin.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Materials/M_Goblin.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/PA_Goblin.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/PA_Goblin.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/SKM_Goblin.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/SKM_Goblin.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/SK_Goblin.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/SK_Goblin.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Centered/PA_Slingshot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Centered/PA_Slingshot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Centered/SKM_Slingshot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Centered/SKM_Slingshot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Centered/SK_Slingshot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Centered/SK_Slingshot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Materials/Red/M_Slingshot_Red.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Materials/Red/M_Slingshot_Red.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Materials/Red/Slingshot_low_M_Slingshot_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Materials/Red/Slingshot_low_M_Slingshot_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Materials/Red/Slingshot_low_M_Slingshot_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Materials/Red/Slingshot_low_M_Slingshot_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Materials/Red/Slingshot_low_M_Slingshot_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Slingshot/Materials/Red/Slingshot_low_M_Slingshot_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/Materials/M_Spear.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/Materials/M_Spear.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/Materials/Spear_low_M_Spear_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/Materials/Spear_low_M_Spear_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/Materials/Spear_low_M_Spear_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/Materials/Spear_low_M_Spear_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/Materials/Spear_low_M_Spear_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/Materials/Spear_low_M_Spear_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/PA_GoblinSpear.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/PA_GoblinSpear.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/SKM_Spear.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/SKM_Spear.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/SKM_Spear_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Enemies/Goblin/Spear/SKM_Spear_Skeleton.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Fonts/Amarante/Amarante-Regular.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Fonts/Amarante/Amarante-Regular.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Fonts/Amarante/Amarante-Regular_Font.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Fonts/Amarante/Amarante-Regular_Font.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/HealthCrystal_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/HealthCrystal_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/HealthCrystal_Emissive.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/HealthCrystal_Emissive.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/HealthCrystal_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/HealthCrystal_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/HealthCrystal_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/HealthCrystal_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/MI_HealthCrystal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/MI_HealthCrystal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/M_HealthCrystal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/M_HealthCrystal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/SM_HealthCrystal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/SM_HealthCrystal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/MI_Bottle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/MI_Bottle.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/M_Bottle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/M_Bottle.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/Potion_low_Bottle_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/Potion_low_Bottle_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/Potion_low_Bottle_Emissive.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/Potion_low_Bottle_Emissive.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/Potion_low_Bottle_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/Potion_low_Bottle_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/Potion_low_Bottle_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/Potion_low_Bottle_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/Potion_low_Bottle_Opacity.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Bottle/Potion_low_Bottle_Opacity.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Cork/M_Cork.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Cork/M_Cork.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Cork/T_Cork_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Cork/T_Cork_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Cork/T_Cork_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Cork/T_Cork_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Cork/T_Cork_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Cork/T_Cork_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/MI_BlueLiquid.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/MI_BlueLiquid.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/MI_RedLiquid.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/MI_RedLiquid.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/M_WhiteLiquid.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/M_WhiteLiquid.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/T_WhiteLiquid_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/T_WhiteLiquid_BaseColor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/T_WhiteLiquid_Emissive.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/T_WhiteLiquid_Emissive.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/T_WhiteLiquid_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/T_WhiteLiquid_Normal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/T_WhiteLiquid_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/T_WhiteLiquid_OcclusionRoughnessMetallic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/T_WhiteLiquid_Opacity.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/Liquid/T_WhiteLiquid_Opacity.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/SM_PotionBottle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/Potions/SM_PotionBottle.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Sounds/Abilities/FireBolt/att_InWorld.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Sounds/Abilities/FireBolt/att_InWorld.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/sfx_Footsteps.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/sfx_Footsteps.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_01.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_02.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_03.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_04.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_05.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_06.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_06.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_07.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_07.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_08.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_08.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_09.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_09.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_10.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Sounds/FootSteps/wav/SFX_Footsteps_Stone_10.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/UI/Globes/MI_EmptyGlobe.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/UI/Globes/MI_EmptyGlobe.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/UI/Globes/MI_HealthGlobe.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/UI/Globes/MI_HealthGlobe.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/UI/Globes/MI_ManaGlobe.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/UI/Globes/MI_ManaGlobe.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/UI/Globes/M_EmptyGlobe.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/UI/Globes/M_EmptyGlobe.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/UI/Globes/M_FlowingGlobe.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/UI/Globes/M_FlowingGlobe.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/UI/Globes/TilingNoise05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/UI/Globes/TilingNoise05.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/UI/Pickups/T_HealthCrystal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/UI/Pickups/T_HealthCrystal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/UI/Pickups/T_ManaCrystal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/UI/Pickups/T_ManaCrystal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/UI/Pickups/T_Potion_Blue.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/UI/Pickups/T_Potion_Blue.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/UI/Pickups/T_Potion_Red.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/UI/Pickups/T_Potion_Red.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/UI/SpellTree/Ring2_active.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/UI/SpellTree/Ring2_active.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/GE_DefaultAttributes/GF_SecondaryAttributes.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/GE_DefaultAttributes/GF_SecondaryAttributes.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Characters/Hero/BP_Hero_Character.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Characters/Hero/BP_Hero_Character.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Game/BP_GM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Game/BP_GM.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/HUD/BP_HUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/HUD/BP_HUD.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/Overlay/WBP_Game.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/Overlay/WBP_Game.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/NewGameplayModMagnitudeCalculation.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/NanoMagika.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/NanoMagika.uproject" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Binaries/Win64/UnrealEditor-NmRoSPluginRuntime.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Binaries/Win64/UnrealEditor-NmRoSPluginRuntime.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Content/Maps/L_GAS_Test.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Content/Maps/L_GAS_Test.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Default.rc2.res" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Default.rc2.res" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Default.rc2.res.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Default.rc2.res.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/LiveCodingInfo.json.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/LiveCodingInfo.json.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.dll.rsp.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.dll.rsp.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Default.rc2.res.rsp.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Default.rc2.res.rsp.old" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.exp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.exp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.lib.rsp.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.lib.rsp.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/NanoMagika.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/NanoMagika.Build.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/UDGameplayTags.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/UDGameplayTags.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAttributeSet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAttributeSet.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAttributeSet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAttributeSet.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMEnemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/UI/HUD/ECMHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/UI/HUD/ECMHUD.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/UI/HUD/ECMHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/UI/HUD/ECMHUD.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMOverlayWidgetController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMOverlayWidgetController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMOverlayWidgetController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMOverlayWidgetController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,6 +45,12 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
@@ -173,27 +65,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.general",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\carla\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
-      "C:\\Users\\carla\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
-      "C:\\Users\\carla\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\carla\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\carla\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\carla\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="C++ Project.NanoMagika">
     <configuration name="NanoMagika" type="CppProject" factoryName="C++ Project">
       <configuration_1>
@@ -311,7 +203,8 @@
       <workItem from="1695934796931" duration="323000" />
       <workItem from="1695935134222" duration="580000" />
       <workItem from="1695935734512" duration="1383000" />
-      <workItem from="1695937152381" duration="4098000" />
+      <workItem from="1695937152381" duration="4687000" />
+      <workItem from="1695983556842" duration="6835000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -321,7 +214,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695934882289</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Transferred across all aura functionality.">
+      <option name="closed" value="true" />
+      <created>1695944295530</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1695944295530</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -331,6 +232,18 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="First commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="First commit" />
+    <MESSAGE value="Transferred across all aura functionality." />
+    <option name="LAST_COMMIT_MESSAGE" value="Transferred across all aura functionality." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Source/NanoMagika/UI/HUD/ECMHUD.cpp</url>
+          <line>13</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

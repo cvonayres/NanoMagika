@@ -18,6 +18,10 @@ class NANOMAGIKA_API AECMHUD : public AHUD
 	GENERATED_BODY()
 	
 public:
+
+	AECMHUD();
+	virtual void BeginPlay() override;
+	
 	UPROPERTY()
 	TObjectPtr<UECMUserWidget> OverlayWidget;
 

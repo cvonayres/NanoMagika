@@ -243,12 +243,6 @@ public:
 
 // Tertiary - Gameplay Attributes
 #pragma region TertiaryAttributes
-	UPROPERTY(BlueprintReadOnly, Category = "Attributes|Tertiary", ReplicatedUsing = OnRep_Level)
-	FGameplayAttributeData Level;
-	ATTRIBUTE_ACCESSORS(UECMAttributeSet, Level);
-	
-	UFUNCTION()
-	void OnRep_Level(const FGameplayAttributeData& Oldlevel) const;
 #pragma endregion TertiaryAttributes
 	
 private:

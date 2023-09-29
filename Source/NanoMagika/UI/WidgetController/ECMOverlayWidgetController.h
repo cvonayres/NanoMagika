@@ -101,10 +101,7 @@ public:
 	FOnAttributeChangedSignature OnReactionSpeedChanged;
 	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
 	FOnAttributeChangedSignature OnDimensionalPocketCapacityChanged;
-
-	UPROPERTY(BlueprintAssignable, Category="GAS|TertiaryAttributes")
-	FOnAttributeChangedSignature OnLevelChanged;
-	
+		
 	UPROPERTY(BlueprintAssignable, Category="GAS|Messages")
 	FMessageWidgetRowSignature MessageWidgetRowDelegate;
 

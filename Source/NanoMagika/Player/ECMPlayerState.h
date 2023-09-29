@@ -18,9 +18,13 @@ class NANOMAGIKA_API AECMPlayerState : public APlayerState, public IAbilitySyste
 public:
 	AECMPlayerState();
 
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	
 	// Getters for Attribute System
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UAttributeSet* GetAttributeSet() const {return AttributeSet;}
+
+	FORCEINLINE int32 GetPlayerLevel() const { return Level; }
 	
 protected:
 	// Points for Attribute System
@@ -28,5 +32,11 @@ protected:
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
+	
+private:
+	UPROPERTY(VisibleAnywhere, Category="Character Class Defaults", ReplicatedUsing=OnRep_Level)
+	int32 Level = 1;
 
+	UFUNCTION()
+	void OnRep_Level(int32 oldLevel);
 };

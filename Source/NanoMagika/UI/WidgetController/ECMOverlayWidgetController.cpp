@@ -36,8 +36,6 @@ void UECMOverlayWidgetController::BroadcastInitialValues()
 	OnTechnologicalInterfaceChanged.Broadcast(ECMAttributeSet->GetTechnologicalInterface());
 	OnSignalStealthChanged.Broadcast(ECMAttributeSet->GetSignalStealth());
 	OnDimensionalPocketCapacityChanged.Broadcast(ECMAttributeSet->GetDimensionalPocketCapacity());
-
-	OnLevelChanged.Broadcast(ECMAttributeSet->GetLevel());
 }
 
 // Bind Listeners for Attribute change
@@ -102,8 +100,6 @@ void UECMOverlayWidgetController::BindCallbacksToDependencies()
 	[this](const FOnAttributeChangeData &Data)	{ OnDimensionalPocketCapacityChanged.Broadcast(Data.NewValue);});
 
 	// Bind Tertiary attributes
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(ECMAttributeSet->GetLevelAttribute()).AddLambda(
-		[this](const FOnAttributeChangeData &Data)	{ OnLevelChanged.Broadcast(Data.NewValue);});
 	
 	// Bind Message Widget Row
 	Cast<UECMAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(

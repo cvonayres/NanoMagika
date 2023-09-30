@@ -1,6 +1,7 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMAbilitySystemComponent.h"
+#include "NanoMagika/ECMGameplayTags.h"
 
 void UECMAbilitySystemComponent::AbilityActorInfoSet()
 {

@@ -36,7 +36,6 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageWidgetRowSignature, FUIWidge
 UPROPERTY(BlueprintAssignable, Category = CATEGORY) \
 FOnAttributeChangedSignature On##ATTRIBUTE##Changed;
 
-
 UCLASS(BlueprintType, Blueprintable)
 class NANOMAGIKA_API UECMOverlayWidgetController : public UECMWidgetController
 {
@@ -50,58 +49,12 @@ public:
 	UPROPERTY(BlueprintAssignable, Category="GAS|Vital Attributes")
 	FOnAttributeChangedSignature OnVitalityMatrixChanged;
 	UPROPERTY(BlueprintAssignable, Category="GAS|Vital Attributes")
-	FOnAttributeChangedSignature OnEnergeticEnduranceChanged;
+	FOnAttributeChangedSignature OnVMCapacityChanged;
 	UPROPERTY(BlueprintAssignable, Category="GAS|Vital Attributes")
 	FOnAttributeChangedSignature OnArcaneReservoirChanged;
 	UPROPERTY(BlueprintAssignable, Category="GAS|Vital Attributes")
-	FOnAttributeChangedSignature OnDefensiveSynchronyChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Vital Attributes")
-	FOnAttributeChangedSignature OnBarrierMatrixChanged;
-
-	UPROPERTY(BlueprintAssignable, Category="GAS|Primary Attributes")
-	FOnAttributeChangedSignature OnPhysiqueChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Primary Attributes")
-	FOnAttributeChangedSignature OnAdaptivityChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Primary Attributes")
-	FOnAttributeChangedSignature OnNeuralAgilityChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Primary Attributes")
-	FOnAttributeChangedSignature OnEmpathicResonanceChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Primary Attributes")
-	FOnAttributeChangedSignature OnEssenceControlChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Primary Attributes")
-	FOnAttributeChangedSignature OnNanomancyChanged;
-
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnVMCapacityChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnVMRecoveryChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnEECapacityChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnEERecoveryChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
 	FOnAttributeChangedSignature OnARCapacityChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnARRecoveryChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnKineticAbsorptionChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnNanoshieldThresholdChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnResonanceSyncQualityChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnResonanceAmplificationChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnEmpathicInfluenceChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnTechnologicalInterfaceChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnSignalStealthChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnReactionSpeedChanged;
-	UPROPERTY(BlueprintAssignable, Category="GAS|Secondary Attributes")
-	FOnAttributeChangedSignature OnDimensionalPocketCapacityChanged;
-		
+	
 	UPROPERTY(BlueprintAssignable, Category="GAS|Messages")
 	FMessageWidgetRowSignature MessageWidgetRowDelegate;
 
@@ -111,7 +64,6 @@ protected:
 	
 	template<typename T>
 	static T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag);
-	
 };
 
 template <typename T>

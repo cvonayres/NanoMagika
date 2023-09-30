@@ -4,16 +4,9 @@
 #include "NanoMagika/UI/Widget/ECMUserWidget.h"
 #include "NanoMagika/UI/WidgetController/ECMOverlayWidgetController.h"
 #include "Blueprint/UserWidget.h"
+#include "NanoMagika/UI/WidgetController/ECMAttributeMenuWidgetController.h"
 
-AECMHUD::AECMHUD()
-{
-}
-
-void AECMHUD::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
+// Creates overlay widget and controller and adds to viewport
 void AECMHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
 {
 	checkf(OverlayWidgetClass, TEXT("Overlay Widget Class uninitialized, please fill out BP_ECMHUD"))
@@ -36,6 +29,7 @@ void AECMHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyste
 	Widget->AddToViewport();
 }
 
+// Getter for Overlay Widget Controller
 UECMOverlayWidgetController* AECMHUD::GetOverlayWidgetController(const FWidgetControllerParam &WCParams)
 {
 	if(OverlayWidgetController == nullptr)
@@ -47,4 +41,18 @@ UECMOverlayWidgetController* AECMHUD::GetOverlayWidgetController(const FWidgetCo
 		return OverlayWidgetController;
 	}
 	return OverlayWidgetController;	
+}
+
+// Getter for Attribute Menu Widget Controller
+UECMAttributeMenuWidgetController* AECMHUD::GetAttributeMenuWidgetController(const FWidgetControllerParam& WCParams)
+{
+	if(AttributeMenuWidgetController == nullptr)
+	{
+		AttributeMenuWidgetController = NewObject<UECMAttributeMenuWidgetController>(this, AttributeMenuWidgetControllerClass);
+		AttributeMenuWidgetController->SetWidgetControllerParam(WCParams);
+		AttributeMenuWidgetController->BindCallbacksToDependencies();
+		
+		return AttributeMenuWidgetController;
+	}
+	return AttributeMenuWidgetController;	
 }

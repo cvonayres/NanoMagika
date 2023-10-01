@@ -154,9 +154,6 @@ void AECMEffectActor::OnEndOverlap(AActor* TargetActor)
 // Applies gameplay effect to target
 void AECMEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
 {
-	// return out of function if not derived from player TODO Replace with gameplay Tag
-	if(!Cast<AECMCharacter>(TargetActor)) return;
-	
 	// Gets ability system component
 	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
 	if(!TargetASC) return;

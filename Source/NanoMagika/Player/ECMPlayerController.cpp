@@ -86,19 +86,6 @@ void AECMPlayerController::CurserTrace()
 	LastActor = ThisActor;
 	ThisActor = Cast<IECMHightlightInterface>(CursorHit.GetActor());
 	
-	/**
-	 *  Line tracefrom cursor/ There are several scenarios:
-	 *	A - LastActor is null && ThisActor is null;
-	 *		- Do nothing
-	 *  B - LastActor is null && ThisActor is vaild;
-	 *		- Hightlight ThisActor
-     *  C - LastActor is vaild && ThisActor is null;
-	 *		- UnHightlight LastActor
-	 *  D - Both actors are valid, but LastActor != This Actor
-	 *		- UnHightlight LastActor, Highligh ThisActor
-	 *  E - Both actors are valid and LastActor == This Actor
-	 *		- Do nothing		
-	 **/
 	
 	if(!LastActor && ThisActor)
 	{

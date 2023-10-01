@@ -2,7 +2,9 @@
 
 #include "ECMCharacterBase.h"
 #include "AbilitySystemComponent.h"
+#include "NanoMagika/ECMGameplayTags.h"
 #include "NanoMagika/NanoMagika.h"
+#include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 
 AECMCharacterBase::AECMCharacterBase()
 {
@@ -34,6 +36,17 @@ void AECMCharacterBase::InitDefaultAttributes() const
 	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
+}
+
+// Add Default Gameplay Tags [loosely, i.e. with no ability]
+
+void AECMCharacterBase::InitDefaultTags(UAbilitySystemComponent* ASC, const TArray<FGameplayTag>& Tags)
+{
+	check(ASC);
+	for (FGameplayTag Tag : Tags)
+	{
+		ASC->AddLooseGameplayTag(Tag);
+	}
 }
 
 // Generic Apply Effect To Self

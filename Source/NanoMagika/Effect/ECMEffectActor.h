@@ -10,17 +10,6 @@
 class UAbilitySystemComponent;
 class UGameplayEffect;
 
-// Enum for Vital Attributes TODO remove and replace with Gameplay Tags
-UENUM(BlueprintType)
-enum class EEffectType : uint8
-{
-	Instance      UMETA(DisplayName="Instance"),
-	Duration      UMETA(DisplayName="Duration"),
-	Infinite      UMETA(DisplayName="Infinte"),
-	Periodic      UMETA(DisplayName="Periodic"),	
-};
-
-
 #pragma region Policies
 UENUM(BlueprintType)
 enum class EEffectApplicationPolicy : uint8

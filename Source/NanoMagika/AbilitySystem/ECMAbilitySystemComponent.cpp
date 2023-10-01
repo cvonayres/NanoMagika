@@ -3,6 +3,11 @@
 #include "ECMAbilitySystemComponent.h"
 #include "NanoMagika/ECMGameplayTags.h"
 
+FEffectAssestTags UECMAbilitySystemComponent::GetTagContainer()
+{
+	return EffectAssetTags;
+}
+
 void UECMAbilitySystemComponent::AbilityActorInfoSet()
 {
 	// Bind Effect Applied to callback on ASC Effect Applied To Self.

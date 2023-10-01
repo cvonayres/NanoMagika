@@ -9,6 +9,8 @@
 #include "NanoMagika/Interaction/ECMHightlightInterface.h"
 #include "ECMCharacterBase.generated.h"
 
+struct FGameplayTag;
+struct FECMGameplayTags;
 class UGameplayEffect;
 class UAttributeSet;
 class UAbilitySystemComponent;
@@ -61,6 +63,8 @@ protected:
 	TSubclassOf<UGameplayEffect> DefaultSecondaryAttributes;
 
 	void InitDefaultAttributes() const;
+	static void InitDefaultTags(UAbilitySystemComponent* ASC,const TArray<FGameplayTag>& Tags);
+	
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect>  GameplayEffectClass, float Level) const;
 
 private:

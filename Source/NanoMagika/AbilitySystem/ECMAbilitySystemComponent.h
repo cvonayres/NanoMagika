@@ -12,9 +12,11 @@ UCLASS()
 class NANOMAGIKA_API UECMAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
-	
+
 public:
 	void AbilityActorInfoSet();
+
+	FEffectAssestTags GetTagContainer();
 
 	FEffectAssestTags EffectAssetTags;
 	

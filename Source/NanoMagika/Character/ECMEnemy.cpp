@@ -19,7 +19,14 @@ AECMEnemy::AECMEnemy()
 void AECMEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Initialise Ability Actor Info
 	InitAbilityActorInfo();
+
+	// Add default Tags
+	TArray<FGameplayTag> DefaultTags;
+	DefaultTags.Add(FGameplayTag::RequestGameplayTag(FName("Character.Type.Enemy")));
+	InitDefaultTags(AbilitySystemComponent, DefaultTags);
 }
 
 void AECMEnemy::InitAbilityActorInfo()

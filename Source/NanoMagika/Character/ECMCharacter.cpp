@@ -7,7 +7,7 @@
 #include "NanoMagika/Player/ECMPlayerState.h"
 #include "NanoMagika/UI/HUD/ECMHUD.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
+#include "GameplayTagContainer.h"
 
 AECMCharacter::AECMCharacter()
 {
@@ -70,6 +70,11 @@ void AECMCharacter::InitAbilityActorInfo()
 	
 	// Initialise Primary Attributes
 	InitDefaultAttributes();
+
+	// Add default Tags
+	TArray<FGameplayTag> DefaultTags;
+	DefaultTags.Add(FGameplayTag::RequestGameplayTag(FName("Character.Type.Player")));
+	InitDefaultTags(AbilitySystemComponent, DefaultTags);
 	
 	// Gets Player controller and cast ability system and attribute set to Overlap
 	if(AECMPlayerController* ECMPlayerController = Cast<AECMPlayerController>(GetController()))

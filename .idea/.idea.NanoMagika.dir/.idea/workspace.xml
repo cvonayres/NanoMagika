@@ -7,54 +7,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="847c31dc-fd4a-49e4-8f6f-f6e6e72afd05" name="Changes" comment="">
+    <list default="true" id="847c31dc-fd4a-49e4-8f6f-f6e6e72afd05" name="Changes" comment="Fixed potions and UI messages">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NanoMagika.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NanoMagika.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/M_HealthCrystal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Pickups/HealthCrystal/Materials/M_HealthCrystal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/Data/DA_AttributeInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/Data/DA_AttributeInfo.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Characters/Hero/BP_Hero_Character.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Characters/Hero/BP_Hero_Character.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Area/BP_FireArea.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Area/BP_FireArea.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/BP_PotionBottle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/BP_PotionBottle.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/DataAssets/Health/DA_Health_Damage.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/DataAssets/Health/DA_Health_Heal.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/DataAssets/PDA_Potion.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/DataAssets/PDA_Potion.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameplayEffects/Health/Health/GE_Health_DOT_Infinite.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameplayEffects/Health/Health/GE_Health_Damage.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameplayEffects/Health/Health/GE_Health_HOT_Infinite.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameplayEffects/Health/Health/GE_Health_Heal.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Player/BP_PC.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Player/BP_PC.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/Data/BT_MessageWidgetData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/Data/BT_MessageWidgetData.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/HUD/BP_HUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/HUD/BP_HUD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/WidgetController/BP_OverlayWidgetController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/WidgetController/BP_OverlayWidgetController.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/AttributeMenu/WBP_AttributeMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/AttributeMenu/WBP_AttributeMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/AttributeMenu/WBP_FramedValve.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/AttributeMenu/WBP_FramedValve.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/AttributeMenu/WBP_TextValveRow.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/AttributeMenu/WBP_TextValveRow.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/AttributeMenu/WDP_TextValveButtonRow.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/AttributeMenu/WDP_TextValveButtonRow.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/Overlay/WBP_Game.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/Overlay/WBP_Game.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/ProgressBar/DataAssets/DA_HealthBar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/ProgressBar/DataAssets/DA_HealthBar.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/ProgressBar/DataAssets/DA_ManaBar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/ProgressBar/DataAssets/DA_ManaBar.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/ProgressBar/DataAssets/PDA_GlobeProgressBar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/ProgressBar/DataAssets/PDA_GlobeProgressBar.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/ProgressBar/WBP_GlobeProgressBar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/ProgressBar/WBP_GlobeProgressBar.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/SubWidget/WBP_EffectMessage.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/Widgets/SubWidget/WBP_EffectMessage.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Content/Maps/L_GAS_Test.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Content/Maps/L_GAS_Test.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Content/NmRoSPlugin.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Content/NmRoSPlugin.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/Data/ECMAttributeInformation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/Data/ECMAttributeInformation.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/Data/ECMAttributeInformation.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/Data/ECMAttributeInformation.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAttributeSet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAttributeSet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAttributeSet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAttributeSet.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/MMC/Attributes/MyECMMMC_ResonanceAmp.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/MMC/Attributes/ECMMMC_ResonanceAmp.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/MMC/Attributes/MyECMMMC_ResonanceAmp.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/MMC/Attributes/ECMMMC_ResonanceAmp.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/MMC/Attributes/MyECMMMC_ResonanceSync.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/MMC/Attributes/ECMMMC_ResonanceSync.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/MMC/Attributes/MyECMMMC_ResonanceSync.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/MMC/Attributes/ECMMMC_ResonanceSync.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/MMC/ECMMMC_AttributeBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/MMC/ECMMMC_AttributeBase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Damage_AR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Damage_AR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Healing_AR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Healing_AR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Poison_AR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Poison_AR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Regen_AR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Regen_AR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Damage_VM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Damage_VM.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Healing_VM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Healing_VM.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Poison_VM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Poison_VM.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Regen_VM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Regen_VM.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/ECMGameplayTags.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/ECMGameplayTags.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/ECMGameplayTags.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/ECMGameplayTags.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMAttributeMenuWidgetController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMAttributeMenuWidgetController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMAttributeMenuWidgetController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMAttributeMenuWidgetController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMOverlayWidgetController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMOverlayWidgetController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMOverlayWidgetController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMOverlayWidgetController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMWidgetController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMWidgetController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMWidgetController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/UI/WidgetController/ECMWidgetController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMEnemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Effect/ECMEffectActor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Effect/ECMEffectActor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +168,7 @@
       <workItem from="1696066570532" duration="13159000" />
       <workItem from="1696091326120" duration="18658000" />
       <workItem from="1696165901678" duration="3754000" />
-      <workItem from="1696181113878" duration="9560000" />
+      <workItem from="1696181113878" duration="12272000" />
     </task>
     <task id="LOCAL-00001" summary="Refactored MCC, created spring and mana capacity MCCs.">
       <option name="closed" value="true" />
@@ -224,7 +194,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696037565270</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fixed potions and UI messages">
+      <option name="closed" value="true" />
+      <created>1696195443108</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1696195443108</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,7 +214,8 @@
     <MESSAGE value="Refactored MCC, created spring and mana capacity MCCs." />
     <MESSAGE value="Refactored MMCs and applied to all secondary attributes" />
     <MESSAGE value="Setup Attribute Meu Widget Controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="Setup Attribute Meu Widget Controller" />
+    <MESSAGE value="Fixed potions and UI messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed potions and UI messages" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

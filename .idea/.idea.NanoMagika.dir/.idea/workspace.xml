@@ -7,24 +7,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="847c31dc-fd4a-49e4-8f6f-f6e6e72afd05" name="Changes" comment="Fixed potions and UI messages">
+    <list default="true" id="847c31dc-fd4a-49e4-8f6f-f6e6e72afd05" name="Changes" comment="Added default gameplay tags to characters">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NanoMagika.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NanoMagika.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Damage_AR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Damage_AR.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Healing_AR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Healing_AR.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Poison_AR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Poison_AR.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Regen_AR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Regen_AR.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Damage_VM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Damage_VM.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Healing_VM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Healing_VM.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Poison_VM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Poison_VM.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Regen_VM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/Vitality_Matrix/GE_Potion_Regen_VM.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/GE_DefaultAttributes/GF_VitalAttributes.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/GE_DefaultAttributes/GF_VitalAttributes.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Characters/Enemy/BP_Enemy_Base.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Characters/Enemy/BP_Enemy_Base.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Characters/Hero/BP_Hero_Character.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Characters/Hero/BP_Hero_Character.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMEnemy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Effect/ECMEffectActor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Effect/ECMEffectActor.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +26,75 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
@@ -168,7 +228,7 @@
       <workItem from="1696066570532" duration="13159000" />
       <workItem from="1696091326120" duration="18658000" />
       <workItem from="1696165901678" duration="3754000" />
-      <workItem from="1696181113878" duration="12272000" />
+      <workItem from="1696181113878" duration="13988000" />
     </task>
     <task id="LOCAL-00001" summary="Refactored MCC, created spring and mana capacity MCCs.">
       <option name="closed" value="true" />
@@ -202,7 +262,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696195443108</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added default gameplay tags to characters">
+      <option name="closed" value="true" />
+      <created>1696198333802</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1696198333802</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,7 +283,8 @@
     <MESSAGE value="Refactored MMCs and applied to all secondary attributes" />
     <MESSAGE value="Setup Attribute Meu Widget Controller" />
     <MESSAGE value="Fixed potions and UI messages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed potions and UI messages" />
+    <MESSAGE value="Added default gameplay tags to characters" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added default gameplay tags to characters" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

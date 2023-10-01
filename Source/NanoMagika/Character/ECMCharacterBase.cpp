@@ -39,13 +39,14 @@ void AECMCharacterBase::InitDefaultAttributes() const
 }
 
 // Add Default Gameplay Tags [loosely, i.e. with no ability]
-
-void AECMCharacterBase::InitDefaultTags(UAbilitySystemComponent* ASC, const TArray<FGameplayTag>& Tags)
+void AECMCharacterBase::InitDefaultGameplayTags() const
 {
-	check(ASC);
-	for (FGameplayTag Tag : Tags)
+	check(AbilitySystemComponent);
+	if(DefaultCharacterTags.IsEmpty()) return;
+	
+	for (FGameplayTag Tag : DefaultCharacterTags)
 	{
-		ASC->AddLooseGameplayTag(Tag);
+		AbilitySystemComponent->AddLooseGameplayTag(Tag);
 	}
 }
 

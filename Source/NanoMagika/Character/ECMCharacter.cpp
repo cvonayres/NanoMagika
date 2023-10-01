@@ -68,13 +68,9 @@ void AECMCharacter::InitAbilityActorInfo()
 	// Get Attribute Set
 	AttributeSet = PlayerStateRef->GetAttributeSet();
 	
-	// Initialise Primary Attributes
+	// Initialise Default Attributes Tags
 	InitDefaultAttributes();
-
-	// Add default Tags
-	TArray<FGameplayTag> DefaultTags;
-	DefaultTags.Add(FGameplayTag::RequestGameplayTag(FName("Character.Type.Player")));
-	InitDefaultTags(AbilitySystemComponent, DefaultTags);
+	InitDefaultGameplayTags();
 	
 	// Gets Player controller and cast ability system and attribute set to Overlap
 	if(AECMPlayerController* ECMPlayerController = Cast<AECMPlayerController>(GetController()))

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "GameplayTagContainer.h"
 #include "NanoMagika/Interaction/ECMCombatInterface.h"
 #include "NanoMagika/Interaction/ECMHightlightInterface.h"
 #include "ECMCharacterBase.generated.h"
@@ -36,7 +37,7 @@ public:
 	/** Combat Interface */
 	
 	/** end Combat Interface */
-
+	
 protected:
 	virtual void BeginPlay() override;
 
@@ -61,11 +62,15 @@ protected:
 	TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes;
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Attributes")
 	TSubclassOf<UGameplayEffect> DefaultSecondaryAttributes;
-
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Attributes")
+	TArray<FGameplayTag> DefaultCharacterTags;
+	
 	void InitDefaultAttributes() const;
-	static void InitDefaultTags(UAbilitySystemComponent* ASC,const TArray<FGameplayTag>& Tags);
+	void InitDefaultGameplayTags() const;
+
 	
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect>  GameplayEffectClass, float Level) const;
+
 
 private:
 	

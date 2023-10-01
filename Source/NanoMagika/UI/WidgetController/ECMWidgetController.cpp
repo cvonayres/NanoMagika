@@ -2,6 +2,9 @@
 
 #include "ECMWidgetController.h"
 
+#include "AttributeSet.h"
+#include "NanoMagika/AbilitySystem/Data/ECMAttributeInformation.h"
+
 UECMWidgetController::UECMWidgetController()
 {
 }
@@ -20,4 +23,12 @@ void UECMWidgetController::BroadcastInitialValues()
 
 void UECMWidgetController::BindCallbacksToDependencies()
 {
+}
+
+void UECMWidgetController::BroadcastAttributeInfo(const FGameplayTag& AttributeTag,
+	const FGameplayAttribute& Attribute) const
+{
+	FECMAttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(AttributeTag);
+	Info.AttributeValve = Attribute.GetNumericValue(AttributeSet);
+	AttributeInfoDelegate.Broadcast(Info);
 }

@@ -20,7 +20,7 @@ FECMAttributeInfo UECMAttributeInformation::FindAttributeInfoForTag(const FGamep
 		if (Info.AttributeTag == AttributeTag) { return Info; }
 	}
 	
-	for(const FECMAttributeInfo& Info : ThirityAttributeInformation)
+	for(const FECMAttributeInfo& Info : TertiaryAttributeInformation)
 	{
 		if (Info.AttributeTag == AttributeTag) { return Info; }
 	}

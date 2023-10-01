@@ -9,6 +9,7 @@
 
 class UECMUserWidget;
 
+// To define table structure
 USTRUCT(BlueprintType)
 struct FUIWidgetRow : public FTableRowBase
 {
@@ -27,14 +28,7 @@ struct FUIWidgetRow : public FTableRowBase
 	UTexture2D* Image = nullptr;
 };
 
-struct FOnAttributeChangeData;
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChangedSignature, float, NewValve);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageWidgetRowSignature, FUIWidgetRow, Row);
-
-#define DECLARE_ATTRIBUTE_BINDING(CATEGORY, ATTRIBUTE) \
-UPROPERTY(BlueprintAssignable, Category = CATEGORY) \
-FOnAttributeChangedSignature On##ATTRIBUTE##Changed;
 
 UCLASS(BlueprintType, Blueprintable)
 class NANOMAGIKA_API UECMOverlayWidgetController : public UECMWidgetController
@@ -42,18 +36,19 @@ class NANOMAGIKA_API UECMOverlayWidgetController : public UECMWidgetController
 	GENERATED_BODY()
 
 public:
-	virtual void BroadcastInitialValues() override;
+	// Overridden Functions
 	virtual void BindCallbacksToDependencies() override;
-
-	// Bindings
+	virtual void BroadcastInitialValues() override;
+	
+	// Delegates for binding
 	UPROPERTY(BlueprintAssignable, Category="GAS|Vital Attributes")
-	FOnAttributeChangedSignature OnVitalityMatrixChanged;
+	FOnAttributeChangedSignature OnVitalityMatrixChangedDelegate;
 	UPROPERTY(BlueprintAssignable, Category="GAS|Vital Attributes")
-	FOnAttributeChangedSignature OnVMCapacityChanged;
+	FOnAttributeChangedSignature OnVMCapacityChangedDelegate;
 	UPROPERTY(BlueprintAssignable, Category="GAS|Vital Attributes")
-	FOnAttributeChangedSignature OnArcaneReservoirChanged;
+	FOnAttributeChangedSignature OnArcaneReservoirChangeDelegate;
 	UPROPERTY(BlueprintAssignable, Category="GAS|Vital Attributes")
-	FOnAttributeChangedSignature OnARCapacityChanged;
+	FOnAttributeChangedSignature OnARCapacityChangedDelegate;
 	
 	UPROPERTY(BlueprintAssignable, Category="GAS|Messages")
 	FMessageWidgetRowSignature MessageWidgetRowDelegate;

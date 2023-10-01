@@ -7,6 +7,7 @@
 #include "NanoMagika/Player/ECMPlayerState.h"
 #include "NanoMagika/UI/HUD/ECMHUD.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
 
 AECMCharacter::AECMCharacter()
 {
@@ -26,6 +27,7 @@ void AECMCharacter::PossessedBy(AController* NewController)
 
 	// Init ability actor info for the Server
 	InitAbilityActorInfo();
+
 }
 
 // Client side ready
@@ -65,7 +67,7 @@ void AECMCharacter::InitAbilityActorInfo()
 
 	// Get Attribute Set
 	AttributeSet = PlayerStateRef->GetAttributeSet();
-
+	
 	// Initialise Primary Attributes
 	InitDefaultAttributes();
 	
@@ -77,7 +79,6 @@ void AECMCharacter::InitAbilityActorInfo()
 			ECMHUD->InitOverlay(ECMPlayerController, PlayerStateRef, AbilitySystemComponent ,AttributeSet);
 		}
 	}
-	
 }
 
 // Blueprint callable function

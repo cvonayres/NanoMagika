@@ -1,14 +1,14 @@
 // Copyright Electronic CAD Monkey [ECM]
 
-#include "MyECMMMC_ResonanceAmp.h"
+#include "ECMMMC_ResonanceAmp.h"
 #include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
 
-UMyECMMMC_ResonanceAmp::UMyECMMMC_ResonanceAmp()
+UECMMMC_ResonanceAmp::UECMMMC_ResonanceAmp()
 {
 	PrepData({UECMAttributeSet::GetAdaptivityAttribute(), UECMAttributeSet::GetEssenceControlAttribute(),UECMAttributeSet::GetNanomancyAttribute()});
 }
 
-float UMyECMMMC_ResonanceAmp::CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const
+float UECMMMC_ResonanceAmp::CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const
 {
 	// Attributes to harness
 	const float Adaptivity = 0;

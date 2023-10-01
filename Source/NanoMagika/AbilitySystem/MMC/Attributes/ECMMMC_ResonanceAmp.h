@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "NanoMagika/AbilitySystem/MMC/ECMMMC_AttributeBase.h"
-#include "MyECMMMC_ResonanceAmp.generated.h"
+#include "ECMMMC_ResonanceAmp.generated.h"
 
 UCLASS()
-class NANOMAGIKA_API UMyECMMMC_ResonanceAmp : public UECMMMC_AttributeBase
+class NANOMAGIKA_API UECMMMC_ResonanceAmp : public UECMMMC_AttributeBase
 {
 	GENERATED_BODY()
 						
 public:
-	UMyECMMMC_ResonanceAmp();
+	UECMMMC_ResonanceAmp();
 	
 	virtual float CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const override;
 };

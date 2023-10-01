@@ -4,8 +4,58 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "GameplayEffectExtension.h"
 #include "GameFramework/Character.h"
+#include "NanoMagika/ECMGameplayTags.h"
 #include "Net/UnrealNetwork.h"
 
+// Example of T static pointer
+//	RandomFunctionPointer = RandomFunction;
+//	float F = RandomFunction(0,0.f,0);
+
+#pragma region Mapping
+UECMAttributeSet::UECMAttributeSet()
+{
+	const FECMGameplayTags& GameplayTags = FECMGameplayTags::Get();
+	
+	// Vital Attributes to be mapped
+	TagsToAttributes.Add(GameplayTags.Attribute_Vital_VitalityMatrix, GetVitalityMatrixAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Vital_EnergeticEndurance, GetEnergeticEnduranceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Vital_ArcaneReservoir, GetArcaneReservoirAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Vital_DefensiveSynchrony, GetDefensiveSynchronyAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Vital_EnergeticEndurance, GetEnergeticEnduranceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_Nanomancy, GetNanomancyAttribute);
+	
+	// Primary Attributes to be mapped
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_Physique, GetPhysiqueAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_Adaptivity, GetAdaptivityAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_NeuralAgility, GetNeuralAgilityAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_EmpathicResonance, GetEmpathicResonanceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_EssenceControl, GetEssenceControlAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_Nanomancy, GetNanomancyAttribute);
+
+	// Secondary Attributes to be mapped
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_VMCapacity, GetVMCapacityAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_VMRecovery, GetVMRecoveryAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_EECapacity, GetEECapacityAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_EERecovery, GetEERecoveryAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_ARCapacity, GetARCapacityAttribute);
+    TagsToAttributes.Add(GameplayTags.Attribute_Secondary_ARRecovery, GetARRecoveryAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_KineticAbsorption, GetKineticAbsorptionAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_NanoshieldThreshold, GetNanoshieldThresholdAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_ResonanceSyncQuality, GetResonanceSyncQualityAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_ResonanceAmplification, GetResonanceAmplificationAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_EmpathicInfluence, GetEmpathicInfluenceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_TechnologicalInterface, GetTechnologicalInterfaceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_SignalStealth, GetSignalStealthAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_ReactionSpeed, GetReactionSpeedAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_DimensionalPocketCapacity, GetDimensionalPocketCapacityAttribute);
+
+	// Tertiary Attributes to be mapped
+
+}
+
+#pragma endregion Mapping
+
+#pragma region Clamping
 struct AttributeFunctionMappings
 {
 	FGameplayAttribute Attribute;
@@ -14,7 +64,6 @@ struct AttributeFunctionMappings
 	float (UECMAttributeSet::*MaxFunc)() const;
 };
 
-#pragma region Clamping
 // Define Vital Attributes for Clamping
 TArray<AttributeFunctionMappings> UECMAttributeSet::GetVitalValvesMappings()
 {
@@ -147,6 +196,7 @@ void UECMAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData&
 }
 #pragma endregion Clamping
 
+#pragma region Replicate
 // Replicate attributes
 void UECMAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
@@ -193,6 +243,7 @@ void UECMAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	#pragma region RepTertiaryAttributes
 	#pragma endregion RepTertiaryAttributes
 }
+#pragma endregion Replicate
 
 #pragma region RefNofifies
 // Macro for creating  repetitive Repfunctions

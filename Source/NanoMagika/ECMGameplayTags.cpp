@@ -15,6 +15,43 @@ void FECMGameplayTags::InitNativeGameplayTags()
 
 	#define INIT_TAG(name, str) AddTag(GameplayTags.name, FName(str));
 
+#pragma region Game
+	/** Declares the "Game States" gameplay tag. */
+	INIT_TAG(Game_State_Preload, "Game.State.Preload")
+	INIT_TAG(Game_State_Loading, "Game.State.Loading")
+	INIT_TAG(Game_State_InGame, "Game.State.InGame")
+	INIT_TAG(Game_State_PostGame, "Game.State.PostGame")
+#pragma endregion Game
+
+#pragma region Player
+	/** Declares the "Player Modes" gameplay tag. */
+	INIT_TAG(Player_Mode_FPV, "Player.Mode.FPV")
+	INIT_TAG(Player_Mode_TPV, "Player.Mode.TPV")
+	INIT_TAG(Player_Mode_TDV, "Player.Mode.TDC")
+
+	/** Declares the "Player Regen/Poison Status" gameplay tag. */
+	INIT_TAG(Player_Status_VM_Regen, "Player.Status.VM.Regen")
+	INIT_TAG(Player_Status_VM_Poison, "Player.Status.VM.Poison")
+	INIT_TAG(Player_Status_AR_Regen, "Player.Status.AR.Regen")
+	INIT_TAG(Player_Status_AR_Poison, "Player.Status.AR.Poison")
+
+#pragma endregion Player
+
+#pragma region Input
+	/** Declares the "Inputs" gameplay tag. */
+	INIT_TAG(Input_Action_Action, "Input.Actions.Move")
+	INIT_TAG(Input_Action_Move, "Input.Actions.Move")
+	INIT_TAG(Input_Action_MoveByMouse, "Input.Actions.MoveByMouse")
+	INIT_TAG(Input_Action_MoveToMouseClicked, "Input.Actions.MoveToMouseClicked")
+	INIT_TAG(Input_Mouse_LMB, "Input.Mouse.LMB")
+	INIT_TAG(Input_Mouse_RMB, "Input.Mouse.RMB")
+	INIT_TAG(Input_Key_Num1, "Input.Key.Num1")
+	INIT_TAG(Input_Key_Num2, "Input.Key.Num2")
+	INIT_TAG(Input_Key_Num3, "Input.Key.Num3")
+	INIT_TAG(Input_Key_Num4, "Input.Key.Num4")
+#pragma endregion Input
+
+#pragma region Attributes
 	/** Declares the "Vital Attributes" gameplay tag. */
 	INIT_TAG(Attribute_Vital_VitalityMatrix, "Attribute.Vital.VitalityMatrix")
 	INIT_TAG(Attribute_Vital_EnergeticEndurance, "Attribute.Vital.EnergeticEndurance")
@@ -51,6 +88,26 @@ void FECMGameplayTags::InitNativeGameplayTags()
 	INIT_TAG(Attribute_Tertiary_FireResistance, "Attribute.Tertiary.FireResistance")
 	INIT_TAG(Attribute_Tertiary_LightingResistance, "Attribute.Tertiary.LightingResistance")
 	INIT_TAG(Attribute_Tertiary_NanotechResistance, "Attribute.Tertiary.NanotechResistance")
+#pragma endregion Attributes
+
+#pragma region Character
+	/** Declares the "Character Type" gameplay tag. */
+	INIT_TAG(Character_Type_Player, "Character.Type.Player")
+	INIT_TAG(Character_Type_Enemy, "Character.Type.Enemy")
+	INIT_TAG(Character_Type_NPC, "Character.Type.NPC")
+#pragma endregion Character
+
+	#pragma region UIMessages
+	/** Declares the "Potion Messages" gameplay tag. */
+	INIT_TAG(Message_UI_Potion_VM_Healing, "Message.UI.Potion.VM.Healing")
+	INIT_TAG(Message_UI_Potion_VM_Damage, "Message.UI.Potion.VM.Damage")
+	INIT_TAG(Message_UI_Potion_VM_Regen, "Message.UI.Potion.VM.Regen")
+	INIT_TAG(Message_UI_Potion_VM_Poison, "Message.UI.Potion.VM.Poison")
+	INIT_TAG(Message_UI_Potion_AR_Healing, "Message.UI.Potion.AR.Healing")
+	INIT_TAG(Message_UI_Potion_AR_Damage, "Message.UI.Potion.AR.Damage")
+	INIT_TAG(Message_UI_Potion_AR_Regen, "Message.UI.Potion.AR.Regen")
+	INIT_TAG(Message_UI_Potion_AR_Poison, "Message.UI.Potion.AR.Poison")
+#pragma endregion UIMessages
 	
-#undef INIT_TAG
+	#undef INIT_TAG
 }

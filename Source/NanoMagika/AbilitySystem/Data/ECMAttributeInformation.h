@@ -42,5 +42,5 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Attributes")
 	TArray<FECMAttributeInfo> SecondaryAttributeInformation;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Attributes")
-	TArray<FECMAttributeInfo> ThirityAttributeInformation;
+	TArray<FECMAttributeInfo> TertiaryAttributeInformation;
 };

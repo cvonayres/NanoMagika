@@ -1,14 +1,14 @@
 // Copyright Electronic CAD Monkey [ECM]
 
-#include "MyECMMMC_ResonanceSync.h"
+#include "ECMMMC_ResonanceSync.h"
 #include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
 
-UMyECMMMC_ResonanceSync::UMyECMMMC_ResonanceSync()
+UECMMMC_ResonanceSync::UECMMMC_ResonanceSync()
 {
 		PrepData({UECMAttributeSet::GetNeuralAgilityAttribute(), UECMAttributeSet::GetEmpathicResonanceAttribute(),UECMAttributeSet::GetEssenceControlAttribute(), UECMAttributeSet::GetNanomancyAttribute()});
 }
 
-float UMyECMMMC_ResonanceSync::CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const
+float UECMMMC_ResonanceSync::CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const
 {
 	// Attributes to harness
 	const float NeuralAgility = 0;

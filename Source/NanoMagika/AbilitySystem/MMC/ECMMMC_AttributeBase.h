@@ -32,9 +32,6 @@ protected:
     FGameplayEffectAttributeCaptureDefinition AttributeDef6;
 	TArray<FGameplayEffectAttributeCaptureDefinition> AttributeDefs = {AttributeDef1, AttributeDef2, AttributeDef3, AttributeDef4, AttributeDef5, AttributeDef6};
 
-	// Place holder for extra harnessed info, i.e. player level
-	//FDataExt DataExt;
-	
 	// Set Attribute definitions at child constructor
 	void PrepData(const TArray<FGameplayAttribute> &AttributesOut);
 

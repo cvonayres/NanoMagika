@@ -50,12 +50,18 @@ struct FEffectProperties
 	ACharacter* TargetCharacter = nullptr;
 };
 
+//  TStaticFuncPtr generic to specified function
+template<class T>
+using TStaticFuncPtr = typename TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
+
 UCLASS()
 class NANOMAGIKA_API UECMAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
 
 public:
+	UECMAttributeSet();
+	
 	// Replicate variables
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
@@ -65,8 +71,14 @@ public:
 	// Used to Clamp Attributes after change and harvest data of change
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
-// Vital - Gameplay Attributes
+	// Returns attribute from Gameplay Tag
+	TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
 
+// Example
+//	TStaticFuncPtr<float(int32, float, int32)> RandomFunctionPointer;
+//	static float RandomFunction(int32 I, float F, int32 I2) { return 0.f;};
+	
+	
 // Vital - Gameplay Attributes
 #pragma region VitalAttributes
 		UPROPERTY(BlueprintReadOnly, Category = "Attributes|Vital", ReplicatedUsing = OnRep_VitalityMatrix)

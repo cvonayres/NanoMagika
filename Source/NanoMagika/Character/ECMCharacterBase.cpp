@@ -2,7 +2,6 @@
 
 #include "ECMCharacterBase.h"
 #include "AbilitySystemComponent.h"
-#include "NanoMagika/ECMGameplayTags.h"
 #include "NanoMagika/NanoMagika.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 
@@ -20,17 +19,21 @@ AECMCharacterBase::AECMCharacterBase()
 	Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 }
 
-void AECMCharacterBase::BeginPlay()
-{
-	Super::BeginPlay();
-}
+// Empty function, called in child classes
+void AECMCharacterBase::BeginPlay() { Super::BeginPlay(); }
 
 // Empty function, called in child classes
-void AECMCharacterBase::InitAbilityActorInfo()
+void AECMCharacterBase::InitializeCharacter() { }
+
+// Sets ActorInfo for Ability System and bind call back for Gameplay Effects
+void AECMCharacterBase::InitAbilityActorInfo() 
 {
+	GetAbilitySystemComponent()->InitAbilityActorInfo(this, this);
+	
+	GetECMASC()->BindEffectApplied();
 }
 
-// Setup Primary and Secondary Attributes
+// Setup Default Attributes
 void AECMCharacterBase::InitDefaultAttributes() const
 {
 	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
@@ -38,16 +41,18 @@ void AECMCharacterBase::InitDefaultAttributes() const
 	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
 }
 
+// Add Default Gameplay Abilities
+void AECMCharacterBase::InitDefaultAbilities() const
+{
+	if(!HasAuthority()) return;
+	
+	GetECMASC()->AddGameplayAbilities(DefaultCharacterAbilities);
+}
+
 // Add Default Gameplay Tags [loosely, i.e. with no ability]
 void AECMCharacterBase::InitDefaultGameplayTags() const
 {
-	check(AbilitySystemComponent);
-	if(DefaultCharacterTags.IsEmpty()) return;
-	
-	for (FGameplayTag Tag : DefaultCharacterTags)
-	{
-		AbilitySystemComponent->AddLooseGameplayTag(Tag);
-	}
+	GetECMASC()->AddGameplayTags(DefaultCharacterTags);
 }
 
 // Generic Apply Effect To Self
@@ -65,32 +70,29 @@ void AECMCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> Gam
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(),AbilitySystemComponent);
 }
 
-/* Hightlight Interface */
+// Helper function to Get ECM version of ASC, if no avable cast from default ASC.
+UECMAbilitySystemComponent* AECMCharacterBase::GetECMASC() const
+{
+	if(ECMAbilitySystemComponent) return ECMAbilitySystemComponent;
+
+	return CastChecked<UECMAbilitySystemComponent>(GetAbilitySystemComponent());
+}
+
+/* Highlight Interface */
 void AECMCharacterBase::HighlightActor()
 {
 	GetMesh()->SetRenderCustomDepth(true);
 	Weapon->SetRenderCustomDepth(true);
-
-	// Blueprint implementable event
-	Highlighted(true);
 }
-void AECMCharacterBase::UnHightlighActor()
+void AECMCharacterBase::UnHighlighActor()
 {
 	GetMesh()->SetRenderCustomDepth(false);
 	Weapon->SetRenderCustomDepth(false);
-
-	// Blueprint implementable event
-	Highlighted(false);
 }
-/* end Hightlight Interface */
+/* end Highlight Interface */
 
 /* Ability System Interface */
-UAbilitySystemComponent* AECMCharacterBase::GetAbilitySystemComponent() const
-{
-	return AbilitySystemComponent;
-}
 /* end Ability System Interface */
 
 /* Combat Interface */
-
 /* end Combat Interface */

@@ -20,54 +20,27 @@ void AECMEffectActor::OnOverlap(AActor* TargetActor)
 	// Apply Gameplay effect on BeginOverlap
 	if(InstanceEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
 	{
-		if(InstantGameplayEffectClass)
-		{
-			ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
-		}
-		else
-		{
-			ErrorMessage();
-		}
+		if(InstantGameplayEffectClass) ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
+		else ErrorMessage();
 	}
 	if(DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
 	{
-		if(DurationGameplayEffectClass)
-		{
-			ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
-		}
-		else
-		{
-			ErrorMessage();
-		}
+		if(DurationGameplayEffectClass) ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
+		else ErrorMessage();
 	}
 	if(InfiniteEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
 	{
-		if(InfiniteGameplayEffectClass)
-		{
-			ApplyEffectToTarget(TargetActor, InfiniteGameplayEffectClass);
-		}
-		else
-		{
-			ErrorMessage();
-		}
+		if(InfiniteGameplayEffectClass) ApplyEffectToTarget(TargetActor, InfiniteGameplayEffectClass);
+		else ErrorMessage();
 	}
 	if(PeriodicEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
 	{
-		if(PeriodicGameplayEffectClass)
-		{
-			ApplyEffectToTarget(TargetActor, PeriodicGameplayEffectClass);
-		}
-		else
-		{
-			ErrorMessage();
-		}
+		if(PeriodicGameplayEffectClass) ApplyEffectToTarget(TargetActor, PeriodicGameplayEffectClass);
+		else ErrorMessage();
 	}
 
 	// Destroy Actor if policy is set on BeginOverlap
-	if(DestroyPolicy == EDestroyPolicy::ApplyOnOverlap)
-	{
-		Destroy();
-	}
+	if(DestroyPolicy == EDestroyPolicy::ApplyOnOverlap)	Destroy();
 }
 
 // Applies gameplay effect on Overlap End - Called by BP
@@ -76,47 +49,23 @@ void AECMEffectActor::OnEndOverlap(AActor* TargetActor)
 	// Apply Gameplay effect on EndOverlap
 	if(InstanceEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
 	{
-		if(InstantGameplayEffectClass)
-		{
-			ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
-		}
-		else
-		{
-			ErrorMessage();
-		}
+		if(InstantGameplayEffectClass) ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
+		else ErrorMessage();
 	}
 	if(DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
 	{
-		if(DurationGameplayEffectClass)
-		{
-			ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
-		}
-		else
-		{
-			ErrorMessage();
-		}
+		if(DurationGameplayEffectClass) ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
+		else ErrorMessage();
 	}
 	if(InfiniteEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
 	{
-		if(InfiniteGameplayEffectClass)
-		{
-			ApplyEffectToTarget(TargetActor, InfiniteGameplayEffectClass);
-		}
-		else
-		{
-			ErrorMessage();
-		}
+		if(InfiniteGameplayEffectClass) ApplyEffectToTarget(TargetActor, InfiniteGameplayEffectClass);
+		else ErrorMessage();
 	}
 	if(PeriodicEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
 	{
-		if(PeriodicGameplayEffectClass)
-		{
-			ApplyEffectToTarget(TargetActor, PeriodicGameplayEffectClass);
-		}
-		else
-		{
-			ErrorMessage();
-		}
+		if(PeriodicGameplayEffectClass)	ApplyEffectToTarget(TargetActor, PeriodicGameplayEffectClass);
+		else ErrorMessage();
 	}
 
 	// Remove Active Gameplay effect for infinite effects with a remove policy of on EndOverlap
@@ -145,10 +94,7 @@ void AECMEffectActor::OnEndOverlap(AActor* TargetActor)
 	}
 
 	// Destroy Actor if policy is set on EndOverlap
-	if(DestroyPolicy == EDestroyPolicy::ApplyOnEndOverlap)
-	{
-		Destroy();
-	}
+	if(DestroyPolicy == EDestroyPolicy::ApplyOnEndOverlap) Destroy();
 }
 
 // Applies gameplay effect to target

@@ -7,11 +7,11 @@
 
 AECMEnemy::AECMEnemy()
 {
-	AbilitySystemComponent = CreateDefaultSubobject<UECMAbilitySystemComponent>("AbilitySystemComponent");
-	AbilitySystemComponent->SetIsReplicated(true);
-	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
-	
-	AttributeSet = CreateDefaultSubobject<UECMAttributeSet>("AttributeSet");
+	SetAbilitySystemComponent(CreateDefaultSubobject<UECMAbilitySystemComponent>("AbilitySystemComponent"));
+	AECMCharacterBase::GetAbilitySystemComponent()->SetIsReplicated(true);
+	AECMCharacterBase::GetAbilitySystemComponent()->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+
+	SetAttributeSet(CreateDefaultSubobject<UECMAttributeSet>("AttributeSet"));
 
 	NetUpdateFrequency = 100.f;
 }
@@ -21,12 +21,16 @@ void AECMEnemy::BeginPlay()
 	Super::BeginPlay();
 
 	// Initialise Actor Info & Default Tags
+	InitializeCharacter();
+}
+
+void AECMEnemy::InitializeCharacter()
+{
+	// Set callbacks on ECM Ability System Component and native ASC
 	InitAbilityActorInfo();
+	
+	// Initialise Default Gameplay tags
 	InitDefaultGameplayTags();
 }
 
-void AECMEnemy::InitAbilityActorInfo()
-{
-	AbilitySystemComponent->InitAbilityActorInfo(this, this);
-	Cast<UECMAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
-}
+

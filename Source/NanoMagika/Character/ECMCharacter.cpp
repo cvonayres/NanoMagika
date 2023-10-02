@@ -1,13 +1,10 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMCharacter.h"
-#include "AbilitySystemComponent.h"
-#include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 #include "NanoMagika/Player/ECMPlayerController.h"
 #include "NanoMagika/Player/ECMPlayerState.h"
 #include "NanoMagika/UI/HUD/ECMHUD.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "GameplayTagContainer.h"
 
 AECMCharacter::AECMCharacter()
 {
@@ -25,9 +22,8 @@ void AECMCharacter::PossessedBy(AController* NewController)
 	// Controller Reference for the Server
 	ControllerRef = Cast<AECMPlayerController>(NewController);
 
-	// Init ability actor info for the Server
-	InitAbilityActorInfo();
-
+	// Init Character for the Server
+	InitializeCharacter();
 }
 
 // Client side ready
@@ -38,57 +34,58 @@ void AECMCharacter::OnRep_PlayerState()
 	// Controller Reference for the Client
 	ControllerRef = Cast<AECMPlayerController>(GetController());
 
-	// Init ability actor info for the client
-	InitAbilityActorInfo();
+	// Init Character for the client
+	InitializeCharacter();
 }
 
-// Begin Play
-void AECMCharacter::BeginPlay()
-{
-	Super::BeginPlay();
-
-	UpdatedViewMode();
-}
-
-// Init Ability System for character
-void AECMCharacter::InitAbilityActorInfo()
+void AECMCharacter::InitializeCharacter()
 {
 	PlayerStateRef =  GetPlayerState<AECMPlayerState>();
 	check(PlayerStateRef);
 
 	// Get Ability System Component
-	AbilitySystemComponent = PlayerStateRef->GetAbilitySystemComponent();
-
-	// Set callbacks on ECM Ability System Component
-	Cast<UECMAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
-
-	// Sets callbacks for Native Ability System Component
-	AbilitySystemComponent->InitAbilityActorInfo(PlayerStateRef, this);
+	SetAbilitySystemComponent(PlayerStateRef->GetAbilitySystemComponent());
+	check(GetAbilitySystemComponent());
 
 	// Get Attribute Set
-	AttributeSet = PlayerStateRef->GetAttributeSet();
+	SetAttributeSet(PlayerStateRef->GetAttributeSet());
+	check(GetAttributeSet());
+
+	// Set callbacks on ECM Ability System Component and native ASC
+	InitAbilityActorInfo();
 	
-	// Initialise Default Attributes Tags
+	// Initialise Default Attributes, Abilities and Gameplay tags
 	InitDefaultAttributes();
+	InitDefaultAbilities();
 	InitDefaultGameplayTags();
+
+	// Initialise HUD Overlay widget Controller
+	InitHUD();
+
+	// Set parameters based on view mode
+	SetViewMode();
+}
+
+// Gets Player controller and cast ability system and attribute set to Overlap
+void AECMCharacter::InitHUD() const
+{
+	if(!ControllerRef) return;
 	
-	// Gets Player controller and cast ability system and attribute set to Overlap
-	if(AECMPlayerController* ECMPlayerController = Cast<AECMPlayerController>(GetController()))
+	if(AECMHUD* ECMHUD = Cast<AECMHUD>(ControllerRef->GetHUD()))
 	{
-		if(AECMHUD* ECMHUD = Cast<AECMHUD>(ECMPlayerController->GetHUD()))
-		{
-			ECMHUD->InitOverlay(ECMPlayerController, PlayerStateRef, AbilitySystemComponent ,AttributeSet);
-		}
+		ECMHUD->InitOverlay(ControllerRef, PlayerStateRef, GetAbilitySystemComponent() ,GetAttributeSet());
 	}
 }
 
 // Blueprint callable function
-void AECMCharacter::UpdatedViewMode()
+void AECMCharacter::SetViewMode()
 {
 	if(!ControllerRef) return;
 
 	if(ControllerRef->ViewMode == EViewMode::FPV)
-	{ }
+	{
+		
+	}
 	else if (ControllerRef->ViewMode == EViewMode::TPV)
 	{
 		bUseControllerRotationPitch = false;
@@ -106,10 +103,8 @@ void AECMCharacter::UpdatedViewMode()
 /* Combat Interface */
 int32 AECMCharacter::GetPlayerLevel()
 {
-	if(PlayerStateRef)
-	{
-		return PlayerStateRef->GetPlayerLevel();
-	}
-	return 0;
+	if(!PlayerStateRef) return 0;
+
+	return PlayerStateRef->GetPlayerLevel();
 }
 /* end Combat Interface */

@@ -93,11 +93,11 @@ void AECMPlayerController::CurserTrace()
 	}
 	else if(LastActor && !ThisActor)
 	{
-		LastActor->UnHightlighActor();
+		LastActor->UnHighlighActor();
 	}
 	else if(LastActor && ThisActor && LastActor != ThisActor)
 	{
-		LastActor->UnHightlighActor();
+		LastActor->UnHighlighActor();
 		ThisActor->HighlightActor();
 	}
 }

@@ -6,7 +6,6 @@
 #include "ECMCharacterBase.h"
 #include "ECMCharacter.generated.h"
 
-
 UCLASS()
 class NANOMAGIKA_API AECMCharacter : public AECMCharacterBase
 {
@@ -24,18 +23,18 @@ public:
 	/** end Combat Interface */
 	
 protected:
-	virtual void BeginPlay() override;
-
 	// Init Ability System
-	virtual void InitAbilityActorInfo() override;
+	virtual void InitializeCharacter() override;
 
 private:
+	// Controller and Player State Ref
 	UPROPERTY()
 	class AECMPlayerController* ControllerRef;
 	UPROPERTY()
 	class AECMPlayerState* PlayerStateRef;
 	
 	// Called from Player Controller
-	void UpdatedViewMode();
+	void InitHUD() const;
+	void SetViewMode();
 
 };

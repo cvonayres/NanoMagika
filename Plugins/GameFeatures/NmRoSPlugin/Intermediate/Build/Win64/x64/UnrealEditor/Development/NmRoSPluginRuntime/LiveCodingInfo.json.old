@@ -2,11 +2,16 @@
 	"RemapUnityFiles": 
 	{
 		"Module.NmRoSPluginRuntime.cpp.obj": [
+			"ECMHighlightPC.gen.cpp.obj",
+			"ECMHighlightSkMesh.gen.cpp.obj",
+			"ECMHightlightInterface.gen.cpp.obj",
 			"NmRoSAttributes.gen.cpp.obj",
 			"NmRoSPluginRuntime.init.gen.cpp.obj",
+			"ECMHighlightSkMesh.cpp.obj",
+			"ECMHightlightInterface.cpp.obj",
 			"NmRoSPluginRuntimeModule.cpp.obj",
-			"NmRoSAttributes.cpp.obj",
-			"UDGameplayTags.cpp.obj"
+			"ECMHighlightPC.cpp.obj",
+			"NmRoSAttributes.cpp.obj"
 		]
 	}
 }

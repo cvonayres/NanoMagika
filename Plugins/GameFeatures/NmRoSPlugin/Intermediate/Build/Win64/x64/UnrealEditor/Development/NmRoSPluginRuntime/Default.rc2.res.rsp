@@ -76,5 +76,5 @@
 /DPROJECT_COPYRIGHT_STRING="Copyright Electronic CAD Monkey [ECM]"
 /DPROJECT_PRODUCT_NAME="NanoMagika: Rise of the Sentinal"
 /DPROJECT_PRODUCT_IDENTIFIER=NanoMagika
-/fo "C:\GAS\NanoMagika\Plugins\GameFeatures\NmRoSPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\NmRoSPluginRuntime\Default.rc2.res"
+/fo "D:\GameDev\GAS\NanoMagika\Plugins\GameFeatures\NmRoSPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\NmRoSPluginRuntime\Default.rc2.res"
 "..\Build\Windows\Resources\Default.rc2"

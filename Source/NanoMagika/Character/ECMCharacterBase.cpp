@@ -2,8 +2,8 @@
 
 #include "ECMCharacterBase.h"
 #include "AbilitySystemComponent.h"
-#include "NanoMagika/NanoMagika.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
+#include "Components/GameFrameworkComponentManager.h"
 
 AECMCharacterBase::AECMCharacterBase()
 {
@@ -12,15 +12,23 @@ AECMCharacterBase::AECMCharacterBase()
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
 	Weapon->SetupAttachment(GetMesh(), FName("WeaponHandSocket"));
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+}
 
-	GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Block);	
-
-	GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
-	Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
+void AECMCharacterBase::PreInitializeComponents()
+{
+	Super::PreInitializeComponents();
+	UGameFrameworkComponentManager::AddGameFrameworkComponentReceiver(this); 	
 }
 
 // Empty function, called in child classes
 void AECMCharacterBase::BeginPlay() { Super::BeginPlay(); }
+
+void AECMCharacterBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	UGameFrameworkComponentManager::RemoveGameFrameworkComponentReceiver(this);
+
+	Super::EndPlay(EndPlayReason);
+}
 
 // Empty function, called in child classes
 void AECMCharacterBase::InitializeCharacter() { }
@@ -70,29 +78,10 @@ void AECMCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> Gam
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(),AbilitySystemComponent);
 }
 
-// Helper function to Get ECM version of ASC, if no avable cast from default ASC.
+// Helper function to Get ECM version of ASC, if not available cast from default ASC.
 UECMAbilitySystemComponent* AECMCharacterBase::GetECMASC() const
 {
 	if(ECMAbilitySystemComponent) return ECMAbilitySystemComponent;
 
 	return CastChecked<UECMAbilitySystemComponent>(GetAbilitySystemComponent());
 }
-
-/* Highlight Interface */
-void AECMCharacterBase::HighlightActor()
-{
-	GetMesh()->SetRenderCustomDepth(true);
-	Weapon->SetRenderCustomDepth(true);
-}
-void AECMCharacterBase::UnHighlighActor()
-{
-	GetMesh()->SetRenderCustomDepth(false);
-	Weapon->SetRenderCustomDepth(false);
-}
-/* end Highlight Interface */
-
-/* Ability System Interface */
-/* end Ability System Interface */
-
-/* Combat Interface */
-/* end Combat Interface */

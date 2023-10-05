@@ -1,0 +1,38 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\nmrospluginruntime\\module.nmrospluginruntime.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\gamedev\\gas\\nanomagika\\intermediate\\build\\win64\\x64\\nanomagikaeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\nmrospluginruntime\\definitions.nmrospluginruntime.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\ecmhighlightcharacter.gen.cpp",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\character\\ecmhighlightcharacter.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\interaction\\ecmhightlightinterface.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\ecmhightlightinterface.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\ecmhighlightcharacter.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\ecmhighlightpc.gen.cpp",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\player\\ecmhighlightpc.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\experimental\\modulargameplay\\source\\modulargameplay\\public\\components\\controllercomponent.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\experimental\\modulargameplay\\source\\modulargameplay\\public\\components\\gameframeworkcomponent.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\experimental\\modulargameplay\\intermediate\\build\\win64\\unrealeditor\\inc\\modulargameplay\\uht\\gameframeworkcomponent.generated.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\experimental\\modulargameplay\\intermediate\\build\\win64\\unrealeditor\\inc\\modulargameplay\\uht\\controllercomponent.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\ecmhighlightpc.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\ecmhightlightinterface.gen.cpp",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\nmrosattributes.gen.cpp",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\player\\nmrosattributes.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\nmrosattributes.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\nmrospluginruntime.init.gen.cpp",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\character\\ecmhighlightcharacter.cpp",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\interaction\\ecmhightlightinterface.cpp",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\nmrospluginruntimemodule.cpp",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\nmrospluginruntimemodule.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\player\\ecmhighlightpc.cpp",
+            "d:\\gamedev\\gas\\nanomagika\\source\\nanomagika\\player\\ecmplayercontroller.h",
+            "d:\\gamedev\\gas\\nanomagika\\intermediate\\build\\win64\\unrealeditor\\inc\\nanomagika\\uht\\ecmplayercontroller.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\player\\nmrosattributes.cpp"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

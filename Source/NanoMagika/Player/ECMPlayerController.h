@@ -6,6 +6,8 @@
 #include "GameFramework/PlayerController.h"
 #include "ECMPlayerController.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTickSigniture, const FHitResult&, CursorHit);
+
 UENUM()
 enum EViewMode
 {
@@ -16,7 +18,6 @@ enum EViewMode
 
 class UInputMappingContext;
 class UInputAction;
-class IECMHightlightInterface;
 struct FInputActionValue;
 
 UCLASS()
@@ -27,10 +28,14 @@ class NANOMAGIKA_API AECMPlayerController : public APlayerController
 public:
 	AECMPlayerController();
 
-	virtual void PlayerTick(float DeltaTime) override;
+	virtual void PreInitializeComponents() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	
 	UPROPERTY(EditDefaultsOnly, Category="Camera Settings")
 	TEnumAsByte<EViewMode> ViewMode = EViewMode::TDV;
+
+	// Delegate for CursorHit calls
+	FTickSigniture CursorHitEvent;
 
 protected:
 	virtual void BeginPlay() override;
@@ -50,8 +55,6 @@ private:
 	
 	void Move(const FInputActionValue& InputActionValve);
 	void ZoomCamera(const FInputActionValue& InputActionValve);
-
-	void CurserTrace();
-	IECMHightlightInterface* LastActor = nullptr;
-	IECMHightlightInterface* ThisActor = nullptr;
+	
+	void CursorTrace() const;
 };

@@ -7,29 +7,23 @@
 #include "AbilitySystemInterface.h"
 #include "GameplayTagContainer.h"
 #include "NanoMagika/Interaction/ECMCombatInterface.h"
-#include "NanoMagika/Interaction/ECMHightlightInterface.h"
 #include "ECMCharacterBase.generated.h"
 
+struct FGameplayTag;
 class UECMAbilitySystemComponent;
 class UGameplayAbility;
-struct FGameplayTag;
 class UGameplayEffect;
 class UAttributeSet;
 class UAbilitySystemComponent;
 
 UCLASS(Abstract)
-class NANOMAGIKA_API AECMCharacterBase : public ACharacter, public IECMHightlightInterface, public IAbilitySystemInterface, public IECMCombatInterface
+class NANOMAGIKA_API AECMCharacterBase : public ACharacter, public IAbilitySystemInterface, public IECMCombatInterface
 {
 	GENERATED_BODY()
 
 public:
 	AECMCharacterBase();
 	
-	/** Hightlight Interface */
-	virtual void HighlightActor() override;
-	virtual void UnHighlighActor() override;
-	/** end Hightlight Interface */
-
 	/** Ability System Interface */
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent;}
 	bool SetAbilitySystemComponent(TObjectPtr<UAbilitySystemComponent> ASCIn) { AbilitySystemComponent = ASCIn; return true; }
@@ -43,8 +37,14 @@ public:
 	/** Combat Interface */
 	
 	/** end Combat Interface */
+
+	virtual void PreInitializeComponents() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
+	TObjectPtr<USkeletalMeshComponent> GetCharacterMesh() const { return GetMesh(); }
+	TObjectPtr<USkeletalMeshComponent> GetWeapon() const { return Weapon; }
 	
-	protected:
+protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, Category = "Combat")

@@ -9,11 +9,10 @@ public class NmRoSPluginRuntime : ModuleRules
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
 		PublicIncludePaths.AddRange(
-			new string[] {
+			new string[] {  "ModularGameplay", "Game"
 				// ... add public include paths required here ...
 			}
 			);
-				
 		
 		PrivateIncludePaths.AddRange(
 			new string[] {
@@ -25,11 +24,11 @@ public class NmRoSPluginRuntime : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core",
+				"Core", "NanoMagika", "ModularGameplay", 
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
-			
+
 		
 		PrivateDependencyModuleNames.AddRange(
 			new string[]

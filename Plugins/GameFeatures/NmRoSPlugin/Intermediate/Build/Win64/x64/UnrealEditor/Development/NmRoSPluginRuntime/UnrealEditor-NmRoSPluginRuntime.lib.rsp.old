@@ -6,8 +6,7 @@
 /NAME:"UnrealEditor-NmRoSPluginRuntime.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"C:\GAS\NanoMagika\Intermediate\Build\Win64\x64\NanoMagikaEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
+"C:\GAS\NanoMagika\Intermediate\Build\Win64\x64\NanoMagikaEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h.obj"
 "C:\GAS\NanoMagika\Plugins\GameFeatures\NmRoSPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\NmRoSPluginRuntime\Module.NmRoSPluginRuntime.cpp.obj"
-"C:\GAS\NanoMagika\Plugins\GameFeatures\NmRoSPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\NmRoSPluginRuntime\UDGameplayTags.cpp.obj"
 "C:\GAS\NanoMagika\Plugins\GameFeatures\NmRoSPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\NmRoSPluginRuntime\Default.rc2.res"
 /OUT:"C:\GAS\NanoMagika\Plugins\GameFeatures\NmRoSPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\NmRoSPluginRuntime\UnrealEditor-NmRoSPluginRuntime.lib"

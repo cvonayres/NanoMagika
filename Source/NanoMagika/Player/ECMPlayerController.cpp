@@ -4,18 +4,16 @@
 #include "ECMPlayerCameraManager.h"
 #include "EnhancedInputSubsystems.h"
 #include  "EnhancedInputComponent.h"
-#include "NanoMagika//Interaction/ECMHightlightInterface.h"
+#include "Components/GameFrameworkComponentManager.h"
 
-AECMPlayerController::AECMPlayerController()
+AECMPlayerController::AECMPlayerController() { bReplicates = true; }
+
+// Register to modular game framework manager
+void AECMPlayerController::PreInitializeComponents()
 {
-	bReplicates = true;
-}
-
-void AECMPlayerController::PlayerTick(float DeltaTime)
-{
-	Super::PlayerTick(DeltaTime);
-
-	CurserTrace();
+	Super::PreInitializeComponents();
+	
+	UGameFrameworkComponentManager::AddGameFrameworkComponentReceiver(this); 	
 }
 
 void AECMPlayerController::BeginPlay()
@@ -41,6 +39,30 @@ void AECMPlayerController::BeginPlay()
 
 	CameraManager =  Cast<AECMPlayerCameraManager>(PlayerCameraManager);
 	CameraManager->InitCamera();
+
+	// Set up timer for cursor trace [default 0.1s looping]
+	FTimerHandle TimerHandle = FTimerHandle();
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &AECMPlayerController::CursorTrace, 0.1f, true);
+}
+
+// Remove from modular game framework manager
+void AECMPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	UGameFrameworkComponentManager::RemoveGameFrameworkComponentReceiver(this);
+
+	Super::EndPlay(EndPlayReason);
+}
+
+// Cursor Trace on Tick, multicast hit result
+void AECMPlayerController::CursorTrace() const
+{
+	FHitResult Hit;
+	GetHitResultUnderCursor(ECC_Visibility, false, Hit);
+	if(Hit.bBlockingHit)
+	{
+		CursorHitEvent.Broadcast(Hit);
+		//GEngine->AddOnScreenDebugMessage(2,1,FColor::Red, FString::Printf(TEXT("%s"), *Hit.GetActor()->GetActorNameOrLabel()));
+	}
 }
 
 // Cast InputComponent and bind Input Actions
@@ -77,27 +99,4 @@ void AECMPlayerController::ZoomCamera(const FInputActionValue& InputActionValve)
 	CameraManager->UpdateZoom(InputActionValve.Get<float>());
 }
 
-void AECMPlayerController::CurserTrace()
-{
-	FHitResult CursorHit;
-	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
-	if (!CursorHit.bBlockingHit) return;
-	
-	LastActor = ThisActor;
-	ThisActor = Cast<IECMHightlightInterface>(CursorHit.GetActor());
-	
-	
-	if(!LastActor && ThisActor)
-	{
-		ThisActor->HighlightActor();
-	}
-	else if(LastActor && !ThisActor)
-	{
-		LastActor->UnHighlighActor();
-	}
-	else if(LastActor && ThisActor && LastActor != ThisActor)
-	{
-		LastActor->UnHighlighActor();
-		ThisActor->HighlightActor();
-	}
-}
+

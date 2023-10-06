@@ -10,55 +10,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c842db6e-4adc-44c8-8f65-3e2dd4cae9f9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.NanoMagika.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NanoMagika.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NanoMagika/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NanoMagika/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/GameplayAbilities/GA_TestGameplayAbility.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/GameplayAbilities/GA_TestGameplayAbility.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Characters/Enemy/BP_Enemy_Base.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Characters/Enemy/BP_Enemy_Base.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Characters/Enemy/Goblins/BP_Goblin_Spear.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Characters/Enemy/Goblins/BP_Goblin_Spear.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Characters/Hero/BP_Hero_Character.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Characters/Hero/BP_Hero_Character.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Poison_AR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EffectActors/Potion/Effects/ArcaneReservoir/GE_Potion_Poison_AR.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Player/BP_PC.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Player/BP_PC.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Player/BP_PCM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Player/BP_PCM.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Inputs/DA_ECMInputConfig.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inputs/DA_ECMInputConfig.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Inputs/IMC_AuraCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inputs/IMC_AuraCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NanoMagika.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/NanoMagika.uproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/Developer/RiderLink/Intermediate/FileSystemMappings.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/Developer/RiderLink/Intermediate/FileSystemMappings.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Binaries/Win64/UnrealEditor-NmRoSPluginRuntime.patch_0.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Binaries/Win64/UnrealEditor-NmRoSPluginRuntime.patch_0.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Binaries/Win64/UnrealEditor-NmRoSPluginRuntime.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Binaries/Win64/UnrealEditor-NmRoSPluginRuntime.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Content/Maps/L_GAS_Test.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Content/Maps/L_GAS_Test.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Content/NmRoSPlugin.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Content/NmRoSPlugin.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/UnrealEditor/Inc/NmRoSPluginRuntime/UHT/NmRoSAttributes.gen.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/UnrealEditor/Inc/NmRoSPluginRuntime/UHT/NmRoSAttributes.gen.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/UnrealEditor/Inc/NmRoSPluginRuntime/UHT/NmRoSAttributes.generated.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/UnrealEditor/Inc/NmRoSPluginRuntime/UHT/NmRoSAttributes.generated.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/UnrealEditor/Inc/NmRoSPluginRuntime/UHT/NmRoSPluginRuntime.init.gen.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/UnrealEditor/Inc/NmRoSPluginRuntime/UHT/NmRoSPluginRuntime.init.gen.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/UnrealEditor/Inc/NmRoSPluginRuntime/UHT/Timestamp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/UnrealEditor/Inc/NmRoSPluginRuntime/UHT/Timestamp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Default.rc2.res.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Default.rc2.res.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Default.rc2.res.rsp.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Default.rc2.res.rsp.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Definitions.NmRoSPluginRuntime.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Definitions.NmRoSPluginRuntime.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Definitions.NmRoSPluginRuntime.h.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Definitions.NmRoSPluginRuntime.h.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/LiveCodingInfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/LiveCodingInfo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/LiveCodingInfo.json.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/LiveCodingInfo.json.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.dep.json" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.dep.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.obj.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.obj.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.obj.rsp.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.obj.rsp.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/NmRoSPluginRuntime.Shared.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/NmRoSPluginRuntime.Shared.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/NmRoSPluginRuntime.Shared.rsp.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/NmRoSPluginRuntime.Shared.rsp.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UDGameplayTags.cpp.dep.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UDGameplayTags.cpp.dep.lc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UDGameplayTags.cpp.obj.rsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UDGameplayTags.cpp.obj.rsp.lc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.dll.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.dll.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.dll.rsp.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.dll.rsp.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.dep.lc.json" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.dep.lc.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.exp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.exp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.lib.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.lib.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.lib.rsp.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.lib.rsp.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.sup.exp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.sup.exp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Source/NmRoSPluginRuntime/NmRoSPluginRuntime.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Source/NmRoSPluginRuntime/NmRoSPluginRuntime.Build.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Source/NmRoSPluginRuntime/NmRoSPluginRuntimeModule.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Source/NmRoSPluginRuntime/NmRoSPluginRuntimeModule.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Source/NmRoSPluginRuntime/Player/NmRoSAttributes.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Source/NmRoSPluginRuntime/Player/NmRoSAttributes.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Source/NmRoSPluginRuntime/Player/NmRoSAttributes.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Source/NmRoSPluginRuntime/Player/NmRoSAttributes.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Interaction/ECMHightlightInterface.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Source/NmRoSPluginRuntime/Interaction/ECMHightlightInterface.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Interaction/ECMHightlightInterface.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Source/NmRoSPluginRuntime/Interaction/ECMHightlightInterface.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/NanoMagika.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/NanoMagika.Build.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/NanoMagika.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/NanoMagika.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/Abilities/ECMGameplayAbility.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/Abilities/ECMGameplayAbility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAttributeSet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAttributeSet.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Input/ECMInputConfig.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Input/ECMInputConfig.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Input/ECMInputConfig.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Input/ECMInputConfig.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerCameraManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerCameraManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerCameraManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerCameraManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.h" afterDir="false" />
     </list>
@@ -71,6 +48,25 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
@@ -150,7 +146,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -283,7 +279,8 @@
       <workItem from="1696449032667" duration="9199000" />
       <workItem from="1696458936824" duration="5167000" />
       <workItem from="1696533627696" duration="2058000" />
-      <workItem from="1696535840567" duration="7484000" />
+      <workItem from="1696535840567" duration="8012000" />
+      <workItem from="1696596322185" duration="18802000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -309,7 +306,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695990747169</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Moved Highlight to Plugin, added static mesh to highligh.">
+      <option name="closed" value="true" />
+      <created>1696543917068</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1696543917068</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -321,14 +326,21 @@
     <MESSAGE value="First commit" />
     <MESSAGE value="Transferred across all aura functionality." />
     <MESSAGE value="Add combat interface and setup vital attributes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add combat interface and setup vital attributes" />
+    <MESSAGE value="Refactored character classes to tidy up and make more consistent. Started to add input configs." />
+    <MESSAGE value="Moved Highlight to Plugin, added static mesh to highligh." />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved Highlight to Plugin, added static mesh to highligh." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="CppProject">
         <watch expression="this-&gt;UActorComponent" />
         <watch expression="this-&gt;UActorComponent" />
+        <watch expression="InputTag" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

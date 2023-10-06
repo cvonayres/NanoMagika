@@ -7,10 +7,7 @@ const UInputAction* UECMInputConfig::FindAbilityInputActionForTag(const FGamepla
 
 	for(const FECMInputAction& Action : AbilityInputActions)
 	{
-		if(Action.InputAction && Action.InputTag == InputTag)
-		{
-			return Action.InputAction;
-		}
+		if(Action.InputAction && Action.InputTag == InputTag) {	return Action.InputAction; }
 	}
 
 	if(bLogNotFound)

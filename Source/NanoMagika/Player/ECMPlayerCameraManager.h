@@ -6,15 +6,11 @@
 #include "Camera/PlayerCameraManager.h"
 #include "ECMPlayerCameraManager.generated.h"
 
-UENUM()
-enum EVectorDirection
-{
-	Fwd		  UMETA(DisplayName = "Forward Vector"),
-	Right     UMETA(DisplayName = "Right Vector"),
-	Up		  UMETA(DisplayName = "Up Vector"),
-  };
-
-class AECMPlayerController;
+class AECMCharacter;
+class UInputAction;
+struct FInputActionValue;
+class UCameraComponent;
+class USpringArmComponent;
 
 UCLASS()
 class NANOMAGIKA_API AECMPlayerCameraManager : public APlayerCameraManager
@@ -22,54 +18,27 @@ class NANOMAGIKA_API AECMPlayerCameraManager : public APlayerCameraManager
 	GENERATED_BODY()
 	
 public:
-	AECMPlayerCameraManager();
-
-	void UpdateZoom(float valve);
-	void InitCamera();
+	void InitPCM(TObjectPtr<USpringArmComponent> SpringArm, TObjectPtr<UCameraComponent> Camera);
 	
-protected:
-	virtual void BeginPlay() override;
-
-	// Camera Functions
-	UFUNCTION(BlueprintPure)
-	FVector GetUpdatedLocation() const;
-	UFUNCTION(BlueprintPure)
-	FRotator GetUpdatedRotation() const;
-
-	// View Settings
-	UPROPERTY(EditDefaultsOnly, Category="Camera Settings|FirstPersonView")
-	FVector FPVOffset;
-	UPROPERTY(EditAnywhere, Category="Camera Settings|FirstPersonView")
-	FRotator FPVRotation;
-	UPROPERTY(EditDefaultsOnly, Category="Camera Settings|ThirdPersonView")
-	FVector TPVOffset;
-	UPROPERTY(EditAnywhere, Category="Camera Settings|ThirdPersonView")
-	FRotator TPVRotation;
-	UPROPERTY(EditDefaultsOnly, Category="Camera Settings|TopDownView")
-	FVector TDVOffset;
-	UPROPERTY(EditAnywhere, Category="Camera Settings|TopDownView")
-	FRotator TDVRotation;
-
-	// Zoom Controls
-	UPROPERTY(EditAnywhere, Category="Camera Settings|Zoom")
-	UCurveFloat* ZoomCurve;
-	UPROPERTY(EditAnywhere, Category="Camera Settings|Zoom")
-	FVector ZoomMAX;
-	UPROPERTY(EditAnywhere, Category="Camera Settings|Zoom")
-	FVector ZoomMIN;
-	UPROPERTY(BlueprintReadOnly, Category="Camera Settings|Zoom")
-	FVector Test;
 private:
-	//Referances
-	UPROPERTY(VisibleAnywhere, Category="Referances")
-	TObjectPtr<AECMPlayerController> Controller;
-	UPROPERTY(VisibleAnywhere, Category="Referances")
-	TObjectPtr<APawn>ControlledPawn;
-
-	//Private Variables
-	FVector VOffset;
-	FRotator ROffset;
+	UPROPERTY()
+	APlayerController* PC = nullptr;
+	UPROPERTY()
+	TObjectPtr<USpringArmComponent> SpringArmComponent;
 	
-	//Private functions
-	FVector GetCameraVector(EVectorDirection Direction) const;
+	UPROPERTY(EditAnywhere, Category="Zoom", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UInputAction> ZoomAction = nullptr;
+	UPROPERTY(EditAnywhere, Category="Zoom", meta = (AllowPrivateAccess = "true"))
+	float ZoomMax = 1000.f;
+	UPROPERTY(EditAnywhere, Category="Zoom", meta = (AllowPrivateAccess = "true"))
+	float ZoomMin = 200.f;
+	UPROPERTY(EditAnywhere, Category="Zoom", meta = (AllowPrivateAccess = "true"))
+	float ZoomDefault = 600.f;
+	UPROPERTY(EditAnywhere, Category="Zoom", meta = (AllowPrivateAccess = "true"))
+	float ZoomRate = 2.f;
+	
+	void ZoomCamera(const FInputActionValue& InputActionValve);
+	void InitCamera(TObjectPtr<USpringArmComponent> SpringArm, TObjectPtr<UCameraComponent> Camera);
+	void InitCMC(AECMCharacter* Character);
+	void BindInputs();
 };

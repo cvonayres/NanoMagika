@@ -1,10 +1,11 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMPlayerController.h"
-#include "ECMPlayerCameraManager.h"
-#include "EnhancedInputSubsystems.h"
-#include  "EnhancedInputComponent.h"
+#include "AbilitySystemBlueprintLibrary.h"
 #include "Components/GameFrameworkComponentManager.h"
+#include "EnhancedInputSubsystems.h"
+#include "NanoMagika/Input/ECMInputComponent.h"
+#include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 
 AECMPlayerController::AECMPlayerController() { bReplicates = true; }
 
@@ -26,19 +27,8 @@ void AECMPlayerController::BeginPlay()
 	{
 		Subsystem->AddMappingContext(InputContext,0);
 	}
-
-	// Setup Input Mode 
-	FInputModeGameAndUI InputModeData;
-	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-	InputModeData.SetHideCursorDuringCapture(false);
-	SetInputMode(InputModeData);
-
-	// Setup cursor
-	bShowMouseCursor=true;
-	DefaultMouseCursor = EMouseCursor::Default;
-
-	CameraManager =  Cast<AECMPlayerCameraManager>(PlayerCameraManager);
-	CameraManager->InitCamera();
+	
+	InitMouse(); // Sort out input mode & mouse
 
 	// Set up timer for cursor trace [default 0.1s looping]
 	FTimerHandle TimerHandle = FTimerHandle();
@@ -65,18 +55,42 @@ void AECMPlayerController::CursorTrace() const
 	}
 }
 
-// Cast InputComponent and bind Input Actions
+// Cast Input Component and bind Input Actions
 void AECMPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
+	ECMInputComponent = CastChecked<UECMInputComponent>(InputComponent);
 
-	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AECMPlayerController::Move);
-	EnhancedInputComponent->BindAction(ZoomAction, ETriggerEvent::Triggered, this, &AECMPlayerController::ZoomCamera);
+	// Bind input actions via Gameplay Tags
+	ECMInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
+
+	// TODO move to ability actions
+	ECMInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AECMPlayerController::Move);
 }
 
-// Move Function
+// Call function on ASC when bound input actions are used
+void AECMPlayerController::AbilityInputTagPressed(const FGameplayTag InputTag)
+{
+	// GEngine->AddOnScreenDebugMessage(1,3,FColor::Red, *InputTag.ToString());
+}
+void AECMPlayerController::AbilityInputTagReleased(const FGameplayTag InputTag)
+{
+	if(GetASC() == nullptr) return
+	GetASC()->AbilityInputTagReleased(InputTag);
+	// GEngine->AddOnScreenDebugMessage(2,3,FColor::Blue, *InputTag.ToString());
+}
+void AECMPlayerController::AbilityInputTagHeld(const FGameplayTag InputTag)
+{
+	if(GetASC() == nullptr)
+	{
+		return;
+	}
+	GetASC()->AbilityInputTagHeld(InputTag);
+	// GEngine->AddOnScreenDebugMessage(3,3,FColor::Green, *InputTag.ToString());
+}
+
+// ReSharper disable once CppMemberFunctionMayBeConst - due to bound to input action.
 void AECMPlayerController::Move(const FInputActionValue& InputActionValve)
 {
 	const FVector2d InputAxisVector = InputActionValve.Get<FVector2d>();
@@ -93,10 +107,26 @@ void AECMPlayerController::Move(const FInputActionValue& InputActionValve)
 	}
 }
 
-// Zoom Camera
-void AECMPlayerController::ZoomCamera(const FInputActionValue& InputActionValve)
-{
-	CameraManager->UpdateZoom(InputActionValve.Get<float>());
+// Initialise Input mode and mouse
+void AECMPlayerController::InitMouse()
+{	
+	// Setup Input Mode 
+	FInputModeGameAndUI InputModeData;
+	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+	InputModeData.SetHideCursorDuringCapture(false);
+	SetInputMode(InputModeData);
+
+	// Setup cursor
+	bShowMouseCursor=true;
+	DefaultMouseCursor = EMouseCursor::Default;
 }
 
-
+// Helper function to Get ECM Ability System Component
+UECMAbilitySystemComponent* AECMPlayerController::GetASC()
+{
+	if(ECMAbilitySystemComponent == nullptr)
+	{
+		ECMAbilitySystemComponent= Cast<UECMAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
+	}
+	return ECMAbilitySystemComponent;
+}

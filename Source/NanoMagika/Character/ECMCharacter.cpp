@@ -1,17 +1,24 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMCharacter.h"
+
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "NanoMagika/Player/ECMPlayerController.h"
 #include "NanoMagika/Player/ECMPlayerState.h"
 #include "NanoMagika/UI/HUD/ECMHUD.h"
-#include "GameFramework/CharacterMovementComponent.h"
+#include "NanoMagika/Player/ECMPlayerCameraManager.h"
+
 
 AECMCharacter::AECMCharacter()
 {
-	GetCharacterMovement()->bOrientRotationToMovement = true;
-	GetCharacterMovement()->RotationRate = FRotator(0.f, 400.f,0.f);
-	GetCharacterMovement()->bConstrainToPlane = true;
-	GetCharacterMovement()->bSnapToPlaneAtStart = true;
+	// Create the spring arm component
+	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
+	SpringArmComponent->SetupAttachment(RootComponent);
+
+	// Create the camera component
+	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
+	CameraComponent->SetupAttachment(SpringArmComponent);
 }
 
 // Server side ready
@@ -43,6 +50,9 @@ void AECMCharacter::InitializeCharacter()
 	PlayerStateRef =  GetPlayerState<AECMPlayerState>();
 	check(PlayerStateRef);
 
+	// Initialise Player Camera Manager
+	InitPCM();
+	
 	// Get Ability System Component
 	SetAbilitySystemComponent(PlayerStateRef->GetAbilitySystemComponent());
 	check(GetAbilitySystemComponent());
@@ -61,9 +71,17 @@ void AECMCharacter::InitializeCharacter()
 
 	// Initialise HUD Overlay widget Controller
 	InitHUD();
+}
 
-	// Set parameters based on view mode
-	SetViewMode();
+// Gets Player Camera Manager from controller and calls Initialise
+void AECMCharacter::InitPCM() const
+{
+	if(!ControllerRef) return;
+
+	if(AECMPlayerCameraManager* PCM = Cast<AECMPlayerCameraManager>(ControllerRef->GetPCM()))
+	{
+		PCM->InitPCM(SpringArmComponent, CameraComponent);
+	}
 }
 
 // Gets Player controller and cast ability system and attribute set to Overlap
@@ -74,29 +92,6 @@ void AECMCharacter::InitHUD() const
 	if(AECMHUD* ECMHUD = Cast<AECMHUD>(ControllerRef->GetHUD()))
 	{
 		ECMHUD->InitOverlay(ControllerRef, PlayerStateRef, GetAbilitySystemComponent() ,GetAttributeSet());
-	}
-}
-
-// Blueprint callable function
-void AECMCharacter::SetViewMode()
-{
-	if(!ControllerRef) return;
-
-	if(ControllerRef->ViewMode == EViewMode::FPV)
-	{
-		
-	}
-	else if (ControllerRef->ViewMode == EViewMode::TPV)
-	{
-		bUseControllerRotationPitch = false;
-		bUseControllerRotationRoll = false;
-		bUseControllerRotationYaw = true;
-	}
-	else if (ControllerRef->ViewMode == EViewMode::TDV)
-	{
-		bUseControllerRotationPitch = false;
-		bUseControllerRotationRoll = false;
-		bUseControllerRotationYaw = false;
 	}
 }
 

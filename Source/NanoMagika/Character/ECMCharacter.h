@@ -6,6 +6,9 @@
 #include "ECMCharacterBase.h"
 #include "ECMCharacter.generated.h"
 
+class UCameraComponent;
+class USpringArmComponent;
+
 UCLASS()
 class NANOMAGIKA_API AECMCharacter : public AECMCharacterBase
 {
@@ -13,7 +16,7 @@ class NANOMAGIKA_API AECMCharacter : public AECMCharacterBase
 
 public:
 	AECMCharacter();
-
+	
 	// Server / Client Ready
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
@@ -27,14 +30,19 @@ protected:
 	virtual void InitializeCharacter() override;
 
 private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<USpringArmComponent> SpringArmComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UCameraComponent> CameraComponent;
+	
 	// Controller and Player State Ref
 	UPROPERTY()
 	class AECMPlayerController* ControllerRef;
 	UPROPERTY()
 	class AECMPlayerState* PlayerStateRef;
 	
-	// Called from Player Controller
+	// Called when we have a valid player controller
+	void InitPCM() const;
 	void InitHUD() const;
-	void SetViewMode();
-
 };

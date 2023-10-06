@@ -19,7 +19,6 @@ struct FECMInputAction
 	FGameplayTag InputTag = FGameplayTag();
 };
 
-
 UCLASS()
 class NANOMAGIKA_API UECMInputConfig : public UDataAsset
 {

@@ -1,114 +1,85 @@
 // Copyright Electronic CAD Monkey [ECM]
 
-
 #include "ECMPlayerCameraManager.h"
 #include "ECMPlayerController.h"
-#include "Kismet/KismetMathLibrary.h"
+#include "NanoMagika/Character/ECMCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "NanoMagika/Input/ECMInputComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
 
-AECMPlayerCameraManager::AECMPlayerCameraManager()
+void AECMPlayerCameraManager::InitPCM(const TObjectPtr<USpringArmComponent> SpringArm,
+                                      const TObjectPtr<UCameraComponent> Camera)
 {
+	PC = GetOwningPlayerController(); // Get Player Controller Reference
+	if(PC == nullptr) return;
+
+	AECMCharacter* Character = Cast<AECMCharacter>(PC->GetCharacter());
+	if(Character == nullptr) return;
+
+	InitCamera(SpringArm,Camera);
+	InitCMC(Character);
+	BindInputs();
 }
 
-void AECMPlayerCameraManager::BeginPlay()
+void AECMPlayerCameraManager::InitCamera(const TObjectPtr<USpringArmComponent> SpringArm, const TObjectPtr<UCameraComponent> Camera)
 {
-	Super::BeginPlay();
-}
-
-void AECMPlayerCameraManager::InitCamera()
-{
-	Controller = CastChecked<AECMPlayerController>(GetOwningPlayerController());
-
-	if(Controller) 
+	if(SpringArm != nullptr)
 	{
-		ControlledPawn = Controller->GetPawn<APawn>();
+		// Set spring arm properties if needed
+		SpringArmComponent = SpringArm;
+		SpringArmComponent->AddRelativeRotation(FRotator(-45.f,0.f,0.f));
+		SpringArmComponent->TargetArmLength = ZoomDefault; 
+		SpringArmComponent->bUsePawnControlRotation = false;
+		SpringArmComponent->bInheritPitch = false;
+		SpringArmComponent->bInheritRoll = false;
+		SpringArmComponent->bInheritYaw = false;
+		SpringArmComponent->bEnableCameraLag = true;
 	}
-
-	// Assign default view and rotation based on view mode
-	if (Controller->ViewMode == EViewMode::FPV)
+	
+	if(Camera != nullptr)
 	{
-		VOffset = FPVOffset;
-		ROffset = FPVRotation;
-	}
-	else if(Controller->ViewMode  == EViewMode::TPV)
-	{
-		VOffset = TPVOffset;
-		ROffset = TPVRotation;
-	}
-	else if(Controller->ViewMode  == EViewMode::TDV)
-	{
-		VOffset = TDVOffset;
-		ROffset = TDVRotation;
+		// Prevent the camera from rotating with the spring arm
+		Camera->bUsePawnControlRotation = false;
 	}
 }
 
-// Called in BP on camera update
-FVector AECMPlayerCameraManager::GetUpdatedLocation() const
+// ReSharper disable once CppMemberFunctionMayBeStatic - don't want it to be static
+void AECMPlayerCameraManager::InitCMC(AECMCharacter* Character)
 {
-	if(!Controller) return VOffset;
-
-	if (Controller)
+	if(Character == nullptr) return;
+	
+	Character->bUseControllerRotationPitch = false;
+	Character->bUseControllerRotationRoll = false;
+	Character->bUseControllerRotationYaw = false;
+	
+	if (UCharacterMovementComponent* CMC = Character->GetCharacterMovement())
 	{
-		const FVector OffsetX = VOffset.X * GetCameraVector(EVectorDirection::Fwd);
-	//	const FVector OffsetY = VOffset.Y * GetCameraVector(EVectorDirection::Right);
-	//	const FVector OffsetZ = VOffset.Z * GetCameraVector(EVectorDirection::Up);
-
-		if (ControlledPawn)
-		{
-			const FVector NewLocation = ControlledPawn->GetActorLocation() + OffsetX;// + OffsetY + OffsetZ;
-			//Test = OffsetX;
-			return NewLocation;
-		}
+		CMC->bOrientRotationToMovement = true;
+		CMC->RotationRate = FRotator(0.f, 400.f,0.f);
+		CMC->bConstrainToPlane = true;
+		CMC->bSnapToPlaneAtStart = true;
 	}
-	return VOffset;
-}
-FRotator AECMPlayerCameraManager::GetUpdatedRotation() const
-{
-	if(!Controller) return ROffset;
-
-	if(Controller->ViewMode  == EViewMode::FPV)
-	{
-		return GetOwningPlayerController()->GetControlRotation();
-	}
-	else if(Controller->ViewMode  == EViewMode::TPV)
-	{
-		return GetOwningPlayerController()->GetControlRotation();
-	}
-	else if(Controller->ViewMode  == EViewMode::TDV)
-	{
-		return ROffset;
-	}
-	return ROffset;
 }
 
-// Bound to Action in Player Controller
-void AECMPlayerCameraManager::UpdateZoom(const float valve)
+void AECMPlayerCameraManager::BindInputs()
 {
-	if(!ZoomCurve) return ;
+	if (PC == nullptr) return;
+	const AECMPlayerController* ECMPC = Cast<AECMPlayerController>(PC);
 
-	const float CurveValve = -(ZoomCurve->GetFloatValue(valve));
-	const FVector Adjustment = GetCameraVector(EVectorDirection::Fwd) * CurveValve;
-	VOffset = ClampVector(VOffset + Adjustment,ZoomMIN,ZoomMAX);
+	if (ECMPC == nullptr) return;
+	UECMInputComponent* ECMInputComponent = ECMPC->GetInputComponent();
+
+	if (ECMInputComponent == nullptr) return;
+	ECMInputComponent->BindAction(ZoomAction, ETriggerEvent::Triggered, this, &AECMPlayerCameraManager::ZoomCamera);
 }
 
-// Gets forward, right or Up vector from camera rotation
-FVector AECMPlayerCameraManager::GetCameraVector(const EVectorDirection Direction) const
+// ReSharper disable once CppMemberFunctionMayBeConst - due to use in input binding.
+void AECMPlayerCameraManager::ZoomCamera(const FInputActionValue& InputActionValve)
 {
-	FVector Vector;
-	if(Direction == EVectorDirection::Fwd)
-	{
-		Vector = UKismetMathLibrary::GetForwardVector(GetCameraRotation());
-	}
-	else if(Direction == EVectorDirection::Right)
-	{
-		Vector = UKismetMathLibrary::GetRightVector(GetCameraRotation());
-	}
-	else if(Direction == EVectorDirection::Up)
-	{
-		Vector = UKismetMathLibrary::GetUpVector(GetCameraRotation());
-	}
-	else
-	{
-		Vector = FVector(0,0,0);
-	}
-	return Vector;
+	if(SpringArmComponent == nullptr) return;
+	
+	const float InputAxisVector  = InputActionValve.Get<float>();
+
+	SpringArmComponent->TargetArmLength = FMath::Clamp(SpringArmComponent->TargetArmLength + (InputAxisVector * ZoomRate), ZoomMin, ZoomMax);
 }

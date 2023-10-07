@@ -8,6 +8,16 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 
+void AECMPlayerCameraManager::BeginPlay()
+{
+	Super::BeginPlay();
+
+	PC = GetOwningPlayerController(); // Get Player Controller Reference
+
+	AECMPlayerController* ECMPC = Cast<AECMPlayerController>(PC);
+	ECMPC->OnActionBindingRequested.AddDynamic(this, &AECMPlayerCameraManager::BindActionToInput);
+}
+
 void AECMPlayerCameraManager::InitPCM(const TObjectPtr<USpringArmComponent> SpringArm,
                                       const TObjectPtr<UCameraComponent> Camera)
 {
@@ -19,8 +29,15 @@ void AECMPlayerCameraManager::InitPCM(const TObjectPtr<USpringArmComponent> Spri
 
 	InitCamera(SpringArm,Camera);
 	InitCMC(Character);
-	BindInputs();
 }
+
+void AECMPlayerCameraManager::BindActionToInput(UECMInputComponent* InputComponentRef)
+{
+	if(InputComponentRef == nullptr) return;
+	
+	InputComponentRef->BindAction(ZoomAction, ETriggerEvent::Triggered, this, &AECMPlayerCameraManager::ZoomCamera);
+}
+
 
 void AECMPlayerCameraManager::InitCamera(const TObjectPtr<USpringArmComponent> SpringArm, const TObjectPtr<UCameraComponent> Camera)
 {

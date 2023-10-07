@@ -6,6 +6,7 @@
 #include "Camera/PlayerCameraManager.h"
 #include "ECMPlayerCameraManager.generated.h"
 
+class UECMInputComponent;
 class AECMCharacter;
 class UInputAction;
 struct FInputActionValue;
@@ -19,7 +20,13 @@ class NANOMAGIKA_API AECMPlayerCameraManager : public APlayerCameraManager
 	
 public:
 	void InitPCM(TObjectPtr<USpringArmComponent> SpringArm, TObjectPtr<UCameraComponent> Camera);
-	
+
+	UFUNCTION()
+	void BindActionToInput(UECMInputComponent* InputComponentRef);
+
+protected:
+	virtual void BeginPlay() override;
+
 private:
 	UPROPERTY()
 	APlayerController* PC = nullptr;

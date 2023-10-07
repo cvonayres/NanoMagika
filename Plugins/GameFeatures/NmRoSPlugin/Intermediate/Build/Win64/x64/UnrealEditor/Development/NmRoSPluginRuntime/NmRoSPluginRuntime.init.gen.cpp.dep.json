@@ -1,0 +1,13 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\nmrospluginruntime.init.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\gamedev\\gas\\nanomagika\\intermediate\\build\\win64\\x64\\nanomagikaeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\nmrospluginruntime\\definitions.nmrospluginruntime.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

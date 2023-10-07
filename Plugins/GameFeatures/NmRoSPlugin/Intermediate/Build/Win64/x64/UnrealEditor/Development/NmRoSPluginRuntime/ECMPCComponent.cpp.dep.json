@@ -1,0 +1,42 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\player\\ecmpccomponent.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\gamedev\\gas\\nanomagika\\intermediate\\build\\win64\\x64\\nanomagikaeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\nmrospluginruntime\\definitions.nmrospluginruntime.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\player\\ecmpccomponent.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\experimental\\modulargameplay\\source\\modulargameplay\\public\\components\\controllercomponent.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\experimental\\modulargameplay\\source\\modulargameplay\\public\\components\\gameframeworkcomponent.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\experimental\\modulargameplay\\intermediate\\build\\win64\\unrealeditor\\inc\\modulargameplay\\uht\\gameframeworkcomponent.generated.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\experimental\\modulargameplay\\intermediate\\build\\win64\\unrealeditor\\inc\\modulargameplay\\uht\\controllercomponent.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\source\\nanomagika\\player\\ecmplayercontroller.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\source\\runtime\\gameplaytags\\classes\\gameplaytagcontainer.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\source\\runtime\\core\\public\\misc\\comparisonutility.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\gameplaytags\\uht\\gameplaytagcontainer.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\intermediate\\build\\win64\\unrealeditor\\inc\\nanomagika\\uht\\ecmplayercontroller.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\ecmpccomponent.generated.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\enhancedinput\\source\\enhancedinput\\public\\enhancedinputcomponent.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\enhancedinput\\source\\enhancedinput\\public\\inputaction.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\enhancedinput\\source\\enhancedinput\\public\\inputmodifiers.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\enhancedinput\\source\\enhancedinput\\public\\inputactionvalue.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\enhancedinput\\intermediate\\build\\win64\\unrealeditor\\inc\\enhancedinput\\uht\\inputactionvalue.generated.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\enhancedinput\\intermediate\\build\\win64\\unrealeditor\\inc\\enhancedinput\\uht\\inputmodifiers.generated.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\enhancedinput\\source\\enhancedinput\\public\\inputtriggers.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\enhancedinput\\intermediate\\build\\win64\\unrealeditor\\inc\\enhancedinput\\uht\\inputtriggers.generated.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\enhancedinput\\intermediate\\build\\win64\\unrealeditor\\inc\\enhancedinput\\uht\\inputaction.generated.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\plugins\\enhancedinput\\intermediate\\build\\win64\\unrealeditor\\inc\\enhancedinput\\uht\\enhancedinputcomponent.generated.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\components\\splinecomponent.h",
+            "d:\\unreal\\epic games\\engines\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\splinecomponent.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\source\\nanomagika\\input\\ecminputcomponent.h",
+            "d:\\gamedev\\gas\\nanomagika\\source\\nanomagika\\input\\ecminputconfig.h",
+            "d:\\gamedev\\gas\\nanomagika\\intermediate\\build\\win64\\unrealeditor\\inc\\nanomagika\\uht\\ecminputconfig.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\intermediate\\build\\win64\\unrealeditor\\inc\\nanomagika\\uht\\ecminputcomponent.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\interaction\\ecmhightlightinterface.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\ecmhightlightinterface.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

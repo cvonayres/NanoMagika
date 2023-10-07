@@ -14,8 +14,10 @@ class UInputMappingContext;
 class UInputAction;
 class UECMAbilitySystemComponent;
 struct FInputActionValue;
+class USplineComponent;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTickSigniture, const FHitResult&, CursorHit);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnActionBindingRequested, UECMInputComponent*, InputComponent);
+
 UCLASS()
 class NANOMAGIKA_API AECMPlayerController : public APlayerController
 {
@@ -26,19 +28,20 @@ public:
 
 	virtual void PreInitializeComponents() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
-	
-	// Delegate for CursorHit calls
-	FTickSigniture CursorHitEvent;
 
-	// Helper fucntions
+	// Delegate to request binding an action
+	UPROPERTY(BlueprintAssignable, Category = "Input")
+	FOnActionBindingRequested OnActionBindingRequested;
+
+	
+	// Helper functions
 	UECMInputComponent* GetInputComponent() const { return ECMInputComponent;}
 	TObjectPtr<APlayerCameraManager> GetPCM() const { return PlayerCameraManager;}
-	
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 
-private:
 	// Input Component, Context & Config
 	UPROPERTY()
 	UECMInputComponent* ECMInputComponent = nullptr;
@@ -47,21 +50,16 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category="Input")
 	TObjectPtr<UECMInputConfig> InputConfig;
 
-	// Input Actions
-	UPROPERTY(EditAnywhere, Category="Input")
-	TObjectPtr<UInputAction> MoveAction = nullptr;
-
+	UECMAbilitySystemComponent* GetASC();
 	UPROPERTY()
 	TObjectPtr<	UECMAbilitySystemComponent> ECMAbilitySystemComponent;
 
-	void Move(const FInputActionValue& InputActionValve);
+	void InitActionBindings();
+	UPROPERTY()
+	FTimerHandle InitActionBindingsTimerHandle = FTimerHandle();
+	
+	virtual void AbilityInputTagPressed(FGameplayTag InputTag);
+	virtual void AbilityInputTagReleased(FGameplayTag InputTag);
+	virtual void AbilityInputTagHeld(FGameplayTag InputTag);
 
-	void InitMouse();
-	void CursorTrace() const;
-
-	void AbilityInputTagPressed(FGameplayTag InputTag);
-	void AbilityInputTagReleased(FGameplayTag InputTag);
-	void AbilityInputTagHeld(FGameplayTag InputTag);
-
-	UECMAbilitySystemComponent* GetASC();
 };

@@ -13,22 +13,17 @@ void AECMPlayerCameraManager::BeginPlay()
 	Super::BeginPlay();
 
 	PC = GetOwningPlayerController(); // Get Player Controller Reference
-
+	if(PC == nullptr) return;
+	
 	AECMPlayerController* ECMPC = Cast<AECMPlayerController>(PC);
+	if(ECMPC == nullptr) return;
+
 	ECMPC->OnActionBindingRequested.AddDynamic(this, &AECMPlayerCameraManager::BindActionToInput);
 }
 
-void AECMPlayerCameraManager::InitPCM(const TObjectPtr<USpringArmComponent> SpringArm,
-                                      const TObjectPtr<UCameraComponent> Camera)
+AECMPlayerCameraManager::AECMPlayerCameraManager()
 {
-	PC = GetOwningPlayerController(); // Get Player Controller Reference
-	if(PC == nullptr) return;
-
-	AECMCharacter* Character = Cast<AECMCharacter>(PC->GetCharacter());
-	if(Character == nullptr) return;
-
-	InitCamera(SpringArm,Camera);
-	InitCMC(Character);
+	bReplicates = true;
 }
 
 void AECMPlayerCameraManager::BindActionToInput(UECMInputComponent* InputComponentRef)
@@ -38,6 +33,17 @@ void AECMPlayerCameraManager::BindActionToInput(UECMInputComponent* InputCompone
 	InputComponentRef->BindAction(ZoomAction, ETriggerEvent::Triggered, this, &AECMPlayerCameraManager::ZoomCamera);
 }
 
+void AECMPlayerCameraManager::ClientInitPCM_Implementation(USpringArmComponent* SpringArm, UCameraComponent* Camera)
+{
+	PC = GetOwningPlayerController(); // Get Player Controller Reference
+	if(PC == nullptr) return;
+
+	AECMCharacter* Character = Cast<AECMCharacter>(PC->GetCharacter());
+	if(Character == nullptr) return;
+
+//	InitCamera(SpringArm,Camera);
+//	InitCMC(Character);
+}
 
 void AECMPlayerCameraManager::InitCamera(const TObjectPtr<USpringArmComponent> SpringArm, const TObjectPtr<UCameraComponent> Camera)
 {
@@ -65,7 +71,7 @@ void AECMPlayerCameraManager::InitCamera(const TObjectPtr<USpringArmComponent> S
 void AECMPlayerCameraManager::InitCMC(AECMCharacter* Character)
 {
 	if(Character == nullptr) return;
-	
+
 	Character->bUseControllerRotationPitch = false;
 	Character->bUseControllerRotationRoll = false;
 	Character->bUseControllerRotationYaw = false;

@@ -43,7 +43,7 @@ struct FEffectProperties
 	UPROPERTY()
 	UAbilitySystemComponent* TargetASC = nullptr;
 	UPROPERTY()
-	AActor* TargetActor = nullptr;
+	AActor* TargetAvatarActor = nullptr;
 	UPROPERTY()
 	AController* TargetController = nullptr;
 	UPROPERTY()

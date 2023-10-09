@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "NmRoSPluginRuntime/Interaction/ECMHightlightInterface.h"
+#include "NanoMagika/Interaction/ECMHightlightInterface.h"
 #include "ECMHighlightMeshes.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )

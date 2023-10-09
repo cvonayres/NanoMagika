@@ -4,8 +4,8 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Components/GameFrameworkComponentManager.h"
 #include "EnhancedInputSubsystems.h"
-#include "NanoMagika/Input/ECMInputComponent.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
+#include "NanoMagika/Input/ECMInputComponent.h"
 
 AECMPlayerController::AECMPlayerController()
 {

@@ -13,7 +13,7 @@ class UECMHightlightInterface : public UInterface
 	GENERATED_BODY()
 };
 
-class NMROSPLUGINRUNTIME_API IECMHightlightInterface
+class NANOMAGIKA_API IECMHightlightInterface
 {
 	GENERATED_BODY()
 

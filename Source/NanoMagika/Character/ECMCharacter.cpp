@@ -9,7 +9,6 @@
 #include "NanoMagika/UI/HUD/ECMHUD.h"
 #include "NanoMagika/Player/ECMPlayerCameraManager.h"
 
-
 AECMCharacter::AECMCharacter()
 {
 	// Create the spring arm component
@@ -50,8 +49,6 @@ void AECMCharacter::InitializeCharacter()
 	PlayerStateRef =  GetPlayerState<AECMPlayerState>();
 	check(PlayerStateRef);
 
-	// Initialise Player Camera Manager
-	InitPCM();
 	
 	// Get Ability System Component
 	SetAbilitySystemComponent(PlayerStateRef->GetAbilitySystemComponent());
@@ -68,7 +65,10 @@ void AECMCharacter::InitializeCharacter()
 	InitDefaultAttributes();
 	InitDefaultAbilities();
 	InitDefaultGameplayTags();
-
+	
+	// Initialise Player Camera Manager
+	InitPCM();
+	
 	// Initialise HUD Overlay widget Controller
 	InitHUD();
 }
@@ -78,9 +78,10 @@ void AECMCharacter::InitPCM() const
 {
 	if(!ControllerRef) return;
 
-	if(AECMPlayerCameraManager* PCM = Cast<AECMPlayerCameraManager>(ControllerRef->GetPCM()))
+	AECMPlayerCameraManager* PCM = Cast<AECMPlayerCameraManager>(ControllerRef->GetPCM());
+	if(PCM)
 	{
-		PCM->InitPCM(SpringArmComponent, CameraComponent);
+		PCM->ClientInitPCM(SpringArmComponent, CameraComponent);
 	}
 }
 
@@ -88,7 +89,7 @@ void AECMCharacter::InitPCM() const
 void AECMCharacter::InitHUD() const
 {
 	if(!ControllerRef) return;
-	
+
 	if(AECMHUD* ECMHUD = Cast<AECMHUD>(ControllerRef->GetHUD()))
 	{
 		ECMHUD->InitOverlay(ControllerRef, PlayerStateRef, GetAbilitySystemComponent() ,GetAttributeSet());

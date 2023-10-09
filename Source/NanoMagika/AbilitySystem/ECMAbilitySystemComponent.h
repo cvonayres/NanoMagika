@@ -20,21 +20,17 @@ public:
 	
 	// Bind on EffectsApplied
 	void BindEffectApplied();
-
-
+	
 	// Add Gameplay Abilities
 	void AddGameplayAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartUpAbilities);
 
 	// Add Gameplay Tags
 	void  AddGameplayTags(const FGameplayTagContainer& Tags);
-	
-	void EffectApplied(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle) const;
+
+	UFUNCTION(Client, Reliable)
+	void ClientEffectApplied(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle) const;
 
 	void AbilityInputTagHeld(const FGameplayTag& InputTag);
 	void AbilityInputTagReleased(const FGameplayTag& InputTag);
-	
-protected:
-
-private:
 
 };

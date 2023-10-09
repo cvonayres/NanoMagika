@@ -17,9 +17,10 @@ UCLASS()
 class NANOMAGIKA_API AECMPlayerCameraManager : public APlayerCameraManager
 {
 	GENERATED_BODY()
-	
+	AECMPlayerCameraManager();
 public:
-	void InitPCM(TObjectPtr<USpringArmComponent> SpringArm, TObjectPtr<UCameraComponent> Camera);
+	UFUNCTION(Client, Reliable)
+	void ClientInitPCM(USpringArmComponent* SpringArm, UCameraComponent* Camera);
 
 	UFUNCTION()
 	void BindActionToInput(UECMInputComponent* InputComponentRef);

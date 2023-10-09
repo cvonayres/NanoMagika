@@ -8,9 +8,25 @@ public class NanoMagika : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "GameplayAbilities", "CommonUI", "GameplayTags", "GameplayTasks", "ModularGameplay"});
+		PublicDependencyModuleNames.AddRange(new string[]
+		{
+			"Core", 
+			"CoreUObject",
+			"Engine", 
+			"InputCore",
+			"EnhancedInput",
+			"GameplayAbilities",
+			"CommonUI",
+			"GameplayTags",
+			"GameplayTasks", 
+			"ModularGameplay", 
+			"Niagara", 
+		});
 
-		PrivateDependencyModuleNames.AddRange(new string[] {});
+		PrivateDependencyModuleNames.AddRange(new string[]
+		{
+			"NavigationSystem",
+		});
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

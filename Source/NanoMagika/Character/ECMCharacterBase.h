@@ -35,7 +35,7 @@ public:
 	/** end Ability System Interface */
 	
 	/** Combat Interface */
-	
+	virtual  FVector GetCombatSocketLocation() override;;
 	/** end Combat Interface */
 
 	virtual void PreInitializeComponents() override;
@@ -49,6 +49,8 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	FName WeaponTipSocketName;
 	
 	// Default Character Attributes
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="User|Attributes")

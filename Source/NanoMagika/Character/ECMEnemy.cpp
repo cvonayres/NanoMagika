@@ -2,8 +2,10 @@
 
 #include "ECMEnemy.h"
 
+#include "Components/WidgetComponent.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 #include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
+#include "NanoMagika/UI/Widget/ECMUserWidget.h"
 
 AECMEnemy::AECMEnemy()
 {
@@ -13,7 +15,8 @@ AECMEnemy::AECMEnemy()
 
 	SetAttributeSet(CreateDefaultSubobject<UECMAttributeSet>("AttributeSet"));
 
-	NetUpdateFrequency = 100.f;
+	HealthBar = CreateDefaultSubobject<UWidgetComponent>("HealthBar");
+	HealthBar->SetupAttachment(GetRootComponent());
 }
 
 void AECMEnemy::BeginPlay()
@@ -22,6 +25,8 @@ void AECMEnemy::BeginPlay()
 
 	// Initialise Actor Info & Default Tags
 	InitializeCharacter();
+
+	InitHealthBar();
 }
 
 void AECMEnemy::InitializeCharacter()
@@ -31,6 +36,43 @@ void AECMEnemy::InitializeCharacter()
 	
 	// Initialise Default Gameplay tags
 	InitDefaultGameplayTags();
+	
+	// Initialise Attributes TODO replace with class
+	InitDefaultAttributes();
 }
 
+void AECMEnemy::InitHealthBar()
+{
+	// Setting Widget Controller To Self
+	if( UECMUserWidget* ECMUserWidget = Cast<UECMUserWidget>(HealthBar->GetUserWidgetObject()))
+	{
+		ECMUserWidget->SetWidgetControllerRef(this);
+	}
+	
+	if(const UECMAttributeSet* ECMAS = Cast<UECMAttributeSet>(GetAttributeSet()))
+	{
+		if(UAbilitySystemComponent* ASC = GetAbilitySystemComponent())
+		{
+			// Bind Health and Max health changes
+			ASC->GetGameplayAttributeValueChangeDelegate(ECMAS->GetVitalityMatrixAttribute()).AddLambda(
+		[this](const FOnAttributeChangeData Data)
+				{
+					OnHealthChange.Broadcast(Data.NewValue);
+				}
+			);
+			ASC->GetGameplayAttributeValueChangeDelegate(ECMAS->GetVMCapacityAttribute()).AddLambda(
+		[this](const FOnAttributeChangeData Data)
+				{
+					OnMaxHealthChange.Broadcast(Data.NewValue);
+				}
+			);
+
+		//Broadcast initial valves
+		OnHealthChange.Broadcast(ECMAS->GetVitalityMatrix());
+		OnMaxHealthChange.Broadcast(ECMAS->GetVMCapacity());
+			
+		}
+	}
+	
+}
 

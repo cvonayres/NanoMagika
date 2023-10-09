@@ -9,7 +9,7 @@ public class NmRoSPluginRuntime : ModuleRules
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
 		PublicIncludePaths.AddRange(
-			new string[] {  "ModularGameplay", "Game",
+			new string[] {  "ModularGameplay", "Game",	"NanoMagika",
 				// ... add public include paths required here ...
 			}
 			);
@@ -24,17 +24,24 @@ public class NmRoSPluginRuntime : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core", "NanoMagika", "ModularGameplay",  "InputCore", "EnhancedInput", "GameplayAbilities", "CommonUI", "GameplayTags", "GameplayTasks",
+				"Core", 
+				"CoreUObject",
+				"Engine",
+				"NanoMagika",
+				"ModularGameplay",
+				"InputCore",
+				"EnhancedInput",
+				"GameplayAbilities",
+				"CommonUI",
+				"GameplayTags",
+				"GameplayTasks",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
-
 		
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"CoreUObject",
-				"Engine",
 				"Slate",
 				"SlateCore",
 				// ... add private dependencies that you statically link with here ...	

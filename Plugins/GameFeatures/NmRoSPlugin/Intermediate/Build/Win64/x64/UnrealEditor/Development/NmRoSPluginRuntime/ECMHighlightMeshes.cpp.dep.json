@@ -1,0 +1,17 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\character\\ecmhighlightmeshes.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\gamedev\\gas\\nanomagika\\intermediate\\build\\win64\\x64\\nanomagikaeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\nmrospluginruntime\\definitions.nmrospluginruntime.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\character\\ecmhighlightmeshes.h",
+            "d:\\gamedev\\gas\\nanomagika\\source\\nanomagika\\interaction\\ecmhightlightinterface.h",
+            "d:\\gamedev\\gas\\nanomagika\\intermediate\\build\\win64\\unrealeditor\\inc\\nanomagika\\uht\\ecmhightlightinterface.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\ecmhighlightmeshes.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

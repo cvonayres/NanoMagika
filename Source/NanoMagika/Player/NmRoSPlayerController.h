@@ -3,18 +3,21 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "NanoMagika/Player/ECMPlayerController.h"
+#include "ECMPlayerController.h"
 #include "NmRoSPlayerController.generated.h"
 
 class IECMHightlightInterface;
 
 UCLASS()
-class NMROSPLUGINRUNTIME_API ANmRoSPlayerController : public AECMPlayerController
+class NANOMAGIKA_API ANmRoSPlayerController : public AECMPlayerController
 {
 	GENERATED_BODY()
+
+	ANmRoSPlayerController();
 	
 protected:
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 	
 	virtual void SetupInputComponent() override;
 	
@@ -42,7 +45,15 @@ private:
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputAction> MoveAction = nullptr;
 
+	UPROPERTY(EditAnywhere, Category="Input")
+	TObjectPtr<UInputAction> ShiftAction = nullptr;
+
+	
 	void Move(const FInputActionValue& InputActionValve);
+	void ShiftPressed() { bShiftKeyDown = true ; }
+	void ShiftReleased() { bShiftKeyDown = false ; }
+	bool bShiftKeyDown = false;
+	
 #pragma endregion InputActions
 
 #pragma region ClickToMove
@@ -61,10 +72,15 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category="MoveByCick")
 	TObjectPtr<USplineComponent> Spline;
+
+	void AutoRun();
+	
 #pragma endregion  ClickToMove
 
 #pragma region Highlight
 	IECMHightlightInterface* LastActor = nullptr;
 	IECMHightlightInterface* ThisActor = nullptr;
 #pragma endregion  Highlight
+
+	
 };

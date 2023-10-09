@@ -26,13 +26,13 @@ class NANOMAGIKA_API AECMPlayerController : public APlayerController
 public:
 	AECMPlayerController();
 
+	// Includes for participation in modular gameplay plugin
 	virtual void PreInitializeComponents() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 	// Delegate to request binding an action
 	UPROPERTY(BlueprintAssignable, Category = "Input")
 	FOnActionBindingRequested OnActionBindingRequested;
-
 	
 	// Helper functions
 	UECMInputComponent* GetInputComponent() const { return ECMInputComponent;}
@@ -50,16 +50,20 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="Input")
 	TObjectPtr<UECMInputConfig> InputConfig;
 
+	// Ability System Component
 	UECMAbilitySystemComponent* GetASC();
 	UPROPERTY()
 	TObjectPtr<	UECMAbilitySystemComponent> ECMAbilitySystemComponent;
+
+	// Functions tied to Input Tag pressed, released and help, overridden in child classes
+	virtual void AbilityInputTagPressed(FGameplayTag InputTag);
+	virtual void AbilityInputTagReleased(FGameplayTag InputTag);
+	virtual void AbilityInputTagHeld(FGameplayTag InputTag);
+
 
 	void InitActionBindings();
 	UPROPERTY()
 	FTimerHandle InitActionBindingsTimerHandle = FTimerHandle();
 	
-	virtual void AbilityInputTagPressed(FGameplayTag InputTag);
-	virtual void AbilityInputTagReleased(FGameplayTag InputTag);
-	virtual void AbilityInputTagHeld(FGameplayTag InputTag);
-
+private:
 };

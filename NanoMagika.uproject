@@ -41,6 +41,10 @@
 		{
 			"Name": "NmRoSPlugin",
 			"Enabled": true
+		},
+		{
+			"Name": "MotionWarping",
+			"Enabled": true
 		}
 	]
 }

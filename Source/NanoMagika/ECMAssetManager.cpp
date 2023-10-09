@@ -3,6 +3,7 @@
 #include "ECMAssetManager.h"
 
 #include "ECMGameplayTags.h"
+#include "AbilitySystemGlobals.h"
 
 UECMAssetManager& UECMAssetManager::Get()
 {
@@ -18,4 +19,7 @@ void UECMAssetManager::StartInitialLoading()
 
 	// Initiate Gameplay Tags
 	FECMGameplayTags::InitNativeGameplayTags();
+
+	// This is required to use Target Data!
+	UAbilitySystemGlobals::Get().InitGlobalData();
 }

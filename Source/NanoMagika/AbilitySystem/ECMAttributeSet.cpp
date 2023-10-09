@@ -138,6 +138,7 @@ void UECMAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 			float currentValue = (this->*Mapping.Getter)();
 			float maxVal = (this->*Mapping.MaxFunc)();
 			(this->*Mapping.Setter)(FMath::Clamp(currentValue, 0.f, maxVal));
+			UE_LOG(LogTemp, Warning, TEXT("Changed Health on %s, Health: %f"), *Props.TargetAvatarActor->GetName(), GetVitalityMatrix());
 			return;
 		}
 	}
@@ -188,10 +189,10 @@ void UECMAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData&
 	// Get Target Actor, Controller & Character
 	if(Data.Target.AbilityActorInfo.IsValid() && Data.Target.AbilityActorInfo->AvatarActor.IsValid())
 	{
-		Props.TargetActor = Data.Target.AbilityActorInfo->AvatarActor.Get();
+		Props.TargetAvatarActor = Data.Target.AbilityActorInfo->AvatarActor.Get();
 		Props.TargetController = Data.Target.AbilityActorInfo->PlayerController.Get();
-		Props.TargetCharacter = Cast<ACharacter>(Props.TargetActor);
-		UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Props.TargetActor);
+		Props.TargetCharacter = Cast<ACharacter>(Props.TargetAvatarActor);
+		UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Props.TargetAvatarActor);
 	}
 }
 #pragma endregion Clamping

@@ -2,16 +2,27 @@
 
 #include "ECMCharacterBase.h"
 #include "AbilitySystemComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 #include "Components/GameFrameworkComponentManager.h"
+#include "NanoMagika/NanoMagika.h"
 
 AECMCharacterBase::AECMCharacterBase()
 {
 	PrimaryActorTick.bCanEverTick = false;
-	
+
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Projectile, ECR_Overlap);
+	GetCapsuleComponent()->SetGenerateOverlapEvents(true);
+
+	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
 	Weapon->SetupAttachment(GetMesh(), FName("WeaponHandSocket"));
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	NetUpdateFrequency = 100.f;
+
 }
 
 void AECMCharacterBase::PreInitializeComponents()
@@ -84,4 +95,10 @@ UECMAbilitySystemComponent* AECMCharacterBase::GetECMASC() const
 	if(ECMAbilitySystemComponent) return ECMAbilitySystemComponent;
 
 	return CastChecked<UECMAbilitySystemComponent>(GetAbilitySystemComponent());
+}
+
+FVector AECMCharacterBase::GetCombatSocketLocation()
+{
+	check(Weapon);
+	return Weapon->GetSocketLocation(WeaponTipSocketName);
 }

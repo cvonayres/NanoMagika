@@ -8,7 +8,7 @@
 // Bind Effect Applied to callback on ASC Effect Applied To Self.
 void UECMAbilitySystemComponent::BindEffectApplied()
 {
-	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UECMAbilitySystemComponent::EffectApplied);
+	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UECMAbilitySystemComponent::ClientEffectApplied);
 }
 
 // Grant Ability
@@ -37,7 +37,7 @@ void UECMAbilitySystemComponent::AddGameplayTags(const FGameplayTagContainer& Ta
 }
 
 // Broadcast on EffectApplied
-void UECMAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& EffectSpec,
+void UECMAbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& EffectSpec,
 											   FActiveGameplayEffectHandle ActiveEffectHandle) const
 {
 	FGameplayTagContainer TagContainer;

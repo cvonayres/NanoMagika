@@ -6,9 +6,16 @@
         "PCH": "d:\\gamedev\\gas\\nanomagika\\intermediate\\build\\win64\\x64\\nanomagikaeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
         "Includes": [
             "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\nmrospluginruntime\\definitions.nmrospluginruntime.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\ecmhighlightmeshes.gen.cpp",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\character\\ecmhighlightmeshes.h",
+            "d:\\gamedev\\gas\\nanomagika\\source\\nanomagika\\interaction\\ecmhightlightinterface.h",
+            "d:\\gamedev\\gas\\nanomagika\\intermediate\\build\\win64\\unrealeditor\\inc\\nanomagika\\uht\\ecmhightlightinterface.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\ecmhighlightmeshes.generated.h",
             "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\nmrosattributes.gen.cpp",
             "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\player\\nmrosattributes.h",
             "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\nmrosattributes.generated.h",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\nmrospluginruntime\\uht\\nmrospluginruntime.init.gen.cpp",
+            "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\character\\ecmhighlightmeshes.cpp",
             "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\nmrospluginruntimemodule.cpp",
             "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\nmrospluginruntimemodule.h",
             "d:\\gamedev\\gas\\nanomagika\\plugins\\gamefeatures\\nmrosplugin\\source\\nmrospluginruntime\\player\\nmrosattributes.cpp"

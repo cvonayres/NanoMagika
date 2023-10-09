@@ -43,6 +43,5 @@ private:
 	class AECMPlayerState* PlayerStateRef;
 	
 	// Called when we have a valid player controller
-	void InitPCM() const;
 	void InitHUD() const;
 };

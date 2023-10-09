@@ -2,55 +2,58 @@
 
 #include "ECMPlayerCameraManager.h"
 #include "ECMPlayerController.h"
-#include "NanoMagika/Character/ECMCharacter.h"
-#include "GameFramework/CharacterMovementComponent.h"
-#include "NanoMagika/Input/ECMInputComponent.h"
-#include "GameFramework/SpringArmComponent.h"
+#include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "NanoMagika/Input/ECMInputComponent.h"
 
 void AECMPlayerCameraManager::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PC = GetOwningPlayerController(); // Get Player Controller Reference
-	if(PC == nullptr) return;
+	TryGetPawnAndController();
+}
+
+void AECMPlayerCameraManager::TryGetPawnAndController()
+{
+	if(PCOwner && PCOwner->GetPawn()) 
+	{
+		GetWorld()->GetTimerManager().ClearTimer(TimerHandle_GetPawnAndController); // Clear Timer
+
+		PlayerPawn = PCOwner->GetPawn(); // Store Pawn
+		
+		InitCamera(); // Initiate Camera Settings
+		InitCMC(); // Initiate CharacterMovementComponent Settings
+		BindInputs(); // Bind inputs for camera
+
+	}
+	else // Repeat until time limit
+	{
+		TimeElapsedTrying += CheckInterval; // Increment the elapsed time
+        
+		if(TimeElapsedTrying >= TimeLimitForCheck)
+		{
+			UE_LOG(LogTemp, Error, TEXT("Failed to get the PlayerController and Pawn in the allotted time."));
+			GetWorld()->GetTimerManager().ClearTimer(TimerHandle_GetPawnAndController);
+		}
+		else
+		{
+			GetWorld()->GetTimerManager().SetTimer(TimerHandle_GetPawnAndController, this, &AECMPlayerCameraManager::TryGetPawnAndController, CheckInterval, false);
+		}
+	}
+}
+
+void AECMPlayerCameraManager::InitCamera()
+{
+	if (PlayerPawn == nullptr) return;
+
+	SpringArmComponent = PlayerPawn->FindComponentByClass<USpringArmComponent>();
 	
-	AECMPlayerController* ECMPC = Cast<AECMPlayerController>(PC);
-	if(ECMPC == nullptr) return;
-
-	ECMPC->OnActionBindingRequested.AddDynamic(this, &AECMPlayerCameraManager::BindActionToInput);
-}
-
-AECMPlayerCameraManager::AECMPlayerCameraManager()
-{
-	bReplicates = true;
-}
-
-void AECMPlayerCameraManager::BindActionToInput(UECMInputComponent* InputComponentRef)
-{
-	if(InputComponentRef == nullptr) return;
-	
-	InputComponentRef->BindAction(ZoomAction, ETriggerEvent::Triggered, this, &AECMPlayerCameraManager::ZoomCamera);
-}
-
-void AECMPlayerCameraManager::ClientInitPCM_Implementation(USpringArmComponent* SpringArm, UCameraComponent* Camera)
-{
-	PC = GetOwningPlayerController(); // Get Player Controller Reference
-	if(PC == nullptr) return;
-
-	AECMCharacter* Character = Cast<AECMCharacter>(PC->GetCharacter());
-	if(Character == nullptr) return;
-
-//	InitCamera(SpringArm,Camera);
-//	InitCMC(Character);
-}
-
-void AECMPlayerCameraManager::InitCamera(const TObjectPtr<USpringArmComponent> SpringArm, const TObjectPtr<UCameraComponent> Camera)
-{
-	if(SpringArm != nullptr)
+	if(SpringArmComponent != nullptr)
 	{
 		// Set spring arm properties if needed
-		SpringArmComponent = SpringArm;
 		SpringArmComponent->AddRelativeRotation(FRotator(-45.f,0.f,0.f));
 		SpringArmComponent->TargetArmLength = ZoomDefault; 
 		SpringArmComponent->bUsePawnControlRotation = false;
@@ -59,42 +62,51 @@ void AECMPlayerCameraManager::InitCamera(const TObjectPtr<USpringArmComponent> S
 		SpringArmComponent->bInheritYaw = false;
 		SpringArmComponent->bEnableCameraLag = true;
 	}
+
+	CameraComponent = PlayerPawn->FindComponentByClass<UCameraComponent>();
 	
-	if(Camera != nullptr)
+	if(CameraComponent != nullptr)
 	{
 		// Prevent the camera from rotating with the spring arm
-		Camera->bUsePawnControlRotation = false;
+		CameraComponent->bUsePawnControlRotation = false;
 	}
 }
 
-// ReSharper disable once CppMemberFunctionMayBeStatic - don't want it to be static
-void AECMPlayerCameraManager::InitCMC(AECMCharacter* Character)
+void AECMPlayerCameraManager::InitCMC() const
 {
-	if(Character == nullptr) return;
+	if (PlayerPawn == nullptr) return;
 
-	Character->bUseControllerRotationPitch = false;
-	Character->bUseControllerRotationRoll = false;
-	Character->bUseControllerRotationYaw = false;
-	
-	if (UCharacterMovementComponent* CMC = Character->GetCharacterMovement())
+	ACharacter* Character = Cast<ACharacter>(PlayerPawn);
+	if(Character)
 	{
-		CMC->bOrientRotationToMovement = true;
-		CMC->RotationRate = FRotator(0.f, 400.f,0.f);
-		CMC->bConstrainToPlane = true;
-		CMC->bSnapToPlaneAtStart = true;
+		Character->bUseControllerRotationPitch = false;
+		Character->bUseControllerRotationRoll = false;
+		Character->bUseControllerRotationYaw = false;
+	}
+
+	UCharacterMovementComponent* CharacterCMC = Character->GetCharacterMovement();
+	
+	if (CharacterCMC)
+	{
+		CharacterCMC->bOrientRotationToMovement = true;
+		CharacterCMC->RotationRate = FRotator(0.f, 400.f,0.f);
+		CharacterCMC->bConstrainToPlane = true;
+		CharacterCMC->bSnapToPlaneAtStart = true;
 	}
 }
 
 void AECMPlayerCameraManager::BindInputs()
 {
-	if (PC == nullptr) return;
-	const AECMPlayerController* ECMPC = Cast<AECMPlayerController>(PC);
+	if (PCOwner == nullptr) return;
 
-	if (ECMPC == nullptr) return;
-	UECMInputComponent* ECMInputComponent = ECMPC->GetInputComponent();
-
-	if (ECMInputComponent == nullptr) return;
-	ECMInputComponent->BindAction(ZoomAction, ETriggerEvent::Triggered, this, &AECMPlayerCameraManager::ZoomCamera);
+	if (AECMPlayerController* ECMPC = Cast<AECMPlayerController>(PCOwner))
+	{
+		if (UECMInputComponent* ECMInputComponent = ECMPC->GetInputComponent()
+)
+		{
+			ECMInputComponent->BindAction(ZoomAction, ETriggerEvent::Triggered, this, &AECMPlayerCameraManager::ZoomCamera);
+		}
+	}
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst - due to use in input binding.

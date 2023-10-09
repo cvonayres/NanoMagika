@@ -6,33 +6,43 @@
 #include "Camera/PlayerCameraManager.h"
 #include "ECMPlayerCameraManager.generated.h"
 
-class UECMInputComponent;
-class AECMCharacter;
 class UInputAction;
-struct FInputActionValue;
 class UCameraComponent;
 class USpringArmComponent;
+struct FInputActionValue;
 
 UCLASS()
 class NANOMAGIKA_API AECMPlayerCameraManager : public APlayerCameraManager
 {
 	GENERATED_BODY()
-	AECMPlayerCameraManager();
-public:
-	UFUNCTION(Client, Reliable)
-	void ClientInitPCM(USpringArmComponent* SpringArm, UCameraComponent* Camera);
-
-	UFUNCTION()
-	void BindActionToInput(UECMInputComponent* InputComponentRef);
 
 protected:
 	virtual void BeginPlay() override;
 
 private:
+	// Trying to Get Pawn and Controller
+	void TryGetPawnAndController();
+    
+	FTimerHandle TimerHandle_GetPawnAndController;
+	float TimeElapsedTrying = 0.0f;
+	float TimeLimitForCheck = 10.0f;  // Your time limit, in seconds.
+	float CheckInterval = 0.5f;  // Interval to check, in seconds.
+
 	UPROPERTY()
-	APlayerController* PC = nullptr;
+	APawn* PlayerPawn = nullptr;
+
+	// Initiate Camera & Character Movement Component
+	void InitCamera();
+	void InitCMC() const;
+
 	UPROPERTY()
 	TObjectPtr<USpringArmComponent> SpringArmComponent;
+	UPROPERTY()
+	TObjectPtr<UCameraComponent> CameraComponent;
+
+	// Initiate Zoom Controls
+	void BindInputs();
+	void ZoomCamera(const FInputActionValue& InputActionValve);
 	
 	UPROPERTY(EditAnywhere, Category="Zoom", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> ZoomAction = nullptr;
@@ -44,9 +54,4 @@ private:
 	float ZoomDefault = 600.f;
 	UPROPERTY(EditAnywhere, Category="Zoom", meta = (AllowPrivateAccess = "true"))
 	float ZoomRate = 2.f;
-	
-	void ZoomCamera(const FInputActionValue& InputActionValve);
-	void InitCamera(TObjectPtr<USpringArmComponent> SpringArm, TObjectPtr<UCameraComponent> Camera);
-	void InitCMC(AECMCharacter* Character);
-	void BindInputs();
 };

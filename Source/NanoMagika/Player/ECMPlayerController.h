@@ -16,7 +16,6 @@ class UECMAbilitySystemComponent;
 struct FInputActionValue;
 class USplineComponent;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnActionBindingRequested, UECMInputComponent*, InputComponent);
 
 UCLASS()
 class NANOMAGIKA_API AECMPlayerController : public APlayerController
@@ -29,10 +28,6 @@ public:
 	// Includes for participation in modular gameplay plugin
 	virtual void PreInitializeComponents() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
-
-	// Delegate to request binding an action
-	UPROPERTY(BlueprintAssignable, Category = "Input")
-	FOnActionBindingRequested OnActionBindingRequested;
 	
 	// Helper functions
 	UECMInputComponent* GetInputComponent() const { return ECMInputComponent;}
@@ -60,10 +55,4 @@ protected:
 	virtual void AbilityInputTagReleased(FGameplayTag InputTag);
 	virtual void AbilityInputTagHeld(FGameplayTag InputTag);
 
-
-	void InitActionBindings();
-	UPROPERTY()
-	FTimerHandle InitActionBindingsTimerHandle = FTimerHandle();
-	
-private:
 };

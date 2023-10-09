@@ -1,13 +1,11 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMCharacter.h"
-
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "NanoMagika/Player/ECMPlayerController.h"
 #include "NanoMagika/Player/ECMPlayerState.h"
 #include "NanoMagika/UI/HUD/ECMHUD.h"
-#include "NanoMagika/Player/ECMPlayerCameraManager.h"
 
 AECMCharacter::AECMCharacter()
 {
@@ -66,23 +64,8 @@ void AECMCharacter::InitializeCharacter()
 	InitDefaultAbilities();
 	InitDefaultGameplayTags();
 	
-	// Initialise Player Camera Manager
-	InitPCM();
-	
 	// Initialise HUD Overlay widget Controller
 	InitHUD();
-}
-
-// Gets Player Camera Manager from controller and calls Initialise
-void AECMCharacter::InitPCM() const
-{
-	if(!ControllerRef) return;
-
-	AECMPlayerCameraManager* PCM = Cast<AECMPlayerCameraManager>(ControllerRef->GetPCM());
-	if(PCM)
-	{
-		PCM->ClientInitPCM(SpringArmComponent, CameraComponent);
-	}
 }
 
 // Gets Player controller and cast ability system and attribute set to Overlap

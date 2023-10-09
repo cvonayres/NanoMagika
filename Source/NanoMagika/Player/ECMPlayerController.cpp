@@ -46,17 +46,8 @@ void AECMPlayerController::SetupInputComponent()
 	Super::SetupInputComponent();
 
 	ECMInputComponent = CastChecked<UECMInputComponent>(InputComponent);
-
-	// Add a delay and call Initiate Action Bindings to broadcast OnActionBindingRequested
-	GetWorldTimerManager().SetTimer(InitActionBindingsTimerHandle, this, &AECMPlayerController::InitActionBindings, 0.2f, false);
 }
 
-void AECMPlayerController::InitActionBindings()
-{
-	if(ECMInputComponent == nullptr) return;
-	OnActionBindingRequested.Broadcast(ECMInputComponent); // broadcast input component is ready to bind
-	InitActionBindingsTimerHandle = FTimerHandle(); // clear timer handle
-}
 
 void AECMPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {

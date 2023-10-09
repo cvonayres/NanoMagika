@@ -25,9 +25,9 @@ void FECMGameplayTags::InitNativeGameplayTags()
 
 #pragma region Player
 	/** Declares the "Player Modes" gameplay tag. */
-	INIT_TAG(Player_Mode_FPV, "Player.Mode.FPV")
-	INIT_TAG(Player_Mode_TPV, "Player.Mode.TPV")
-	INIT_TAG(Player_Mode_TDV, "Player.Mode.TDC")
+	INIT_TAG(Player_CameraMode_FPV, "Player.CameraMode.FPV")
+	INIT_TAG(Player_CameraMode_TPV, "Player.CameraMode.TPV")
+	INIT_TAG(Player_CameraMode_TDV, "Player.CameraMode.TDV")
 
 	/** Declares the "Player Regen/Poison Status" gameplay tag. */
 	INIT_TAG(Player_Status_VM_Regen, "Player.Status.VM.Regen")

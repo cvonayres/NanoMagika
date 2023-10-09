@@ -3,8 +3,9 @@
 #include "ECMCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "NanoMagika/Player/ECMPlayerController.h"
-#include "NanoMagika/Player/ECMPlayerState.h"
+#include "NanoMagika/Player/PlayerController/ECMPlayerController.h"
+#include "NanoMagika/Player/PlayerState/ECMPlayerState.h"
+
 #include "NanoMagika/UI/HUD/ECMHUD.h"
 
 AECMCharacter::AECMCharacter()

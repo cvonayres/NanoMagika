@@ -29,9 +29,9 @@ public:
 
 #pragma region Player
 	/** Declares the "Player Mode" gameplay tag. */
-	DECLARE_GAMEPLAY_TAG(Player_Mode_FPV)
-	DECLARE_GAMEPLAY_TAG(Player_Mode_TPV)
-	DECLARE_GAMEPLAY_TAG(Player_Mode_TDV)
+	DECLARE_GAMEPLAY_TAG(Player_CameraMode_FPV)
+	DECLARE_GAMEPLAY_TAG(Player_CameraMode_TPV)
+	DECLARE_GAMEPLAY_TAG(Player_CameraMode_TDV)
 	
 	/** Declares the "Player Regen/Poison Status" gameplay tag. */
 	DECLARE_GAMEPLAY_TAG(Player_Status_VM_Regen)

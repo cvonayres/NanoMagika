@@ -2,7 +2,7 @@
 
 #include "ECMAbilitySystemLibrary.h"
 #include "Kismet/GameplayStatics.h"
-#include "NanoMagika/Player/ECMPlayerState.h"
+#include "NanoMagika/Player/PlayerState/ECMPlayerState.h"
 #include "NanoMagika/UI/HUD/ECMHUD.h"
 #include "NanoMagika/UI/WidgetController/ECMWidgetController.h"
 

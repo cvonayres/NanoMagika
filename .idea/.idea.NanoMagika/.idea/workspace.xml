@@ -9,26 +9,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c842db6e-4adc-44c8-8f65-3e2dd4cae9f9" name="Changes" comment="Implemented firebolt, damage enemies suggest">
+    <list default="true" id="c842db6e-4adc-44c8-8f65-3e2dd4cae9f9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NanoMagika/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NanoMagika/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/Developer/RiderLink/Intermediate/FileSystemMappings.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/Developer/RiderLink/Intermediate/FileSystemMappings.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Binaries/Win64/UnrealEditor-NmRoSPluginRuntime.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Binaries/Win64/UnrealEditor-NmRoSPluginRuntime.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/LiveCodingInfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/LiveCodingInfo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/LiveCodingInfo.json.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/LiveCodingInfo.json.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.dep.json" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.dep.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/Module.NmRoSPluginRuntime.cpp.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.dll.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.dll.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.dll.rsp.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.dll.rsp.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.exp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.exp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.lib.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.lib.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.lib.rsp.old" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Intermediate/Build/Win64/x64/UnrealEditor/Development/NmRoSPluginRuntime/UnrealEditor-NmRoSPluginRuntime.lib.rsp.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Player/BP_PC.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Player/BP_PC.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Player/BP_PCM.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Player/C_PlayerCamera_Zoom.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Inputs/DA_ECMInputConfig.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inputs/DA_ECMInputConfig.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/ECMAbilitySystemLibrary.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerCameraManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerCameraManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerCameraManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerCameraManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/ECMGameplayTags.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/ECMGameplayTags.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/ECMGameplayTags.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/ECMGameplayTags.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/NanoMagika.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/NanoMagika.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerCameraManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerCameraManager/ECMPlayerCameraManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerCameraManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerCameraManager/ECMPlayerCameraManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerController/ECMPlayerController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerController/ECMPlayerController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerState/ECMPlayerState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerState/ECMPlayerState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/NmRoSPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerController/NmRoSPlayerController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/NmRoSPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerController/NmRoSPlayerController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,13 +46,108 @@
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.37.32822/include/atomic" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Source/NmRoSPluginRuntime/NmRoSPluginRuntime.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/Abilities/ECMProjectileSpell.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/Abilities/ECMProjectileSpell.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NanoMagika/AbilitySystem/AbilityTask/TargetDataUnderMouse.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerController.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/NanoMagika/Player/PlayerCameraManager/DA_CameraMode.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/NanoMagika/Player/PlayerCameraManager/DA_CameraMode.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/NanoMagika/Player/PlayerCameraManager/UCameraSettingsStrut.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/NanoMagika/Player/PlayerCameraManager/UCameraSettingsStrut.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/NanoMagika/Player/PlayerController/ECMPlayerController.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/NanoMagika/Player/PlayerController/ECMPlayerController.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Unreal/Epic Games/Engines/UE_5.3/Engine/Plugins/Experimental/ModularGameplay/Source/ModularGameplay/Public/Components/ControllerComponent.h" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -71,6 +165,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
@@ -234,7 +329,8 @@
       <workItem from="1696710104601" duration="8075000" />
       <workItem from="1696785579918" duration="22821000" />
       <workItem from="1696867164969" duration="1261000" />
-      <workItem from="1696879036030" duration="2968000" />
+      <workItem from="1696879036030" duration="6388000" />
+      <workItem from="1696885501157" duration="4532000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -292,7 +388,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696879094603</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Got Player Camera Manager to work in Server and client properly">
+      <option name="closed" value="true" />
+      <created>1696882614514</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1696882614514</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,23 +424,10 @@
     <MESSAGE value="Refactored Player Camera Manager" />
     <MESSAGE value="Refactored Player controller from a component to a child of ECM player character." />
     <MESSAGE value="Implemented firebolt, damage enemies suggest" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented firebolt, damage enemies suggest" />
+    <MESSAGE value="Got Player Camera Manager to work in Server and client properly" />
+    <option name="LAST_COMMIT_MESSAGE" value="Got Player Camera Manager to work in Server and client properly" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Source/NanoMagika/Character/ECMCharacterBase.cpp</url>
-          <line>57</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Source/NanoMagika/Player/ECMPlayerCameraManager.cpp</url>
-          <line>57</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="CppProject">
         <watch expression="this-&gt;UActorComponent" />

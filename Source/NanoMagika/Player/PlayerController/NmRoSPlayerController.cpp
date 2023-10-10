@@ -33,6 +33,53 @@ void ANmRoSPlayerController::Tick(float DeltaSeconds)
 	if(bAutoRunning) AutoRun();
 }
 
+#pragma region InputActions
+// Set up input components
+void ANmRoSPlayerController::SetupInputComponent()
+{
+	Super::SetupInputComponent();
+	
+	check(ECMInputComponent);
+	// Bind input actions via Gameplay Tags
+	ECMInputComponent->BindActionsToTags_3Param(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
+	// Bind input actions
+	ECMInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ANmRoSPlayerController::Move);
+	ECMInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ANmRoSPlayerController::Look);
+
+	ECMInputComponent->BindAction(ShiftAction, ETriggerEvent::Started, this, &ANmRoSPlayerController::ShiftPressed);
+	ECMInputComponent->BindAction(ShiftAction, ETriggerEvent::Completed, this, &ANmRoSPlayerController::ShiftReleased);
+}
+
+// ReSharper disable once CppMemberFunctionMayBeConst; const don't work with binding input
+void ANmRoSPlayerController::Move(const FInputActionValue& InputActionValve)
+{
+	// input is a Vector2D
+	const FVector2D MovementVector = InputActionValve.Get<FVector2D>();
+
+	if (APawn* ControlledPawn = GetPawn<APawn>())
+	{
+		// add movement 
+		ControlledPawn->AddMovementInput(ControlledPawn->GetActorForwardVector(), MovementVector.Y);
+		ControlledPawn->AddMovementInput(ControlledPawn->GetActorRightVector(), MovementVector.X);
+	}
+}
+
+// ReSharper disable once CppMemberFunctionMayBeConst; const don't work with binding input
+void ANmRoSPlayerController::Look(const FInputActionValue& InputActionValve)
+{
+	if(CheckCameraMode("Player.CameraMode.TDV")){ return; } // If in Top down view, get out.
+
+	// input is a Vector2D
+	const FVector2D LookAxisVector = InputActionValve.Get<FVector2D>();
+
+	if (APawn* ControlledPawn = GetPawn<APawn>())
+	{
+		// add yaw and pitch input to controller
+		ControlledPawn->AddControllerYawInput(LookAxisVector.X);
+		ControlledPawn->AddControllerPitchInput(LookAxisVector.Y);
+	}
+}
+
 void ANmRoSPlayerController::AutoRun()
 {
 	if(APawn* ControlledPawn = GetPawn())
@@ -46,39 +93,6 @@ void ANmRoSPlayerController::AutoRun()
 		if (DistanceToDestination <= AutoRunAcceptanceRadius) bAutoRunning = false;
 	}
 }
-
-#pragma region InputActions
-// Set up input components
-void ANmRoSPlayerController::SetupInputComponent()
-{
-	Super::SetupInputComponent();
-	
-	check(ECMInputComponent);
-	// Bind input actions via Gameplay Tags
-	ECMInputComponent->BindActionsToTags_3Param(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
-	// Bind input actions
-	ECMInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ANmRoSPlayerController::Move);
-	ECMInputComponent->BindAction(ShiftAction, ETriggerEvent::Started, this, &ANmRoSPlayerController::ShiftPressed);
-	ECMInputComponent->BindAction(ShiftAction, ETriggerEvent::Completed, this, &ANmRoSPlayerController::ShiftReleased);
-}
-
-// ReSharper disable once CppMemberFunctionMayBeConst; const don't work with binding input
-void ANmRoSPlayerController::Move(const FInputActionValue& InputActionValve)
-{
-	const FVector2d InputAxisVector = InputActionValve.Get<FVector2d>();
-	const FRotator Rotation = GetControlRotation();
-	const FRotator YawRotation (0.f, Rotation.Yaw, 0.f);
-	
-	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-
-	if (APawn* ControlledPawn = GetPawn<APawn>())
-	{
-		ControlledPawn->AddMovementInput(ForwardDirection,InputAxisVector.Y);
-		ControlledPawn->AddMovementInput(RightDirection,InputAxisVector.X);
-	}
-}
-
 #pragma endregion InputActions
 
 // Cursor Trace
@@ -120,32 +134,13 @@ void ANmRoSPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 
 void ANmRoSPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
-	if(!InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Mouse_LMB))
-	{
-		if(GetASC()) GetASC()->AbilityInputTagReleased(InputTag);
-		return;
-	}
-
 	if(GetASC()) GetASC()->AbilityInputTagReleased(InputTag);
+	
+	if(!InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Mouse_LMB))	{ return; }
 
-	if(!bTargeting && !bShiftKeyDown)
+	if(!bTargeting && !bShiftKeyDown)  // Move to button pressed
 	{
-		const APawn* ControlledPawn = GetPawn();
-		if(FollowTime <= ShortPressThreshold && ControlledPawn)
-		{
-			if(UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
-			{
-				Spline->ClearSplinePoints();
-				for(const FVector PointLoc : NavPath->PathPoints)
-				{
-					Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
-				}
-				CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num()-1];
-				bAutoRunning = true;
-			}
-		}
-		FollowTime = 0.f;
-		bTargeting = false;
+		CheckClickToMovePressed();
 	}
 }
 
@@ -161,18 +156,49 @@ void ANmRoSPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	{
 		if(GetASC()) GetASC()->AbilityInputTagHeld(InputTag);
 	}
-	else
+	else // Move to held button
 	{
-		FollowTime += GetWorld()->GetDeltaSeconds();
-		if (CursorHit.bBlockingHit) CachedDestination = CursorHit.ImpactPoint;
-
-		if(APawn* ControlledPawn = GetPawn())
-		{
-			const FVector WorldDirection = (CachedDestination - ControlledPawn->GetActorLocation()).GetSafeNormal();
-			ControlledPawn->AddMovementInput(WorldDirection);
-		}
+		CheckClickToMoveHeld();
 	}	
 }
+
+void ANmRoSPlayerController::CheckClickToMovePressed()
+{
+	if(!CheckCameraMode("Player.CameraMode.TDV")){ return; } // If not in Top down view, get out.
+
+	const APawn* ControlledPawn = GetPawn();
+	if(FollowTime <= ShortPressThreshold && ControlledPawn)
+	{
+		if(UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
+		{
+			Spline->ClearSplinePoints();
+			for(const FVector PointLoc : NavPath->PathPoints)
+			{
+				Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
+			}
+			CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num()-1];
+			bAutoRunning = true;
+		}
+	}
+	FollowTime = 0.f;
+	bTargeting = false;
+}
+
+void ANmRoSPlayerController::CheckClickToMoveHeld()
+{
+	if(!CheckCameraMode("Player.CameraMode.TDV")){ return; } // If not in Top down view, get out.
+		
+	FollowTime += GetWorld()->GetDeltaSeconds();
+	if (CursorHit.bBlockingHit) CachedDestination = CursorHit.ImpactPoint;
+
+	if(APawn* ControlledPawn = GetPawn())
+	{
+		const FVector WorldDirection = (CachedDestination - ControlledPawn->GetActorLocation()).GetSafeNormal();
+		ControlledPawn->AddMovementInput(WorldDirection);
+	}
+}
+
+
 #pragma endregion CursorTrace
 
 // Initialise Mouse
@@ -187,4 +213,11 @@ void ANmRoSPlayerController::InitMouse()
 	// Setup cursor
 	bShowMouseCursor=true;
 	DefaultMouseCursor = EMouseCursor::Default;
+}
+
+
+bool ANmRoSPlayerController::CheckCameraMode(FName TagName)
+{
+	const FGameplayTag Tag = FGameplayTag::RequestGameplayTag(TagName);
+	return (GetViewMode() == Tag);
 }

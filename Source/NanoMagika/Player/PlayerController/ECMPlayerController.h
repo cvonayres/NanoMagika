@@ -57,4 +57,5 @@ protected:
 	virtual void AbilityInputTagReleased(FGameplayTag InputTag);
 	virtual void AbilityInputTagHeld(FGameplayTag InputTag);
 
+	FGameplayTag GetViewMode();
 };

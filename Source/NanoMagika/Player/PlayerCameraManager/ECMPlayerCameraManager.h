@@ -15,7 +15,7 @@ class USpringArmComponent;
 struct FInputActionValue;
 
 UENUM(BlueprintType)
-enum class EStartingCameraMode : uint8
+enum class ECameraMode : uint8
 {
 	FirstPersonView UMETA(DisplayName = "First Person View"),
 	ThirdPersonView UMETA(DisplayName = "Third Person View"),

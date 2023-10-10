@@ -73,3 +73,16 @@ UECMAbilitySystemComponent* AECMPlayerController::GetASC()
 	}
 	return ECMAbilitySystemComponent;
 }
+
+FGameplayTag AECMPlayerController::GetViewMode()
+{
+	const FGameplayTag FPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.FPV"));
+	const FGameplayTag TPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TPV"));
+	const FGameplayTag TDVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TDV"));
+	
+	if(GetASC()->HasMatchingGameplayTag(FPVTag)) { return FPVTag; }
+	if(GetASC()->HasMatchingGameplayTag(TPVTag)) { return TPVTag; }
+	if(GetASC()->HasMatchingGameplayTag(TDVTag)) { return TDVTag; }
+
+	return FGameplayTag();
+}

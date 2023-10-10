@@ -46,10 +46,16 @@ private:
 	TObjectPtr<UInputAction> MoveAction = nullptr;
 
 	UPROPERTY(EditAnywhere, Category="Input")
+	TObjectPtr<UInputAction> LookAction = nullptr;
+
+	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputAction> ShiftAction = nullptr;
 
 	
 	void Move(const FInputActionValue& InputActionValve);
+	void Look(const FInputActionValue& InputActionValve);
+
+	
 	void ShiftPressed() { bShiftKeyDown = true ; }
 	void ShiftReleased() { bShiftKeyDown = false ; }
 	bool bShiftKeyDown = false;
@@ -74,6 +80,8 @@ private:
 	TObjectPtr<USplineComponent> Spline;
 
 	void AutoRun();
+	void CheckClickToMovePressed();
+	void CheckClickToMoveHeld();
 	
 #pragma endregion  ClickToMove
 
@@ -82,5 +90,5 @@ private:
 	IECMHightlightInterface* ThisActor = nullptr;
 #pragma endregion  Highlight
 
-	
+	bool CheckCameraMode(FName TagName);
 };

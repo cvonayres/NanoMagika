@@ -22,7 +22,6 @@ AECMCharacterBase::AECMCharacterBase()
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	NetUpdateFrequency = 100.f;
-
 }
 
 void AECMCharacterBase::PreInitializeComponents()

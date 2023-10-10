@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ECMCharacterBase.h"
+#include "NanoMagika/AbilitySystem/Data/ECMCharacterClassInfo.h"
 #include "NanoMagika/UI/WidgetController/ECMWidgetController.h"
 #include "ECMEnemy.generated.h"
 
@@ -34,10 +35,14 @@ protected:
 	virtual void InitializeCharacter() override;
 
 	void InitHealthBar();
+	virtual void InitDefaultAttributes() const override;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Character Class Defaults")
+	ECharacterClass CharacterClass = ECharacterClass::Melee;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Character Class Defaults")
 	int32 Level = 1;
-
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="UI")
 	TObjectPtr<UWidgetComponent> HealthBar;
 	

@@ -3,14 +3,13 @@
 #include "ECMPlayerCameraManager.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "NanoMagika/ECMGameplayTags.h"
-#include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
-#include "NanoMagika/Character/ECMCharacter.h"
 #include "NanoMagika/Input/ECMInputComponent.h"
 #include "NanoMagika/Player/PlayerController/ECMPlayerController.h"
 

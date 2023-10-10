@@ -75,7 +75,7 @@ protected:
 	void InitAbilityActorInfo();
 
 	// Sets Default Attributes, Abilities and GameplayTags
-	void InitDefaultAttributes() const;
+	virtual void InitDefaultAttributes() const;
 	void InitDefaultAbilities() const;
 	void InitDefaultGameplayTags() const;
 

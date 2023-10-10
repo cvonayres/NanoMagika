@@ -97,8 +97,14 @@ void FECMGameplayTags::InitNativeGameplayTags()
 #pragma region Character
 	/** Declares the "Character Type" gameplay tag. */
 	INIT_TAG(Character_Type_Player, "Character.Type.Player")
-	INIT_TAG(Character_Type_Enemy, "Character.Type.Enemy")
-	INIT_TAG(Character_Type_NPC, "Character.Type.NPC")
+
+	INIT_TAG(Character_Type_Enemy_Melee, "Character.Type.Enemy.Melee")
+	INIT_TAG(Character_Type_Enemy_Range, "Character.Type.Enemy.Range")
+	INIT_TAG(Character_Type_Enemy_Mage, "Character.Type.Enemy.Mage")
+	INIT_TAG(Character_Type_Enemy_Tech, "Character.Type.Enemy.Tech")
+
+	INIT_TAG(Character_Type_NPC_QUEST, "Character.Type.NPC.Quest")
+	INIT_TAG(Character_Type_NPC_MERCHANT, "Character.Type.NPC.Merchant")
 #pragma endregion Character
 
 	#pragma region UIMessages

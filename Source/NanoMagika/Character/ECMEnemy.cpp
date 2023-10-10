@@ -4,6 +4,7 @@
 
 #include "Components/WidgetComponent.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
+#include "NanoMagika/AbilitySystem/ECMAbilitySystemLibrary.h"
 #include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
 #include "NanoMagika/UI/Widget/ECMUserWidget.h"
 
@@ -37,7 +38,7 @@ void AECMEnemy::InitializeCharacter()
 	// Initialise Default Gameplay tags
 	InitDefaultGameplayTags();
 	
-	// Initialise Attributes TODO replace with class
+	// Initialise Attributes
 	InitDefaultAttributes();
 }
 
@@ -73,6 +74,10 @@ void AECMEnemy::InitHealthBar()
 			
 		}
 	}
-	
+}
+
+void AECMEnemy::InitDefaultAttributes() const
+{
+		UECMAbilitySystemLibrary::InitializeDefaultAttributes(this, CharacterClass, Level, GetAbilitySystemComponent());
 }
 

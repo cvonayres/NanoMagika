@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Data/ECMCharacterClassInfo.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "NanoMagika/UI/WidgetController/ECMWidgetController.h"
 #include "ECMAbilitySystemLibrary.generated.h"
@@ -23,5 +24,8 @@ public:
 	static UECMAttributeMenuWidgetController* GetAttributeMenuWidgetController(const UObject* WorldContextObject);
 
 	static FWidgetControllerParam GetParams(APlayerController* PC);
+
+	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
+	static void InitializeDefaultAttributes(const UObject* WorldContextObject, ECharacterClass CharacterClass, float Level, UAbilitySystemComponent* ASC);
 
 };

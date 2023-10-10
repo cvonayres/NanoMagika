@@ -102,12 +102,14 @@ public:
 #pragma region Character
 	/** Declares the "Character Type" gameplay tag. */
 	DECLARE_GAMEPLAY_TAG(Character_Type_Player)
-	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy)
-	DECLARE_GAMEPLAY_TAG(Character_Type_NPC)
-
-
-
 	
+	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy_Melee)
+	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy_Range)
+	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy_Mage)
+	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy_Tech)
+
+	DECLARE_GAMEPLAY_TAG(Character_Type_NPC_QUEST)
+	DECLARE_GAMEPLAY_TAG(Character_Type_NPC_MERCHANT)
 #pragma endregion Character
 	
 #pragma region UIMessages

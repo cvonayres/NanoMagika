@@ -47,15 +47,16 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="Input")
 	TObjectPtr<UECMInputConfig> InputConfig;
 
-	// Ability System Component
-	UECMAbilitySystemComponent* GetASC();
-	UPROPERTY()
-	TObjectPtr<	UECMAbilitySystemComponent> ECMAbilitySystemComponent;
-
 	// Functions tied to Input Tag pressed, released and help, overridden in child classes
 	virtual void AbilityInputTagPressed(FGameplayTag InputTag);
 	virtual void AbilityInputTagReleased(FGameplayTag InputTag);
 	virtual void AbilityInputTagHeld(FGameplayTag InputTag);
 
-	FGameplayTag GetViewMode();
+	// Useful pointers
+	UPROPERTY()
+	UECMAbilitySystemComponent* ECMCharacterASC = nullptr;
+
+	// Helper functions
+	bool GetECMCharacterASC();
+	bool CheckCameraMode(FName TagName);
 };

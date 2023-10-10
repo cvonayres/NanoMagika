@@ -67,7 +67,7 @@ void ANmRoSPlayerController::Move(const FInputActionValue& InputActionValve)
 // ReSharper disable once CppMemberFunctionMayBeConst; const don't work with binding input
 void ANmRoSPlayerController::Look(const FInputActionValue& InputActionValve)
 {
-	if(CheckCameraMode("Player.CameraMode.TDV")){ return; } // If in Top down view, get out.
+	if(CheckCameraMode("Player.CameraMode.TDV")){ return; } // If in Top Down View
 
 	// input is a Vector2D
 	const FVector2D LookAxisVector = InputActionValve.Get<FVector2D>();
@@ -134,7 +134,7 @@ void ANmRoSPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 
 void ANmRoSPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
-	if(GetASC()) GetASC()->AbilityInputTagReleased(InputTag);
+	if(GetECMCharacterASC()) ECMCharacterASC->AbilityInputTagReleased(InputTag);
 	
 	if(!InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Mouse_LMB))	{ return; }
 
@@ -148,13 +148,13 @@ void ANmRoSPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
 	if(!InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Mouse_LMB))
 	{
-		if(GetASC()) GetASC()->AbilityInputTagHeld(InputTag);
+		if(GetECMCharacterASC()) ECMCharacterASC->AbilityInputTagHeld(InputTag);
 		return;
 	}
 	
 	if(bTargeting || bShiftKeyDown)
 	{
-		if(GetASC()) GetASC()->AbilityInputTagHeld(InputTag);
+		if(GetECMCharacterASC()) ECMCharacterASC->AbilityInputTagHeld(InputTag);
 	}
 	else // Move to held button
 	{
@@ -164,7 +164,7 @@ void ANmRoSPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 
 void ANmRoSPlayerController::CheckClickToMovePressed()
 {
-	if(!CheckCameraMode("Player.CameraMode.TDV")){ return; } // If not in Top down view, get out.
+	if(!CheckCameraMode("Player.CameraMode.TDV")){ return; } // If NOT in Top Down View
 
 	const APawn* ControlledPawn = GetPawn();
 	if(FollowTime <= ShortPressThreshold && ControlledPawn)
@@ -186,7 +186,7 @@ void ANmRoSPlayerController::CheckClickToMovePressed()
 
 void ANmRoSPlayerController::CheckClickToMoveHeld()
 {
-	if(!CheckCameraMode("Player.CameraMode.TDV")){ return; } // If not in Top down view, get out.
+	if(!CheckCameraMode("Player.CameraMode.TDV")){ return; } // If NOT in Top Down View
 		
 	FollowTime += GetWorld()->GetDeltaSeconds();
 	if (CursorHit.bBlockingHit) CachedDestination = CursorHit.ImpactPoint;
@@ -215,9 +215,3 @@ void ANmRoSPlayerController::InitMouse()
 	DefaultMouseCursor = EMouseCursor::Default;
 }
 
-
-bool ANmRoSPlayerController::CheckCameraMode(FName TagName)
-{
-	const FGameplayTag Tag = FGameplayTag::RequestGameplayTag(TagName);
-	return (GetViewMode() == Tag);
-}

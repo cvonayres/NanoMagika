@@ -1,6 +1,8 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMPlayerCameraManager.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
@@ -57,9 +59,9 @@ void AECMPlayerCameraManager::StartingViewMode()
 	const FGameplayTag TPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TPV"));
 	const FGameplayTag TDVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TDV"));
 
-	if (ASC->HasMatchingGameplayTag(FPVTag))	    { UpdateCameraMode(FPV_Settings, FPVTag, TPVTag, TDVTag); }
-	else if (ASC->HasMatchingGameplayTag(TPVTag))	{ UpdateCameraMode(TPV_Settings, TPVTag, FPVTag, TDVTag); }
-	else if (ASC->HasMatchingGameplayTag(TDVTag))	{ UpdateCameraMode(TDV_Settings, TDVTag, FPVTag, TPVTag); }
+	if (CheckCameraMode("Player.CameraMode.FPV"))	    { UpdateCameraMode(FPV_Settings, FPVTag, TPVTag, TDVTag); }
+	else if (CheckCameraMode("Player.CameraMode.TPV"))	{ UpdateCameraMode(TPV_Settings, TPVTag, FPVTag, TDVTag); }
+	else if (CheckCameraMode("Player.CameraMode.TDV"))	{ UpdateCameraMode(TDV_Settings, TDVTag, FPVTag, TPVTag); }
 }
 
 // Call Update Camera Mode passing in right Data Asset and swaps the tags on Character.CameraMode
@@ -69,11 +71,11 @@ void AECMPlayerCameraManager::UpdateCameraMode(UDA_CameraMode* CameraModeDA, con
 	
 	if(!GetCharacterASC()) return;
 
-	if(ASC->HasMatchingGameplayTag(AddTag)) return; // Finish if we are already have this tag active.
+	if(CharacterASC->HasMatchingGameplayTag(AddTag)) return; // Finish if we are already have this tag active.
 
-	ASC->AddLooseGameplayTag(AddTag);
-	ASC->RemoveLooseGameplayTag(RemoveTag1);
-	ASC->RemoveLooseGameplayTag(RemoveTag2);
+	CharacterASC->AddLooseGameplayTag(AddTag);
+	CharacterASC->RemoveLooseGameplayTag(RemoveTag1);
+	CharacterASC->RemoveLooseGameplayTag(RemoveTag2);
 }
 
 // Update setting dependent on Camera Mode
@@ -143,6 +145,8 @@ void AECMPlayerCameraManager::AbilityInputTagPressed(FGameplayTag InputTag)
 // ReSharper disable once CppMemberFunctionMayBeConst - due to use in input binding.
 void AECMPlayerCameraManager::ZoomCamera(const FInputActionValue& InputActionValve)
 {
+	if(CheckCameraMode("Player.CameraMode.FPV")){ return; } // If in First Person View.
+	
 	if(SpringArmComponent == nullptr) return;
 	
 	const float InputAxisVector  = InputActionValve.Get<float>();
@@ -188,9 +192,16 @@ bool AECMPlayerCameraManager::GetCharacterMovementComponent()
 }
 bool AECMPlayerCameraManager::GetCharacterASC()
 {
-	if(ASC) return true;
+	if(CharacterASC) return true;
 
-	if(const AECMCharacter* ECMCharacter = Cast<AECMCharacter>(PlayerPawn)) { ASC = ECMCharacter->GetAbilitySystemComponent();	}
+	CharacterASC = Cast<UAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(PlayerPawn));
+
+	return (CharacterASC != nullptr);
+}
+bool AECMPlayerCameraManager::CheckCameraMode(FName TagName)
+{
+	if(!GetCharacterASC()) { return false; }
 	
-	return (ASC != nullptr);
+	const FGameplayTag Tag = FGameplayTag::RequestGameplayTag(TagName);
+	return (CharacterASC->HasMatchingGameplayTag(Tag));
 }

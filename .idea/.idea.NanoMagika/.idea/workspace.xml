@@ -9,11 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c842db6e-4adc-44c8-8f65-3e2dd4cae9f9" name="Changes" comment="">
+    <list default="true" id="c842db6e-4adc-44c8-8f65-3e2dd4cae9f9" name="Changes" comment="Added rotation to FPS and TPS.">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NanoMagika/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NanoMagika/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Player/BP_PC.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Player/BP_PC.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/Developer/RiderLink/Intermediate/FileSystemMappings.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/Developer/RiderLink/Intermediate/FileSystemMappings.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Content/Maps/L_GAS_Test.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameFeatures/NmRoSPlugin/Content/Maps/L_GAS_Test.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerCameraManager/ECMPlayerCameraManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerCameraManager/ECMPlayerCameraManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerCameraManager/ECMPlayerCameraManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerCameraManager/ECMPlayerCameraManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerController/ECMPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerController/ECMPlayerController.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerController/ECMPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NanoMagika/Player/PlayerController/ECMPlayerController.h" afterDir="false" />
@@ -244,7 +243,7 @@
       <workItem from="1696885501157" duration="12638000" />
       <workItem from="1696923657122" duration="1907000" />
       <workItem from="1696926789865" duration="2064000" />
-      <workItem from="1696930070889" duration="403000" />
+      <workItem from="1696930070889" duration="2197000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -326,7 +325,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696923684527</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added rotation to FPS and TPS.">
+      <option name="closed" value="true" />
+      <created>1696930560526</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1696930560526</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,7 +364,8 @@
     <MESSAGE value="Got Player Camera Manager to work in Server and client properly" />
     <MESSAGE value="Added all three view modes" />
     <MESSAGE value="Bug fixes for switching between modes." />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug fixes for switching between modes." />
+    <MESSAGE value="Added rotation to FPS and TPS." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added rotation to FPS and TPS." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

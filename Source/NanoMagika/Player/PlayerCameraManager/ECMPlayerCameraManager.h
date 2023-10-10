@@ -78,7 +78,7 @@ private:
 	UPROPERTY()
 	ACharacter* Character = nullptr;
 	UPROPERTY()
-	UAbilitySystemComponent* ASC = nullptr;
+	UAbilitySystemComponent* CharacterASC = nullptr;
 	UPROPERTY()
 	UCharacterMovementComponent* CharacterCMC = nullptr;
 	UPROPERTY()
@@ -92,4 +92,6 @@ private:
 	bool GetCharacter();
 	bool GetCharacterASC();
 	bool GetCharacterMovementComponent();
+
+	bool CheckCameraMode(FName TagName);
 };

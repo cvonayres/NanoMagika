@@ -64,25 +64,19 @@ void AECMPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	// GEngine->AddOnScreenDebugMessage(3,3,FColor::Green, *InputTag.ToString());
 }
 
-// Helper function to Get ECM Ability System Component
-UECMAbilitySystemComponent* AECMPlayerController::GetASC()
+// Helper functions
+bool AECMPlayerController::GetECMCharacterASC()
 {
-	if(ECMAbilitySystemComponent == nullptr)
-	{
-		ECMAbilitySystemComponent= Cast<UECMAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
-	}
-	return ECMAbilitySystemComponent;
-}
-
-FGameplayTag AECMPlayerController::GetViewMode()
-{
-	const FGameplayTag FPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.FPV"));
-	const FGameplayTag TPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TPV"));
-	const FGameplayTag TDVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TDV"));
+	if(ECMCharacterASC) return true;
 	
-	if(GetASC()->HasMatchingGameplayTag(FPVTag)) { return FPVTag; }
-	if(GetASC()->HasMatchingGameplayTag(TPVTag)) { return TPVTag; }
-	if(GetASC()->HasMatchingGameplayTag(TDVTag)) { return TDVTag; }
-
-	return FGameplayTag();
+	ECMCharacterASC = Cast<UECMAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
+	
+	return (ECMCharacterASC != nullptr);
+}
+bool AECMPlayerController::CheckCameraMode(FName TagName)
+{
+	if(!GetECMCharacterASC()) { return false; }
+	
+	const FGameplayTag Tag = FGameplayTag::RequestGameplayTag(TagName);
+	return (ECMCharacterASC->HasMatchingGameplayTag(Tag));
 }

@@ -90,5 +90,4 @@ private:
 	IECMHightlightInterface* ThisActor = nullptr;
 #pragma endregion  Highlight
 
-	bool CheckCameraMode(FName TagName);
 };

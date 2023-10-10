@@ -1,9 +1,9 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMProjectileSpell.h"
-
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "NanoMagika/ECMGameplayTags.h"
 #include "NanoMagika/Effect/ECMProjectile.h"
 #include "NanoMagika/Interaction/ECMCombatInterface.h"
 
@@ -39,6 +39,12 @@ void UECMProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocatio
 
 		const UAbilitySystemComponent* SourceASC =UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetAvatarActorFromActorInfo());
 		const FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(DamageEffectClass,GetAbilityLevel(),SourceASC->MakeEffectContext());
+		
+		const FECMGameplayTags GameplayTags = FECMGameplayTags::Get();
+		const float ScaledMagnitude = Damage.GetValueAtLevel(GetAbilityLevel());
+		
+		UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, GameplayTags.Effect_Damage, ScaledMagnitude);
+
 		Projectile->DamageEffectSpecHandle = SpecHandle;
 		
 		Projectile->FinishSpawning(SpawnTransform);

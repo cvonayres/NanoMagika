@@ -73,10 +73,6 @@ public:
 
 	// Returns attribute from Gameplay Tag
 	TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
-
-// Example
-//	TStaticFuncPtr<float(int32, float, int32)> RandomFunctionPointer;
-//	static float RandomFunction(int32 I, float F, int32 I2) { return 0.f;};
 	
 // Vital - Gameplay Attributes
 #pragma region VitalAttributes
@@ -255,6 +251,19 @@ public:
 // Tertiary - Gameplay Attributes
 #pragma region TertiaryAttributes
 #pragma endregion TertiaryAttributes
+
+
+// Meta - Gameplay Attributes
+#pragma region MetaAttributes
+	UPROPERTY(BlueprintReadOnly, Category = "Meta Attributes")
+	FGameplayAttributeData IncomingDamage;
+	ATTRIBUTE_ACCESSORS(UECMAttributeSet, IncomingDamage);
+
+
+
+	
+#pragma endregion MetaAttributes
+
 	
 private:
 	static void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties &Props);

@@ -124,6 +124,13 @@ public:
 	DECLARE_GAMEPLAY_TAG(Message_UI_Potion_AR_Poison)
 #pragma endregion UIMessages
 
+#pragma region Effects
+	DECLARE_GAMEPLAY_TAG(Effect_Healing)
+	DECLARE_GAMEPLAY_TAG(Effect_Damage)
+
+#pragma endregion Effects
+
+	
 	#undef DECLARE_GAMEPLAY_TAG
 
 private:

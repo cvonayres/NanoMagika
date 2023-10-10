@@ -135,10 +135,8 @@ void UECMAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 	{
 		if (Attribute == Mapping.Attribute)
 		{
-			float currentValue = (this->*Mapping.Getter)();
-			float maxVal = (this->*Mapping.MaxFunc)();
-			(this->*Mapping.Setter)(FMath::Clamp(currentValue, 0.f, maxVal));
-			UE_LOG(LogTemp, Warning, TEXT("Changed Health on %s, Health: %f"), *Props.TargetAvatarActor->GetName(), GetVitalityMatrix());
+			(this->*Mapping.Setter)(FMath::Clamp((this->*Mapping.Getter)(), 0.f, (this->*Mapping.MaxFunc)()));
+			//UE_LOG(LogTemp, Warning, TEXT("Changed Health on %s, Health: %f"), *Props.TargetAvatarActor->GetName(), GetVitalityMatrix());
 			return;
 		}
 	}
@@ -149,12 +147,28 @@ void UECMAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 	{
 		if (Attribute == Mapping.Attribute)
 		{
-			float currentValue = (this->*Mapping.Getter)();
-			(this->*Mapping.Setter)(FMath::Clamp(currentValue, 0.f, MaxPrimaryAttribute));
+			(this->*Mapping.Setter)(FMath::Clamp((this->*Mapping.Getter)(), 0.f, MaxPrimaryAttribute));
 			return;
 		}
 	}
+
+	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
+	{
+		const float LocalIncomingDamage = GetIncomingDamage();
+		SetIncomingDamage(0.f);
+		if( LocalIncomingDamage > 0.f)
+		{
+			const float NewHealth  = GetVitalityMatrix() - LocalIncomingDamage;
+			SetVitalityMatrix(FMath::Clamp(NewHealth, 0, GetVMCapacity()));
+
+			const bool bFatal = NewHealth <- 0.f;
+		}
+	}
+	
 }
+
+
+
 void UECMAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props)
 {
 	// Source = causer, Target = target of the effect (owner of this AS)

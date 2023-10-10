@@ -107,7 +107,7 @@ void FECMGameplayTags::InitNativeGameplayTags()
 	INIT_TAG(Character_Type_NPC_MERCHANT, "Character.Type.NPC.Merchant")
 #pragma endregion Character
 
-	#pragma region UIMessages
+#pragma region UIMessages
 	/** Declares the "Potion Messages" gameplay tag. */
 	INIT_TAG(Message_UI_Potion_VM_Healing, "Message.UI.Potion.VM.Healing")
 	INIT_TAG(Message_UI_Potion_VM_Damage, "Message.UI.Potion.VM.Damage")
@@ -118,6 +118,12 @@ void FECMGameplayTags::InitNativeGameplayTags()
 	INIT_TAG(Message_UI_Potion_AR_Regen, "Message.UI.Potion.AR.Regen")
 	INIT_TAG(Message_UI_Potion_AR_Poison, "Message.UI.Potion.AR.Poison")
 #pragma endregion UIMessages
+
+#pragma region Effects
+/** Declares the "Potion Messages" gameplay tag. */
+INIT_TAG(Effect_Healing, "Effect.Healing")
+INIT_TAG(Effect_Damage, "Effect.Damage")
+#pragma endregion Effects
 	
 	#undef INIT_TAG
 }

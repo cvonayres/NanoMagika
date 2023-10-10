@@ -55,7 +55,7 @@ void ANmRoSPlayerController::SetupInputComponent()
 	
 	check(ECMInputComponent);
 	// Bind input actions via Gameplay Tags
-	ECMInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
+	ECMInputComponent->BindActionsToTags_3Param(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
 	// Bind input actions
 	ECMInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ANmRoSPlayerController::Move);
 	ECMInputComponent->BindAction(ShiftAction, ETriggerEvent::Started, this, &ANmRoSPlayerController::ShiftPressed);

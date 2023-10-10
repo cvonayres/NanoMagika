@@ -46,8 +46,14 @@ public:
 	DECLARE_GAMEPLAY_TAG(Input_Action_Move)
 	DECLARE_GAMEPLAY_TAG(Input_Action_MoveByMouse)
 	DECLARE_GAMEPLAY_TAG(Input_Action_MoveToMouseClicked)
+	
+	DECLARE_GAMEPLAY_TAG(Input_Action_Camera_FPV)
+	DECLARE_GAMEPLAY_TAG(Input_Action_Camera_TPV)
+	DECLARE_GAMEPLAY_TAG(Input_Action_Camera_TDV)
+	
 	DECLARE_GAMEPLAY_TAG(Input_Mouse_LMB)
 	DECLARE_GAMEPLAY_TAG(Input_Mouse_RMB)
+	
 	DECLARE_GAMEPLAY_TAG(Input_Key_Num1)
 	DECLARE_GAMEPLAY_TAG(Input_Key_Num2)
 	DECLARE_GAMEPLAY_TAG(Input_Key_Num3)
@@ -98,6 +104,10 @@ public:
 	DECLARE_GAMEPLAY_TAG(Character_Type_Player)
 	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy)
 	DECLARE_GAMEPLAY_TAG(Character_Type_NPC)
+
+
+
+	
 #pragma endregion Character
 	
 #pragma region UIMessages

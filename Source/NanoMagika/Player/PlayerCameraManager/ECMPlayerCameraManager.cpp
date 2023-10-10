@@ -6,9 +6,11 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "NanoMagika/ECMGameplayTags.h"
+#include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
+#include "NanoMagika/Character/ECMCharacter.h"
 #include "NanoMagika/Input/ECMInputComponent.h"
 #include "NanoMagika/Player/PlayerController/ECMPlayerController.h"
-
 
 void AECMPlayerCameraManager::BeginPlay()
 {
@@ -17,6 +19,7 @@ void AECMPlayerCameraManager::BeginPlay()
 	TryGetPawnAndController();
 }
 
+// Tries to Get Pawn and Controller - will repeat until time limit is reached
 void AECMPlayerCameraManager::TryGetPawnAndController()
 {
 	if(PCOwner && PCOwner->GetPawn()) 
@@ -25,13 +28,9 @@ void AECMPlayerCameraManager::TryGetPawnAndController()
 
 		PlayerPawn = PCOwner->GetPawn(); // Store Pawn
 
-		// Set Camera Mode Settings
-		if(StartingCameraMode == EStartingCameraMode::FirstPersonView){ FirstPersonViewMode(); }
-		if(StartingCameraMode == EStartingCameraMode::ThirdPersonView){ ThirdPersonViewMode(); }
-		if(StartingCameraMode == EStartingCameraMode::TopDownView){ TopDownViewMode(); }
-		
-		BindInputs(); // Bind inputs for camera
-
+		StartingViewMode(); // Update setting with ViewMode from Tag in Player Character
+	
+		BindInputs(); // Bind inputs for this class
 	}
 	else // Repeat until time limit
 	{
@@ -49,40 +48,69 @@ void AECMPlayerCameraManager::TryGetPawnAndController()
 	}
 }
 
-void AECMPlayerCameraManager::UpdateCameraMode(const UDA_CameraMode* CameraMode)
+// Call Specific View Mode dependent on Character Starting Tag
+void AECMPlayerCameraManager::StartingViewMode()
 {
-	check(CameraMode);
+	if(!GetCharacterASC()) return;
+
+	const FGameplayTag FPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.FPV"));
+	const FGameplayTag TPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TPV"));
+	const FGameplayTag TDVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TDV"));
+
+	if (ASC->HasMatchingGameplayTag(FPVTag))	    { UpdateCameraMode(FPV_Settings, FPVTag, TPVTag, TDVTag); }
+	else if (ASC->HasMatchingGameplayTag(TPVTag))	{ UpdateCameraMode(TPV_Settings, TPVTag, FPVTag, TDVTag); }
+	else if (ASC->HasMatchingGameplayTag(TDVTag))	{ UpdateCameraMode(TDV_Settings, TDVTag, FPVTag, TPVTag); }
+}
+
+// Call Update Camera Mode passing in right Data Asset and swaps the tags on Character.CameraMode
+void AECMPlayerCameraManager::UpdateCameraMode(UDA_CameraMode* CameraModeDA, const FGameplayTag AddTag, const FGameplayTag RemoveTag1, const FGameplayTag RemoveTag2)
+{
+	UpdateCameraModeCPP(CameraModeDA);
+	
+	if(!GetCharacterASC()) return;
+
+	if(ASC->HasMatchingGameplayTag(AddTag)) return; // Finish if we are already have this tag active.
+
+	ASC->AddLooseGameplayTag(AddTag);
+	ASC->RemoveLooseGameplayTag(RemoveTag1);
+	ASC->RemoveLooseGameplayTag(RemoveTag2);
+}
+
+// Update setting dependent on Camera Mode
+void AECMPlayerCameraManager::UpdateCameraModeCPP(const UDA_CameraMode* CameraModeDA)
+{
+	check(CameraModeDA);
 	
 	if(GetSpringArm()) // Set spring arm properties from Data Asset
 	{
-		SpringArmComponent->SetRelativeLocation(CameraMode->CameraSettings.Location);
-		SpringArmComponent->SetRelativeRotation(CameraMode->CameraSettings.Rotation);
-		SpringArmComponent->TargetArmLength = CameraMode->CameraSettings.TargetArmLength; 
-		SpringArmComponent->bUsePawnControlRotation = CameraMode->CameraSettings.SpringArmUsePawnControlRotation;
-		SpringArmComponent->bInheritPitch = CameraMode->CameraSettings.InheritPitch;
-		SpringArmComponent->bInheritRoll = CameraMode->CameraSettings.InheritRoll;
-		SpringArmComponent->bInheritYaw = CameraMode->CameraSettings.InheritYaw;
-		SpringArmComponent->bEnableCameraLag = CameraMode->CameraSettings.EnableCameraLag;
+		SpringArmComponent->SetRelativeLocation(CameraModeDA->CameraSettings.Location);
+		SpringArmComponent->SetRelativeRotation(CameraModeDA->CameraSettings.Rotation);
+		SpringArmComponent->TargetArmLength = CameraModeDA->CameraSettings.TargetArmLength; 
+		SpringArmComponent->bUsePawnControlRotation = CameraModeDA->CameraSettings.SpringArmUsePawnControlRotation;
+		SpringArmComponent->bInheritPitch = CameraModeDA->CameraSettings.InheritPitch;
+		SpringArmComponent->bInheritRoll = CameraModeDA->CameraSettings.InheritRoll;
+		SpringArmComponent->bInheritYaw = CameraModeDA->CameraSettings.InheritYaw;
+		SpringArmComponent->bEnableCameraLag = CameraModeDA->CameraSettings.EnableCameraLag;
 	}
 	
 	if(GetCamera()) // Set camera properties from Data Asset
 	{
-		CameraComponent->bUsePawnControlRotation = CameraMode->CameraSettings.CameraUsePawnControlRotation; // Prevent the camera from rotating with the spring arm	}
+		CameraComponent->bUsePawnControlRotation = CameraModeDA->CameraSettings.CameraUsePawnControlRotation; // Prevent the camera from rotating with the spring arm	}
 	}
 
 	if(GetCharacter()) // Set Character properties from Data Asset
 	{
-		Character->bUseControllerRotationPitch = CameraMode->CameraSettings.UseControllerRotationPitch;
-		Character->bUseControllerRotationRoll = CameraMode->CameraSettings.UseControllerRotationRoll;
-		Character->bUseControllerRotationYaw = CameraMode->CameraSettings.UseControllerRotationYaw;	
+		Character->bUseControllerRotationPitch = CameraModeDA->CameraSettings.UseControllerRotationPitch;
+		Character->bUseControllerRotationRoll = CameraModeDA->CameraSettings.UseControllerRotationRoll;
+		Character->bUseControllerRotationYaw = CameraModeDA->CameraSettings.UseControllerRotationYaw;	
 	}
 
 	if(GetCharacterMovementComponent()) // Set Character Movement Component properties from Data Asset
 	{
-		CharacterCMC->bOrientRotationToMovement = CameraMode->CameraSettings.bOrientRotationToMovement;
-		CharacterCMC->RotationRate = CameraMode->CameraSettings.RotationRate;
-		CharacterCMC->bConstrainToPlane = CameraMode->CameraSettings.ConstrainToPlane;
-		CharacterCMC->bSnapToPlaneAtStart = CameraMode->CameraSettings.SnapToPlaneAtStart;
+		CharacterCMC->bOrientRotationToMovement = CameraModeDA->CameraSettings.bOrientRotationToMovement;
+		CharacterCMC->RotationRate = CameraModeDA->CameraSettings.RotationRate;
+		CharacterCMC->bConstrainToPlane = CameraModeDA->CameraSettings.ConstrainToPlane;
+		CharacterCMC->bSnapToPlaneAtStart = CameraModeDA->CameraSettings.SnapToPlaneAtStart;
 	}
 }
 
@@ -95,8 +123,21 @@ void AECMPlayerCameraManager::BindInputs()
 )
 		{
 			ECMInputComponent->BindAction(ZoomAction, ETriggerEvent::Triggered, this, &AECMPlayerCameraManager::ZoomCamera);
+			ECMInputComponent->BindActionToTagOnStarted(ECMPC->GetInputConfig(), this, &AECMPlayerCameraManager::AbilityInputTagPressed);
 		}
 	}
+}
+
+// Call Update ViewMode on Tags activation
+void AECMPlayerCameraManager::AbilityInputTagPressed(FGameplayTag InputTag)
+{
+	const FGameplayTag FPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.FPV"));
+	const FGameplayTag TPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TPV"));
+	const FGameplayTag TDVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TDV"));
+	
+	if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_FPV))      { UpdateCameraMode(FPV_Settings, FPVTag, TPVTag, TDVTag); }
+	else if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_TPV)) { UpdateCameraMode(TPV_Settings, TPVTag, FPVTag, TDVTag); }
+	else if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_TDV)) { UpdateCameraMode(TDV_Settings, TDVTag, FPVTag, TPVTag); }
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst - due to use in input binding.
@@ -144,4 +185,12 @@ bool AECMPlayerCameraManager::GetCharacterMovementComponent()
 	CharacterCMC = Character->GetCharacterMovement();
 
 	return (CharacterCMC != nullptr);
+}
+bool AECMPlayerCameraManager::GetCharacterASC()
+{
+	if(ASC) return true;
+
+	if(const AECMCharacter* ECMCharacter = Cast<AECMCharacter>(PlayerPawn)) { ASC = ECMCharacter->GetAbilitySystemComponent();	}
+	
+	return (ASC != nullptr);
 }

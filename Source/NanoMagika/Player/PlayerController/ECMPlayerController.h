@@ -31,6 +31,8 @@ public:
 	
 	// Helper functions
 	UECMInputComponent* GetInputComponent() const { return ECMInputComponent;}
+	TObjectPtr<UECMInputConfig> GetInputConfig() const { return InputConfig;}
+
 	TObjectPtr<APlayerCameraManager> GetPCM() const { return PlayerCameraManager;}
 
 protected:

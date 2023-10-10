@@ -7,6 +7,7 @@
 #include "Camera/PlayerCameraManager.h"
 #include "ECMPlayerCameraManager.generated.h"
 
+class UAbilitySystemComponent;
 class UCharacterMovementComponent;
 class UInputAction;
 class UCameraComponent;
@@ -18,7 +19,7 @@ enum class EStartingCameraMode : uint8
 {
 	FirstPersonView UMETA(DisplayName = "First Person View"),
 	ThirdPersonView UMETA(DisplayName = "Third Person View"),
-	TopDownView UMETA(DisplayName = "Top Down View")
+	TopDownView     UMETA(DisplayName = "Top Down View")
 };
 
 UCLASS()
@@ -27,25 +28,13 @@ class NANOMAGIKA_API AECMPlayerCameraManager : public APlayerCameraManager
 	GENERATED_BODY()
 
 public:
-	// Starting Camera Mode TODO implement gameplay tags instead of ENUM
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Camera")
-	EStartingCameraMode StartingCameraMode;
-	
-	// First Person View
 	UFUNCTION(BlueprintCallable, Category="Camera")
-	void FirstPersonViewMode() { UpdateCameraMode(FPV_Settings); }
+	void UpdateCameraMode(UDA_CameraMode* CameraModeDA, const FGameplayTag AddTag, const FGameplayTag RemoveTag1, const FGameplayTag RemoveTag2);
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Camera")
 	TObjectPtr<UDA_CameraMode> FPV_Settings;
-
-	// Third Person View
-	UFUNCTION(BlueprintCallable, Category="Camera")
-	void ThirdPersonViewMode() { UpdateCameraMode(TPV_Settings); }
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Camera")
 	TObjectPtr<UDA_CameraMode> TPV_Settings;
-
-	// Top Down View
-	UFUNCTION(BlueprintCallable, Category="Camera")
-	void TopDownViewMode() { UpdateCameraMode(TDV_Settings); }
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Camera")
 	TObjectPtr<UDA_CameraMode> TDV_Settings;
 
@@ -58,17 +47,19 @@ private:
     
 	FTimerHandle TimerHandle_GetPawnAndController;
 	float TimeElapsedTrying = 0.0f;
-	float TimeLimitForCheck = 10.0f;  // Your time limit, in seconds.
-	float CheckInterval = 0.5f;  // Interval to check, in seconds.
+	float TimeLimitForCheck = 10.0f;  // Time limit, in seconds.
+	float CheckInterval = 0.5f;       // Interval to check, in seconds.
 
-	// Bind Enhanced Inputs TODO add bindings for switching between View modes
+	// Bind Enhanced Inputs
 	void BindInputs();
+	virtual void AbilityInputTagPressed(FGameplayTag InputTag);
 
 	// Zoom Controls
 	void ZoomCamera(const FInputActionValue& InputActionValve);
 
 	// Initiate Camera & Character Movement Component
-	void UpdateCameraMode(const UDA_CameraMode* CameraMode);
+	void StartingViewMode();
+	void UpdateCameraModeCPP(const UDA_CameraMode* CameraMode);
 	
 	UPROPERTY(EditAnywhere, Category="Camera|Zoom", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> ZoomAction = nullptr;
@@ -87,6 +78,8 @@ private:
 	UPROPERTY()
 	ACharacter* Character = nullptr;
 	UPROPERTY()
+	UAbilitySystemComponent* ASC = nullptr;
+	UPROPERTY()
 	UCharacterMovementComponent* CharacterCMC = nullptr;
 	UPROPERTY()
 	TObjectPtr<USpringArmComponent> SpringArmComponent = nullptr;
@@ -97,5 +90,6 @@ private:
 	bool GetSpringArm();
 	bool GetCamera();
 	bool GetCharacter();
+	bool GetCharacterASC();
 	bool GetCharacterMovementComponent();
 };

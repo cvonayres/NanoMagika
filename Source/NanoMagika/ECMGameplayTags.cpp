@@ -49,6 +49,10 @@ void FECMGameplayTags::InitNativeGameplayTags()
 	INIT_TAG(Input_Key_Num2, "Input.Key.Num2")
 	INIT_TAG(Input_Key_Num3, "Input.Key.Num3")
 	INIT_TAG(Input_Key_Num4, "Input.Key.Num4")
+	INIT_TAG(Input_Action_Camera_FPV, "Input.Action.CameraMode.FPV")
+	INIT_TAG(Input_Action_Camera_TPV, "Input.Action.CameraMode.TPV")
+	INIT_TAG(Input_Action_Camera_TDV, "Input.Action.CameraMode.TDV")
+
 #pragma endregion Input
 
 #pragma region Attributes

@@ -1,7 +1,7 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMMMC_StealthSignal.h"
-#include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
+#include "NanoMagika/AbilitySystem/Attributes/ECMAttributeSet.h"
 
 UECMMMC_StealthSignal::UECMMMC_StealthSignal()
 {

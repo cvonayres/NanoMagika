@@ -1,7 +1,8 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMMC_KineticAbsorption.h"
-#include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
+
+#include "NanoMagika/AbilitySystem/Attributes/ECMAttributeSet.h"
 
 UECMMC_KineticAbsorption::UECMMC_KineticAbsorption()
 {

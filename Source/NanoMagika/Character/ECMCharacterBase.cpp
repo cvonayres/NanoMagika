@@ -3,9 +3,9 @@
 #include "ECMCharacterBase.h"
 #include "AbilitySystemComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 #include "Components/GameFrameworkComponentManager.h"
 #include "NanoMagika/NanoMagika.h"
+#include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 
 AECMCharacterBase::AECMCharacterBase()
 {
@@ -30,47 +30,26 @@ void AECMCharacterBase::PreInitializeComponents()
 	UGameFrameworkComponentManager::AddGameFrameworkComponentReceiver(this); 	
 }
 
-// Empty function, called in child classes
 void AECMCharacterBase::BeginPlay() { Super::BeginPlay(); }
+
+void AECMCharacterBase::InitializeCharacter()
+{
+	// Set callbacks on ECM Ability System Component and native ASC
+	GetAbilitySystemComponent()->InitAbilityActorInfo(this, this);
+	
+	GetECMASC()->BindEffectApplied();
+	
+	// Initialise Default Attributes, Abilities and Gameplay tags
+	InitDefaultAttributes();
+	InitDefaultAbilities();
+	InitDefaultGameplayTags();	
+}
 
 void AECMCharacterBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	UGameFrameworkComponentManager::RemoveGameFrameworkComponentReceiver(this);
 
 	Super::EndPlay(EndPlayReason);
-}
-
-// Empty function, called in child classes
-void AECMCharacterBase::InitializeCharacter() { }
-
-// Sets ActorInfo for Ability System and bind call back for Gameplay Effects
-void AECMCharacterBase::InitAbilityActorInfo() 
-{
-	GetAbilitySystemComponent()->InitAbilityActorInfo(this, this);
-	
-	GetECMASC()->BindEffectApplied();
-}
-
-// Setup Default Attributes
-void AECMCharacterBase::InitDefaultAttributes() const
-{
-	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
-	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
-	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
-}
-
-// Add Default Gameplay Abilities
-void AECMCharacterBase::InitDefaultAbilities() const
-{
-	if(!HasAuthority()) return;
-	
-	GetECMASC()->AddGameplayAbilities(DefaultCharacterAbilities);
-}
-
-// Add Default Gameplay Tags [loosely, i.e. with no ability]
-void AECMCharacterBase::InitDefaultGameplayTags() const
-{
-	GetECMASC()->AddGameplayTags(DefaultCharacterTags);
 }
 
 // Generic Apply Effect To Self
@@ -88,14 +67,14 @@ void AECMCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> Gam
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(),AbilitySystemComponent);
 }
 
-// Helper function to Get ECM version of ASC, if not available cast from default ASC.
+// Helper function to Get ECM version of ASC & AS, if not available cast from default ASC.
 UECMAbilitySystemComponent* AECMCharacterBase::GetECMASC() const
 {
 	if(ECMAbilitySystemComponent) return ECMAbilitySystemComponent;
-
 	return CastChecked<UECMAbilitySystemComponent>(GetAbilitySystemComponent());
 }
 
+// Helper function to Get Socket Location on weapon to spawn projectiles from
 FVector AECMCharacterBase::GetCombatSocketLocation()
 {
 	check(Weapon);

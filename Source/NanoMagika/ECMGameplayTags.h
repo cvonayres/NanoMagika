@@ -127,6 +127,7 @@ public:
 #pragma region Effects
 	DECLARE_GAMEPLAY_TAG(Effect_Healing)
 	DECLARE_GAMEPLAY_TAG(Effect_Damage)
+	DECLARE_GAMEPLAY_TAG(Effect_HitReact)
 
 #pragma endregion Effects
 

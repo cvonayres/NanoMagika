@@ -1,7 +1,7 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMMMC_ResonanceAmp.h"
-#include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
+#include "NanoMagika/AbilitySystem/Attributes/ECMAttributeSet.h"
 
 UECMMMC_ResonanceAmp::UECMMMC_ResonanceAmp()
 {

@@ -27,12 +27,14 @@ public:
 	FORCEINLINE int32 GetPlayerLevel() const { return Level; }
 	
 protected:
+	
 	// Points for Attribute System
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
 	UPROPERTY()
-	TObjectPtr<UAttributeSet> AttributeSet;
-	
+	UAttributeSet* AttributeSet;
+
 private:
 	UPROPERTY(VisibleAnywhere, Category="Character Class Defaults", ReplicatedUsing=OnRep_Level)
 	int32 Level = 1;

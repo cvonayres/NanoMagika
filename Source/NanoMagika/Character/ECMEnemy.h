@@ -21,29 +21,47 @@ public:
 
 	/** Combat Interface */
 	FORCEINLINE virtual int32 GetPlayerLevel() override { return Level; }
+
+	// Hit React // TODO Move to base class, we shoudl all react
+	void HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount);;
+	UPROPERTY(BlueprintReadOnly, Category="User|Combat")
+	bool bHitReacting = false;
 	/** end Combat Interface */
 
-	UPROPERTY(BlueprintAssignable)
+	// Health Bar
+	UPROPERTY(BlueprintAssignable, Category="User|Health")
 	FOnAttributeChangedSignature OnHealthChange;
-	
-	UPROPERTY(BlueprintAssignable)
+	UPROPERTY(BlueprintAssignable, Category="User|Health")
 	FOnAttributeChangedSignature OnMaxHealthChange;
 	
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="User|Character Class Defaults")
+	ECharacterClass CharacterClass = ECharacterClass::Melee;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="User|Character Class Defaults")
+	int32 Level = 1;
+
 	virtual void BeginPlay() override;
 	
 	virtual void InitializeCharacter() override;
+	virtual void InitDefaultAttributes() override;
+	virtual void InitDefaultAbilities() override;
+	virtual void InitDefaultGameplayTags() override;
 
+	// Health Bar
 	void InitHealthBar();
-	virtual void InitDefaultAttributes() const override;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Character Class Defaults")
-	ECharacterClass CharacterClass = ECharacterClass::Melee;
+	// TODO move secondary attribute
+	UPROPERTY(BlueprintReadOnly, Category="User|Character Class Defaults")
+	float DefaultWalkingSpeed = 350.f;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Character Class Defaults")
-	int32 Level = 1;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="UI")
+	// TODO move to Character Class Info
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="User|UI")
 	TObjectPtr<UWidgetComponent> HealthBar;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UAttributeSet> AttributeSetClass;
+	
+private:
 	
 };

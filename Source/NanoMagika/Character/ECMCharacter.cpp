@@ -3,9 +3,9 @@
 #include "ECMCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 #include "NanoMagika/Player/PlayerController/ECMPlayerController.h"
 #include "NanoMagika/Player/PlayerState/ECMPlayerState.h"
-
 #include "NanoMagika/UI/HUD/ECMHUD.h"
 
 AECMCharacter::AECMCharacter()
@@ -47,7 +47,6 @@ void AECMCharacter::InitializeCharacter()
 {
 	PlayerStateRef =  GetPlayerState<AECMPlayerState>();
 	check(PlayerStateRef);
-
 	
 	// Get Ability System Component
 	SetAbilitySystemComponent(PlayerStateRef->GetAbilitySystemComponent());
@@ -55,36 +54,51 @@ void AECMCharacter::InitializeCharacter()
 
 	// Get Attribute Set
 	SetAttributeSet(PlayerStateRef->GetAttributeSet());
-	check(GetAttributeSet());
 
-	// Set callbacks on ECM Ability System Component and native ASC
-	InitAbilityActorInfo();
-	
-	// Initialise Default Attributes, Abilities and Gameplay tags
-	InitDefaultAttributes();
-	InitDefaultAbilities();
-	InitDefaultGameplayTags();
+	Super::InitializeCharacter();
 	
 	// Initialise HUD Overlay widget Controller
 	InitHUD();
 }
 
+// Setup Default Attributes, Abilities & Tags
+void AECMCharacter::InitDefaultAttributes() 
+{
+	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
+	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
+	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
+}
+
+void AECMCharacter::InitDefaultAbilities() 
+{
+	if(!HasAuthority()) return;
+	
+	GetECMASC()->AddGameplayAbilities(DefaultCharacterAbilities, true);
+}
+
+void AECMCharacter::InitDefaultGameplayTags()
+{
+	GetECMASC()->AddGameplayTags(DefaultCharacterTags);
+}
+
 // Gets Player controller and cast ability system and attribute set to Overlap
 void AECMCharacter::InitHUD() const
 {
-	if(!ControllerRef) return;
+	if(ControllerRef == nullptr) return;
 
-	if(AECMHUD* ECMHUD = Cast<AECMHUD>(ControllerRef->GetHUD()))
-	{
-		ECMHUD->InitOverlay(ControllerRef, PlayerStateRef, GetAbilitySystemComponent() ,GetAttributeSet());
-	}
+	AECMHUD* ECMHUD = Cast<AECMHUD>(ControllerRef->GetHUD());
+	if(ECMHUD == nullptr) return;
+
+	ECMHUD->InitOverlay(ControllerRef, PlayerStateRef, GetAbilitySystemComponent() ,GetAttributeSet());
 }
 
 /* Combat Interface */
 int32 AECMCharacter::GetPlayerLevel()
 {
-	if(!PlayerStateRef) return 0;
+	if(PlayerStateRef == nullptr) return 0;
 
 	return PlayerStateRef->GetPlayerLevel();
 }
+
+
 /* end Combat Interface */

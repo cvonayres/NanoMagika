@@ -2,7 +2,7 @@
 
 #include "ECMOverlayWidgetController.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
-#include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
+#include "NanoMagika/AbilitySystem/Attributes/ECMAttributeSet.h"
 
 // Broadcast when Attribute change
 void UECMOverlayWidgetController::BroadcastInitialValues()

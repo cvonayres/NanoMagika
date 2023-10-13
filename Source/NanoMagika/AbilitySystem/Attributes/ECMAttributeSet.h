@@ -259,9 +259,6 @@ public:
 	FGameplayAttributeData IncomingDamage;
 	ATTRIBUTE_ACCESSORS(UECMAttributeSet, IncomingDamage);
 
-
-
-	
 #pragma endregion MetaAttributes
 
 	

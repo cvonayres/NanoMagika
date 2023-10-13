@@ -16,7 +16,6 @@ class UECMAbilitySystemComponent;
 struct FInputActionValue;
 class USplineComponent;
 
-
 UCLASS()
 class NANOMAGIKA_API AECMPlayerController : public APlayerController
 {

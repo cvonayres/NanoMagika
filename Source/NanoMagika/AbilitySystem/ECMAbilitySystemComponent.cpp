@@ -11,26 +11,39 @@ void UECMAbilitySystemComponent::BindEffectApplied()
 	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UECMAbilitySystemComponent::ClientEffectApplied);
 }
 
-// Grant Ability
-void UECMAbilitySystemComponent::AddGameplayAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartUpAbilities)
+// Adds GameplayEffect Tags loosely
+void UECMAbilitySystemComponent::AddGameplayEffect(const TSubclassOf<UGameplayEffect>& Effect, float Level)
 {
-	for(const TSubclassOf<UGameplayAbility> AbilityClass : StartUpAbilities)
+	FGameplayEffectContextHandle ContextHandle = MakeEffectContext();
+	ContextHandle.AddSourceObject(GetAvatarActor());
+	const FGameplayEffectSpecHandle SpecHandle = MakeOutgoingSpec(Effect, Level, ContextHandle) ;
+	ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+}
+
+// Grant Ability
+void UECMAbilitySystemComponent::AddGameplayAbilities(const TArray<TSubclassOf<UGameplayAbility>>& Abilities, bool StartupTag)
+{
+	for(const TSubclassOf<UGameplayAbility> AbilityClass : Abilities)
 	{
 		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
-		if(const UECMGameplayAbility* ECMAbility = Cast<UECMGameplayAbility>(AbilitySpec.Ability)) 
+
+		if (StartupTag)
 		{
-			AbilitySpec.DynamicAbilityTags.AddTag(ECMAbility->StartupInputTag);
-			GiveAbility(AbilitySpec);
+			if(const UECMGameplayAbility* ECMAbility = Cast<UECMGameplayAbility>(AbilitySpec.Ability)) 
+			{
+				AbilitySpec.DynamicAbilityTags.AddTag(ECMAbility->StartupInputTag);
+			}
 		}
+		GiveAbility(AbilitySpec);
 	}	
 }
 
 // Adds Gameplay Tags loosely
-void UECMAbilitySystemComponent::AddGameplayTags(const FGameplayTagContainer& Tags)
+void UECMAbilitySystemComponent::AddGameplayTags(const TArray<FGameplayTag>& Tags)
 {
 	if(Tags.IsEmpty()) return;
 
-	for (TArray<FGameplayTag> ArrayOfTags = Tags.GetGameplayTagArray(); FGameplayTag Tag : ArrayOfTags)
+	for (FGameplayTag Tag : Tags)
 	{
 		AddLooseGameplayTag(Tag);
 	}

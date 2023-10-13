@@ -1,7 +1,7 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMMMC_ReactionSpeed.h"
-#include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
+#include "NanoMagika/AbilitySystem/Attributes/ECMAttributeSet.h"
 
 UECMMMC_ReactionSpeed::UECMMMC_ReactionSpeed()
 {

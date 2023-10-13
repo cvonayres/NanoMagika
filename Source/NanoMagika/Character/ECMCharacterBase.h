@@ -9,6 +9,7 @@
 #include "NanoMagika/Interaction/ECMCombatInterface.h"
 #include "ECMCharacterBase.generated.h"
 
+class UECMAttributeSet;
 struct FGameplayTag;
 class UECMAbilitySystemComponent;
 class UGameplayAbility;
@@ -35,7 +36,8 @@ public:
 	/** end Ability System Interface */
 	
 	/** Combat Interface */
-	virtual  FVector GetCombatSocketLocation() override;;
+	virtual  FVector GetCombatSocketLocation() override;
+	virtual UAnimMontage* GetHitReactMontage_Implementation() override { return HitReactMontage; }
 	/** end Combat Interface */
 
 	virtual void PreInitializeComponents() override;
@@ -51,43 +53,23 @@ protected:
 	TObjectPtr<USkeletalMeshComponent> Weapon;
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	FName WeaponTipSocketName;
-	
-	// Default Character Attributes
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="User|Attributes")
-	TSubclassOf<UGameplayEffect> DefaultVitalAttributes;
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="User|Attributes")
-	TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes;
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="User|Attributes")
-	TSubclassOf<UGameplayEffect> DefaultSecondaryAttributes;
-
-	// Default Character Abilities
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="User|Abilities")
-	TArray<TSubclassOf<UGameplayAbility>> DefaultCharacterAbilities;
-
-	// Default Character Gameplay Tags
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="User|GameplayTags")
-	FGameplayTagContainer DefaultCharacterTags;
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	UAnimMontage* HitReactMontage;
 
 	// Initiate Ability System [overridden in child classes]
 	virtual void InitializeCharacter();
-	
-	// Sets ActorInfo for Ability System & binds applied effects
-	void InitAbilityActorInfo();
-
-	// Sets Default Attributes, Abilities and GameplayTags
-	virtual void InitDefaultAttributes() const;
-	void InitDefaultAbilities() const;
-	void InitDefaultGameplayTags() const;
+	virtual void InitDefaultAttributes() { };
+	virtual void InitDefaultAbilities() { };
+	virtual void InitDefaultGameplayTags() { };
 
 	// Sets Gameplay Effect to Self
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect>  GameplayEffectClass, float Level) const;
 
-private:
 	// Ability System and Attribute Set Pointer
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 	UPROPERTY()
 	TObjectPtr<UECMAbilitySystemComponent> ECMAbilitySystemComponent;
 	UPROPERTY()
-	TObjectPtr<UAttributeSet> AttributeSet;
+	UAttributeSet* AttributeSet;
 };

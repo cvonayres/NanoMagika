@@ -17,6 +17,8 @@ public:
 	FGameplayTag StartupInputTag;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Damage")
-	FScalableFloat Damage = FScalableFloat();
+	FScalableFloat DamageMin = FScalableFloat();
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Damage")
+	FScalableFloat DamageMax = FScalableFloat();
 	
 };

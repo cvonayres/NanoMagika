@@ -1,7 +1,7 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMMMC_VMRecovery.h"
-#include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
+#include "NanoMagika/AbilitySystem/Attributes/ECMAttributeSet.h"
 
 UECMMMC_VMRecovery::UECMMMC_VMRecovery()
 {

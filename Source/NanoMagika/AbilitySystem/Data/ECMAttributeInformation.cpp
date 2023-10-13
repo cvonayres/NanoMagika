@@ -27,7 +27,7 @@ FECMAttributeInfo UECMAttributeInformation::FindAttributeInfoForTag(const FGamep
 	
 	if (bLogNotFound)
 	{
-		UE_LOG(LogTemp, Error, TEXT("Can;t find Infor for AttributeTag [%s] on AttributeInfo [%s]"), *AttributeTag.ToString(), *GetNameSafe(this))
+		UE_LOG(LogTemp, Error, TEXT("Can;t find Info. for AttributeTag [%s] on AttributeInfo [%s]"), *AttributeTag.ToString(), *GetNameSafe(this))
 	}
 	
 	return FECMAttributeInfo();

@@ -1,7 +1,7 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMMMC_TechnologicalInfluence.h"
-#include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
+#include "NanoMagika/AbilitySystem/Attributes/ECMAttributeSet.h"
 
 UECMMMC_TechnologicalInfluence::UECMMMC_TechnologicalInfluence()
 {

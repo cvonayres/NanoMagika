@@ -2,10 +2,13 @@
 
 #include "ECMEnemy.h"
 
+#include "ECMCharacter.h"
 #include "Components/WidgetComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "NanoMagika/ECMGameplayTags.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemLibrary.h"
-#include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
+#include "NanoMagika/AbilitySystem/Attributes/ECMAttributeSet.h"
 #include "NanoMagika/UI/Widget/ECMUserWidget.h"
 
 AECMEnemy::AECMEnemy()
@@ -14,8 +17,8 @@ AECMEnemy::AECMEnemy()
 	AECMCharacterBase::GetAbilitySystemComponent()->SetIsReplicated(true);
 	AECMCharacterBase::GetAbilitySystemComponent()->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
-	SetAttributeSet(CreateDefaultSubobject<UECMAttributeSet>("AttributeSet"));
-
+	AttributeSet = CreateDefaultSubobject<UECMAttributeSet>("AttributeSet");
+	
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>("HealthBar");
 	HealthBar->SetupAttachment(GetRootComponent());
 }
@@ -24,60 +27,66 @@ void AECMEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Initialise Actor Info & Default Tags
 	InitializeCharacter();
-
-	InitHealthBar();
 }
 
 void AECMEnemy::InitializeCharacter()
 {
-	// Set callbacks on ECM Ability System Component and native ASC
-	InitAbilityActorInfo();
+	Super::InitializeCharacter();
 	
-	// Initialise Default Gameplay tags
-	InitDefaultGameplayTags();
+	InitHealthBar(); // Health Bar
 	
-	// Initialise Attributes
-	InitDefaultAttributes();
+	if(GetAbilitySystemComponent()) // Hit React
+	{
+		GetAbilitySystemComponent()->RegisterGameplayTagEvent(FECMGameplayTags::Get().Effect_HitReact, EGameplayTagEventType::NewOrRemoved).AddUObject(
+		this, &AECMEnemy::HitReactTagChanged);
+	}
+}
+
+void AECMEnemy::InitDefaultAttributes()
+{
+	UECMAbilitySystemLibrary::InitializeDefaultAttributes(this, CharacterClass, Level, GetECMASC());
+}
+void AECMEnemy::InitDefaultAbilities()
+{
+	UECMAbilitySystemLibrary::InitializeDefaultAbilities(this, CharacterClass, Level, GetECMASC());
+}
+void AECMEnemy::InitDefaultGameplayTags()
+{
+	UECMAbilitySystemLibrary::InitializeDefaultTags(this, CharacterClass, GetECMASC());
 }
 
 void AECMEnemy::InitHealthBar()
 {
-	// Setting Widget Controller To Self
-	if( UECMUserWidget* ECMUserWidget = Cast<UECMUserWidget>(HealthBar->GetUserWidgetObject()))
-	{
-		ECMUserWidget->SetWidgetControllerRef(this);
-	}
-	
-	if(const UECMAttributeSet* ECMAS = Cast<UECMAttributeSet>(GetAttributeSet()))
-	{
-		if(UAbilitySystemComponent* ASC = GetAbilitySystemComponent())
-		{
-			// Bind Health and Max health changes
-			ASC->GetGameplayAttributeValueChangeDelegate(ECMAS->GetVitalityMatrixAttribute()).AddLambda(
-		[this](const FOnAttributeChangeData Data)
-				{
-					OnHealthChange.Broadcast(Data.NewValue);
-				}
-			);
-			ASC->GetGameplayAttributeValueChangeDelegate(ECMAS->GetVMCapacityAttribute()).AddLambda(
-		[this](const FOnAttributeChangeData Data)
-				{
-					OnMaxHealthChange.Broadcast(Data.NewValue);
-				}
-			);
+	UECMUserWidget* ECMUserWidget = Cast<UECMUserWidget>(HealthBar->GetUserWidgetObject());
+	if (ECMUserWidget == nullptr) return;
 
-		//Broadcast initial valves
-		OnHealthChange.Broadcast(ECMAS->GetVitalityMatrix());
-		OnMaxHealthChange.Broadcast(ECMAS->GetVMCapacity());
-			
-		}
-	}
+	ECMUserWidget->SetWidgetControllerRef(this); // Setting Widget Controller To Self
+
+
+	auto  ECMAS = Cast<UECMAttributeSet>(GetAttributeSet());
+	if (ECMAS == nullptr) return;
+
+	// Bind Health and Max health changes
+	GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(ECMAS->GetVitalityMatrixAttribute()).AddLambda(
+	[this](const FOnAttributeChangeData& Data)
+			{
+				OnHealthChange.Broadcast(Data.NewValue);
+			});
+	GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(ECMAS->GetVMCapacityAttribute()).AddLambda(
+	[this](const FOnAttributeChangeData& Data)
+			{
+				OnMaxHealthChange.Broadcast(Data.NewValue);
+			});
+
+	//Broadcast initial valves
+	OnHealthChange.Broadcast(ECMAS->GetVitalityMatrix());
+	OnMaxHealthChange.Broadcast(ECMAS->GetVMCapacity());
 }
 
-void AECMEnemy::InitDefaultAttributes() const
+void AECMEnemy::HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
 {
-		UECMAbilitySystemLibrary::InitializeDefaultAttributes(this, CharacterClass, Level, GetAbilitySystemComponent());
-}
+	bHitReacting = NewCount > 0;
 
+	GetCharacterMovement()->MaxWalkSpeed = bHitReacting ? 0.f: DefaultWalkingSpeed;
+}

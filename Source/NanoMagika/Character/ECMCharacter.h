@@ -28,6 +28,25 @@ public:
 protected:
 	// Init Ability System
 	virtual void InitializeCharacter() override;
+	virtual void InitDefaultAttributes() override;
+	virtual void InitDefaultAbilities() override;
+	virtual void InitDefaultGameplayTags() override;
+
+	// Default Character Attributes
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="User|Attributes")
+	TSubclassOf<UGameplayEffect> DefaultVitalAttributes;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="User|Attributes")
+	TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="User|Attributes")
+	TSubclassOf<UGameplayEffect> DefaultSecondaryAttributes;
+
+	// Default Character Abilities
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="User|Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> DefaultCharacterAbilities;
+	
+	// Default Character Gameplay Tags
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="User|GameplayTags")
+	TArray<FGameplayTag> DefaultCharacterTags;
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))

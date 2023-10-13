@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "Engine/DataAsset.h"
 #include "ECMCharacterClassInfo.generated.h"
 
+class UGameplayAbility;
 class UGameplayEffect;
 
 UENUM(BlueprintType)
@@ -24,7 +26,12 @@ struct FCharacterClassDefaultInfo
 
 	UPROPERTY(EditDefaultsOnly, Category="ClassDefaults")
 	TSubclassOf<UGameplayEffect> PrimaryAttribute;
+	
+	UPROPERTY(EditDefaultsOnly, Category="ClassDefaults")
+	TArray<TSubclassOf<UGameplayAbility>> Abilities;
 
+	UPROPERTY(EditDefaultsOnly, Category="ClassDefaults")
+	TArray<FGameplayTag> Tags;
 };
 
 UCLASS()
@@ -42,6 +49,11 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults")
 	TSubclassOf<UGameplayEffect> SecondaryAttribute;
 
+	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults")
+	TArray<TSubclassOf<UGameplayAbility>> CommonAbilities;
+
+	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults")
+	TArray<FGameplayTag> CommonTags;
+
 	FCharacterClassDefaultInfo GetClassDefaultInfo(ECharacterClass CharacterClass);
-	
 };

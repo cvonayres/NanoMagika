@@ -121,8 +121,10 @@ void FECMGameplayTags::InitNativeGameplayTags()
 
 #pragma region Effects
 /** Declares the "Potion Messages" gameplay tag. */
-INIT_TAG(Effect_Healing, "Effect.Healing")
-INIT_TAG(Effect_Damage, "Effect.Damage")
+	INIT_TAG(Effect_Healing, "Effect.Healing")
+	INIT_TAG(Effect_Damage, "Effect.Damage")
+	INIT_TAG(Effect_HitReact, "Effect.HitReact")
+
 #pragma endregion Effects
 	
 	#undef INIT_TAG

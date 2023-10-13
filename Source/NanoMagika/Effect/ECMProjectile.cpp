@@ -49,7 +49,6 @@ void AECMProjectile::BeginPlay()
 void AECMProjectile::Destroyed()
 {
 	if(!bHit && !HasAuthority()) { SpawnFX(); }
-
 	
 	Super::Destroyed();
 }
@@ -65,7 +64,6 @@ void AECMProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 		{
 			TargetASC->ApplyGameplayEffectSpecToSelf(*DamageEffectSpecHandle.Data.Get());
 		}
-
 		Destroy() ;
 	}
 	else { bHit = true ; }

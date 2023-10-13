@@ -24,7 +24,7 @@ struct FWidgetControllerParam
 {
 	GENERATED_BODY()
 	FWidgetControllerParam() {}
-	FWidgetControllerParam(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
+	FWidgetControllerParam(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, TObjectPtr<UAttributeSet> AS)
 	: PlayerController(PC), PlayerState(PS), AbilitySystemComponent(ASC), AttributeSet(AS){}
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -34,7 +34,7 @@ struct FWidgetControllerParam
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UAttributeSet> AttributeSet = nullptr;
+	TObjectPtr<UAttributeSet> AttributeSet;
 };
 
 UCLASS()

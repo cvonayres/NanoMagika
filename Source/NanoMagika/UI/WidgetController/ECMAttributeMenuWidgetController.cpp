@@ -1,7 +1,7 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMAttributeMenuWidgetController.h"
-#include "NanoMagika/AbilitySystem/ECMAttributeSet.h"
+#include "NanoMagika/AbilitySystem/Attributes/ECMAttributeSet.h"
 
 // Bind callback when Attribute change
 void UECMAttributeMenuWidgetController::BindCallbacksToDependencies()

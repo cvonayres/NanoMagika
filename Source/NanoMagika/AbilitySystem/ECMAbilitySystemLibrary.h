@@ -8,6 +8,7 @@
 #include "NanoMagika/UI/WidgetController/ECMWidgetController.h"
 #include "ECMAbilitySystemLibrary.generated.h"
 
+class UECMAbilitySystemComponent;
 class UECMAttributeMenuWidgetController;
 class UECMOverlayWidgetController;
 
@@ -26,6 +27,12 @@ public:
 	static FWidgetControllerParam GetParams(APlayerController* PC);
 
 	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
-	static void InitializeDefaultAttributes(const UObject* WorldContextObject, ECharacterClass CharacterClass, float Level, UAbilitySystemComponent* ASC);
+	static void InitializeDefaultAttributes(const UObject* WorldContextObject, ECharacterClass CharacterClass, float Level, UECMAbilitySystemComponent* ESMASC);
 
+	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
+	static void InitializeDefaultAbilities(const UObject* WorldContextObject, ECharacterClass CharacterClass, float Level, UECMAbilitySystemComponent* ESMASC);
+
+	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
+	static void InitializeDefaultTags(const UObject* WorldContextObject, ECharacterClass CharacterClass, UECMAbilitySystemComponent* ESMASC);
+	
 };

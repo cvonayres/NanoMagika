@@ -41,9 +41,12 @@ void UECMProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocatio
 		const FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(DamageEffectClass,GetAbilityLevel(),SourceASC->MakeEffectContext());
 		
 		const FECMGameplayTags GameplayTags = FECMGameplayTags::Get();
-		const float ScaledMagnitude = Damage.GetValueAtLevel(GetAbilityLevel());
+		const float ScaledMagnitudeMin = DamageMin.GetValueAtLevel(GetAbilityLevel());
+		const float ScaledMagnitudeMax = DamageMax.GetValueAtLevel(GetAbilityLevel());
 		
-		UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, GameplayTags.Effect_Damage, ScaledMagnitude);
+		const float Magnitude = FMath::RandRange(ScaledMagnitudeMin,ScaledMagnitudeMax);
+
+		UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, GameplayTags.Effect_Damage, Magnitude);
 
 		Projectile->DamageEffectSpecHandle = SpecHandle;
 		

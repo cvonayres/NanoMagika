@@ -36,7 +36,7 @@ public:
 	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="User|Character Class Defaults")
-	ECharacterClass CharacterClass = ECharacterClass::Melee;
+	FGameplayTag EnemyTag = FGameplayTag();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="User|Character Class Defaults")
 	int32 Level = 1;
@@ -58,10 +58,5 @@ protected:
 	// TODO move to Character Class Info
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="User|UI")
 	TObjectPtr<UWidgetComponent> HealthBar;
-
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UAttributeSet> AttributeSetClass;
-	
-private:
 	
 };

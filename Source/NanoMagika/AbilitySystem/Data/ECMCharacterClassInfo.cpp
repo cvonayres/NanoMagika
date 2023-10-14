@@ -2,7 +2,7 @@
 
 #include "ECMCharacterClassInfo.h"
 
-FCharacterClassDefaultInfo UECMCharacterClassInfo::GetClassDefaultInfo(ECharacterClass CharacterClass)
+TObjectPtr<UECMEnemySpecInfo>  UECMCharacterClassInfo::GetClassDefaultInfo(FGameplayTag EnemyTag)
 {
-	return CharacterClassInformation.FindChecked(CharacterClass);
+	return CharacterClassInformation.FindChecked(EnemyTag);
 }

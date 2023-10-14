@@ -45,15 +45,15 @@ void AECMEnemy::InitializeCharacter()
 
 void AECMEnemy::InitDefaultAttributes()
 {
-	UECMAbilitySystemLibrary::InitializeDefaultAttributes(this, CharacterClass, Level, GetECMASC());
+	UECMAbilitySystemLibrary::InitializeDefaultAttributes(this, EnemyTag, Level, GetECMASC());
 }
 void AECMEnemy::InitDefaultAbilities()
 {
-	UECMAbilitySystemLibrary::InitializeDefaultAbilities(this, CharacterClass, Level, GetECMASC());
+	UECMAbilitySystemLibrary::InitializeDefaultAbilities(this, EnemyTag, Level, GetECMASC());
 }
 void AECMEnemy::InitDefaultGameplayTags()
 {
-	UECMAbilitySystemLibrary::InitializeDefaultTags(this, CharacterClass, GetECMASC());
+	UECMAbilitySystemLibrary::InitializeDefaultTags(this, EnemyTag, GetECMASC());
 }
 
 void AECMEnemy::InitHealthBar()

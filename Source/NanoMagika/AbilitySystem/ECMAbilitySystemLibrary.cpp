@@ -2,6 +2,7 @@
 
 #include "ECMAbilitySystemLibrary.h"
 #include "ECMAbilitySystemComponent.h"
+#include "Data/ECMEnemySpecInfo.h"
 #include "Kismet/GameplayStatics.h"
 #include "NanoMagika/Game/ECMGameMode.h"
 #include "NanoMagika/Player/PlayerState/ECMPlayerState.h"
@@ -44,15 +45,15 @@ UECMAttributeMenuWidgetController* UECMAbilitySystemLibrary::GetAttributeMenuWid
 }
 
 // Add Default Attributes defined in Character Class Info, Primary, Secondary & Vital
-void UECMAbilitySystemLibrary::InitializeDefaultAttributes(const UObject* WorldContextObject, ECharacterClass CharacterClass, float Level, UECMAbilitySystemComponent* ESMASC)
+void UECMAbilitySystemLibrary::InitializeDefaultAttributes(const UObject* WorldContextObject, FGameplayTag EnemyTag, float Level, UECMAbilitySystemComponent* ESMASC)
 {
 	const AECMGameMode* ECMGameMode = Cast<AECMGameMode>(UGameplayStatics::GetGameMode(WorldContextObject));
 	if (ECMGameMode == nullptr) return;
 	
 	const TObjectPtr<UECMCharacterClassInfo> CharacterClassInfo = ECMGameMode->CharacterClassInfo;
-	const FCharacterClassDefaultInfo ClassDefaultInfo = CharacterClassInfo->GetClassDefaultInfo(CharacterClass);
+	const TObjectPtr<UECMEnemySpecInfo>  ClassDefaultInfo = CharacterClassInfo->GetClassDefaultInfo(EnemyTag);
 
-	ESMASC->AddGameplayEffect(ClassDefaultInfo.PrimaryAttribute, Level );
+	ESMASC->AddGameplayEffect(ClassDefaultInfo.Get()->PrimaryAttribute, Level );
 
 	ESMASC->AddGameplayEffect( CharacterClassInfo->SecondaryAttribute, Level );
 
@@ -60,29 +61,29 @@ void UECMAbilitySystemLibrary::InitializeDefaultAttributes(const UObject* WorldC
 }
 
 // Add Default Abilities defined in Character Class Info, both CLass Specific and Common
-void UECMAbilitySystemLibrary::InitializeDefaultAbilities(const UObject* WorldContextObject, ECharacterClass CharacterClass, float Level, UECMAbilitySystemComponent* ESMASC)
+void UECMAbilitySystemLibrary::InitializeDefaultAbilities(const UObject* WorldContextObject, FGameplayTag EnemyTag, float Level, UECMAbilitySystemComponent* ESMASC)
 {
 	const AECMGameMode* ECMGameMode = Cast<AECMGameMode>(UGameplayStatics::GetGameMode(WorldContextObject));
 	if (ECMGameMode == nullptr) return;
 	
 	const TObjectPtr<UECMCharacterClassInfo> CharacterClassInfo = ECMGameMode->CharacterClassInfo;
-	const FCharacterClassDefaultInfo ClassDefaultInfo = CharacterClassInfo->GetClassDefaultInfo(CharacterClass);
+	const TObjectPtr<UECMEnemySpecInfo> ClassDefaultInfo = CharacterClassInfo->GetClassDefaultInfo(EnemyTag);
 	
-	ESMASC->AddGameplayAbilities( ClassDefaultInfo.Abilities, true ); // Enemy Specific Abilities	
+	ESMASC->AddGameplayAbilities( ClassDefaultInfo.Get()->Abilities, true ); // Enemy Specific Abilities	
 	
 	ESMASC->AddGameplayAbilities( CharacterClassInfo->CommonAbilities, true ); // Enemy Common Abilities
 }
 
 // Add Default Tags defined in Character Class Info, both CLass Specific and Common
-void UECMAbilitySystemLibrary::InitializeDefaultTags(const UObject* WorldContextObject, ECharacterClass CharacterClass,	UECMAbilitySystemComponent* ECMASC)
+void UECMAbilitySystemLibrary::InitializeDefaultTags(const UObject* WorldContextObject, FGameplayTag EnemyTag,	UECMAbilitySystemComponent* ECMASC)
 {
 	const AECMGameMode* ECMGameMode = Cast<AECMGameMode>(UGameplayStatics::GetGameMode(WorldContextObject));
 	if (ECMGameMode == nullptr) return;
 	
 	const TObjectPtr<UECMCharacterClassInfo> CharacterClassInfo = ECMGameMode->CharacterClassInfo;
-	const FCharacterClassDefaultInfo ClassDefaultInfo = CharacterClassInfo->GetClassDefaultInfo(CharacterClass);
+	const TObjectPtr<UECMEnemySpecInfo>  ClassDefaultInfo = CharacterClassInfo->GetClassDefaultInfo(EnemyTag);
 
-	ECMASC->AddGameplayTags( ClassDefaultInfo.Tags );	// Enemy Specific Tag	
+	ECMASC->AddGameplayTags( ClassDefaultInfo.Get()->Tags );	// Enemy Specific Tag	
 
 	ECMASC->AddGameplayTags( CharacterClassInfo->CommonTags ); // Enemy Common Tags
 }

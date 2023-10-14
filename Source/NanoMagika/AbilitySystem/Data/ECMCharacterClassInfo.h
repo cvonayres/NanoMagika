@@ -7,32 +7,9 @@
 #include "Engine/DataAsset.h"
 #include "ECMCharacterClassInfo.generated.h"
 
+class UECMEnemySpecInfo;
 class UGameplayAbility;
 class UGameplayEffect;
-
-UENUM(BlueprintType)
-enum class  ECharacterClass : uint8
-{
-	Melee,
-	Ranged,
-	Tech,
-	Mage
-};
-
-USTRUCT(BlueprintType)
-struct FCharacterClassDefaultInfo
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditDefaultsOnly, Category="ClassDefaults")
-	TSubclassOf<UGameplayEffect> PrimaryAttribute;
-	
-	UPROPERTY(EditDefaultsOnly, Category="ClassDefaults")
-	TArray<TSubclassOf<UGameplayAbility>> Abilities;
-
-	UPROPERTY(EditDefaultsOnly, Category="ClassDefaults")
-	TArray<FGameplayTag> Tags;
-};
 
 UCLASS()
 class NANOMAGIKA_API UECMCharacterClassInfo : public UDataAsset
@@ -41,7 +18,7 @@ class NANOMAGIKA_API UECMCharacterClassInfo : public UDataAsset
 
 public:
 	UPROPERTY(EditDefaultsOnly, Category="CharacterClassDefaults")
-	TMap<ECharacterClass, FCharacterClassDefaultInfo> CharacterClassInformation;
+	TMap<FGameplayTag, UECMEnemySpecInfo*> CharacterClassInformation;
 
 	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults")
 	TSubclassOf<UGameplayEffect> VitalAttribute;
@@ -55,5 +32,5 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults")
 	TArray<FGameplayTag> CommonTags;
 
-	FCharacterClassDefaultInfo GetClassDefaultInfo(ECharacterClass CharacterClass);
+	TObjectPtr<UECMEnemySpecInfo> GetClassDefaultInfo(FGameplayTag EnemyTag);
 };

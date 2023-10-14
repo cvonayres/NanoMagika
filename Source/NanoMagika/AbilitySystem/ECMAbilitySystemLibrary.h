@@ -27,12 +27,12 @@ public:
 	static FWidgetControllerParam GetParams(APlayerController* PC);
 
 	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
-	static void InitializeDefaultAttributes(const UObject* WorldContextObject, ECharacterClass CharacterClass, float Level, UECMAbilitySystemComponent* ESMASC);
+	static void InitializeDefaultAttributes(const UObject* WorldContextObject, FGameplayTag EnemyTag, float Level, UECMAbilitySystemComponent* ESMASC);
 
 	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
-	static void InitializeDefaultAbilities(const UObject* WorldContextObject, ECharacterClass CharacterClass, float Level, UECMAbilitySystemComponent* ESMASC);
+	static void InitializeDefaultAbilities(const UObject* WorldContextObject, FGameplayTag EnemyTag, float Level, UECMAbilitySystemComponent* ESMASC);
 
 	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
-	static void InitializeDefaultTags(const UObject* WorldContextObject, ECharacterClass CharacterClass, UECMAbilitySystemComponent* ESMASC);
+	static void InitializeDefaultTags(const UObject* WorldContextObject, FGameplayTag EnemyTag, UECMAbilitySystemComponent* ESMASC);
 	
 };

@@ -103,13 +103,11 @@ public:
 	/** Declares the "Character Type" gameplay tag. */
 	DECLARE_GAMEPLAY_TAG(Character_Type_Player)
 	
-	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy_Melee)
-	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy_Range)
-	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy_Mage)
-	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy_Tech)
+	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy_Goblin_Slingshot)
+	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy_Goblin_Spear)
 
-	DECLARE_GAMEPLAY_TAG(Character_Type_NPC_QUEST)
-	DECLARE_GAMEPLAY_TAG(Character_Type_NPC_MERCHANT)
+	DECLARE_GAMEPLAY_TAG(Character_Type_NPC_Quest)
+	DECLARE_GAMEPLAY_TAG(Character_Type_NPC_Merchant)
 #pragma endregion Character
 	
 #pragma region UIMessages

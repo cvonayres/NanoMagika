@@ -4,12 +4,11 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "GameplayEffectExtension.h"
 #include "GameFramework/Character.h"
+#include "Kismet/GameplayStatics.h"
 #include "NanoMagika/ECMGameplayTags.h"
+#include "NanoMagika/Interaction/ECMCombatInterface.h"
+#include "NanoMagika/Player/PlayerController/ECMPlayerController.h"
 #include "Net/UnrealNetwork.h"
-
-// Example of T static pointer
-//	RandomFunctionPointer = RandomFunction;
-//	float F = RandomFunction(0,0.f,0);
 
 #pragma region Mapping
 UECMAttributeSet::UECMAttributeSet()
@@ -55,119 +54,44 @@ UECMAttributeSet::UECMAttributeSet()
 
 #pragma endregion Mapping
 
-#pragma region Clamping
 struct AttributeFunctionMappings
 {
-	FGameplayAttribute Attribute;
 	float (UECMAttributeSet::*Getter)() const = nullptr;
 	void (UECMAttributeSet::*Setter)(float) = nullptr;
 	float (UECMAttributeSet::*MaxFunc)() const;
 };
 
-// Define Vital Attributes for Clamping
-TArray<AttributeFunctionMappings> UECMAttributeSet::GetVitalValvesMappings()
+// All Attributes to be clamped
+TMap<FGameplayAttribute, AttributeFunctionMappings> UECMAttributeSet::GetAttributeMappings()
 {
 	return {
-		        { GetVitalityMatrixAttribute(), &UECMAttributeSet::GetVitalityMatrix, &UECMAttributeSet::SetVitalityMatrix, &UECMAttributeSet::GetVMCapacity },
-				{ GetEnergeticEnduranceAttribute(), &UECMAttributeSet::GetEnergeticEndurance, &UECMAttributeSet::SetEnergeticEndurance, &UECMAttributeSet::GetEECapacity },
-				{ GetArcaneReservoirAttribute(), &UECMAttributeSet::GetArcaneReservoir, &UECMAttributeSet::SetArcaneReservoir, &UECMAttributeSet::GetARCapacity },
-				{ GetDefensiveSynchronyAttribute(), &UECMAttributeSet::GetDefensiveSynchrony, &UECMAttributeSet::SetDefensiveSynchrony, &UECMAttributeSet::GetKineticAbsorption },
-				{ GetBarrierMatrixAttribute(), &UECMAttributeSet::GetBarrierMatrix, &UECMAttributeSet::SetBarrierMatrix, &UECMAttributeSet::GetNanoshieldThreshold }
+		{ GetVitalityMatrixAttribute(), { &UECMAttributeSet::GetVitalityMatrix, &UECMAttributeSet::SetVitalityMatrix, &UECMAttributeSet::GetVMCapacity } },
+		{ GetEnergeticEnduranceAttribute(), { &UECMAttributeSet::GetEnergeticEndurance, &UECMAttributeSet::SetEnergeticEndurance, &UECMAttributeSet::GetEECapacity } },
+		{ GetArcaneReservoirAttribute(), { &UECMAttributeSet::GetArcaneReservoir, &UECMAttributeSet::SetArcaneReservoir, &UECMAttributeSet::GetARCapacity } },
+		{ GetDefensiveSynchronyAttribute(), { &UECMAttributeSet::GetDefensiveSynchrony, &UECMAttributeSet::SetDefensiveSynchrony, &UECMAttributeSet::GetKineticAbsorption } },
+		{ GetBarrierMatrixAttribute(), { &UECMAttributeSet::GetBarrierMatrix, &UECMAttributeSet::SetBarrierMatrix, &UECMAttributeSet::GetNanoshieldThreshold } },
+
+		{ GetPhysiqueAttribute(), { &UECMAttributeSet::GetPhysique, &UECMAttributeSet::SetPhysique, &UECMAttributeSet::GetMaxPrimaryStat } },
+		{ GetAdaptivityAttribute(), { &UECMAttributeSet::GetAdaptivity, &UECMAttributeSet::SetAdaptivity, &UECMAttributeSet::GetMaxPrimaryStat } },
+		{ GetNeuralAgilityAttribute(), { &UECMAttributeSet::GetNeuralAgility, &UECMAttributeSet::SetNeuralAgility, &UECMAttributeSet::GetMaxPrimaryStat } },
+		{ GetEmpathicResonanceAttribute(), { &UECMAttributeSet::GetEmpathicResonance, &UECMAttributeSet::SetEmpathicResonance, &UECMAttributeSet::GetMaxPrimaryStat } },
+		{ GetEssenceControlAttribute(), { &UECMAttributeSet::GetEssenceControl, &UECMAttributeSet::SetEssenceControl, &UECMAttributeSet::GetMaxPrimaryStat } },
+		{ GetNanomancyAttribute(), { &UECMAttributeSet::GetNanomancy, &UECMAttributeSet::SetNanomancy, &UECMAttributeSet::GetMaxPrimaryStat } },
 	};
 }
 
-// Define Primary Attributes for Clamping
-TArray<AttributeFunctionMappings> UECMAttributeSet::GetPrimaryValvesMappings()
-{
-	return {
-		        { GetPhysiqueAttribute(), &UECMAttributeSet::GetPhysique, &UECMAttributeSet::SetPhysique },
-				{ GetAdaptivityAttribute(), &UECMAttributeSet::GetAdaptivity, &UECMAttributeSet::SetAdaptivity },
-				{ GetNeuralAgilityAttribute(), &UECMAttributeSet::GetNeuralAgility, &UECMAttributeSet::SetNeuralAgility },
-				{ GetEmpathicResonanceAttribute(), &UECMAttributeSet::GetEmpathicResonance, &UECMAttributeSet::SetEmpathicResonance },
-				{ GetEssenceControlAttribute(), &UECMAttributeSet::GetEssenceControl, &UECMAttributeSet::SetEssenceControl },
-				{ GetNanomancyAttribute(), &UECMAttributeSet::GetNanomancy, &UECMAttributeSet::SetNanomancy },
-			};
-}
 
 // Clamp Valves
 void UECMAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
 	Super::PreAttributeChange(Attribute, NewValue);
 
-	// Gets Vital Attribute Mapping and clamps valve
-	const TArray<AttributeFunctionMappings> VitalValves = GetVitalValvesMappings();
-	for (const auto& Mapping : VitalValves)
+	if(auto AttributeMap = GetAttributeMappings(); AttributeMap.Contains(Attribute))
 	{
-		if (Attribute == Mapping.Attribute)
-		{
-			NewValue = FMath::Clamp(NewValue, 0.f, (this->*Mapping.MaxFunc)());
-			return;
-		}
-	}
-
-	// Gets Primary Attribute Mapping and clamps valve
-	const TArray<AttributeFunctionMappings> PrimaryValves = GetPrimaryValvesMappings();
-	for (const auto& Mapping : PrimaryValves)
-	{
-		if (Attribute == Mapping.Attribute)
-		{
-			NewValue = FMath::Clamp(NewValue, 0.f, MaxPrimaryAttribute);
-			return;
-		}
+		NewValue = FMath::Clamp(NewValue, 0.f, (this->*AttributeMap.Find(Attribute)->MaxFunc)());
+		//UE_LOG(LogTemp, Warning, TEXT("Changed Health: %f"), NewValue);
 	}
 }
-
-// Harvest Data & Clamp again
-void UECMAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
-{
-	Super::PostGameplayEffectExecute(Data);
-
-	// Gets GameplayEffect Prop from Data packet
-	FEffectProperties Props;
-	SetEffectProperties(Data, Props);
-
-	// Gets Attribute from the Data packet
-	const FGameplayAttribute Attribute = Data.EvaluatedData.Attribute;
-
-	// Gets Vital Attribute Mapping and clamps valve
-	const TArray<AttributeFunctionMappings> VitalValves = GetVitalValvesMappings();
-	for (const auto& Mapping : VitalValves)
-	{
-		if (Attribute == Mapping.Attribute)
-		{
-			(this->*Mapping.Setter)(FMath::Clamp((this->*Mapping.Getter)(), 0.f, (this->*Mapping.MaxFunc)()));
-			//UE_LOG(LogTemp, Warning, TEXT("Changed Health on %s, Health: %f"), *Props.TargetAvatarActor->GetName(), GetVitalityMatrix());
-			return;
-		}
-	}
-
-	// Gets Primary Attribute Mapping and clamps valve
-	const TArray<AttributeFunctionMappings> PrimaryValves = GetPrimaryValvesMappings();
-	for (const auto& Mapping : PrimaryValves)
-	{
-		if (Attribute == Mapping.Attribute)
-		{
-			(this->*Mapping.Setter)(FMath::Clamp((this->*Mapping.Getter)(), 0.f, MaxPrimaryAttribute));
-			return;
-		}
-	}
-
-	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
-	{
-		const float LocalIncomingDamage = GetIncomingDamage();
-		SetIncomingDamage(0.f);
-		if( LocalIncomingDamage > 0.f)
-		{
-			const float NewHealth  = GetVitalityMatrix() - LocalIncomingDamage;
-			SetVitalityMatrix(FMath::Clamp(NewHealth, 0, GetVMCapacity()));
-
-			const bool bFatal = NewHealth <- 0.f;
-		}
-	}
-	
-}
-
-
 
 void UECMAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props)
 {
@@ -183,20 +107,17 @@ void UECMAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData&
 	if(IsValid(Props.SourceASC) && Props.SourceASC->AbilityActorInfo.IsValid() && Props.SourceASC->AbilityActorInfo->AvatarActor.IsValid())
 	{
 		Props.SourceAvatarActor =  Props.SourceASC->AbilityActorInfo->AvatarActor.Get();
-		if(Props.SourceASC->AbilityActorInfo)
+		Props.SourceController = Props.SourceASC->AbilityActorInfo->PlayerController.Get();
+		if(Props.SourceController == nullptr && Props.SourceAvatarActor != nullptr)
 		{
-			Props.SourceController = Props.SourceASC->AbilityActorInfo->PlayerController.Get();
-			if(Props.SourceController == nullptr && Props.SourceAvatarActor != nullptr)
+			if (const APawn* Pawn = Cast<APawn>(Props.SourceAvatarActor))
 			{
-				if (const APawn* Pawn = Cast<APawn>(Props.SourceAvatarActor))
-				{
-					Props.SourceController = Pawn->GetController();
-				}
+				Props.SourceController = Pawn->GetController();
 			}
-			if(Props.SourceController)
-			{
-				Props.SourceCharacter = Cast<ACharacter>(Props.SourceController->GetPawn());
-			}
+		}
+		if(Props.SourceController)
+		{
+			Props.SourceCharacter = Cast<ACharacter>(Props.SourceController->GetPawn());
 		}
 	}
 
@@ -206,9 +127,51 @@ void UECMAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData&
 		Props.TargetAvatarActor = Data.Target.AbilityActorInfo->AvatarActor.Get();
 		Props.TargetController = Data.Target.AbilityActorInfo->PlayerController.Get();
 		Props.TargetCharacter = Cast<ACharacter>(Props.TargetAvatarActor);
-		UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Props.TargetAvatarActor);
+		Props.TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Props.TargetAvatarActor);
 	}
 }
+
+// Harvest Data & Clamp again
+void UECMAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
+{
+	Super::PostGameplayEffectExecute(Data);
+	
+	// Gets GameplayEffect Prop & Attribute from Data packet
+	FEffectProperties Props;
+	SetEffectProperties(Data, Props);
+	const FGameplayAttribute Attribute = Data.EvaluatedData.Attribute;
+
+	if(auto AttributeMap = GetAttributeMappings(); AttributeMap.Contains(Attribute))
+	{
+		const AttributeFunctionMappings* AttributeFunc = AttributeMap.Find(Attribute);
+		(this->*AttributeFunc->Setter)(FMath::Clamp((this->*AttributeFunc->Getter)(), 0.f, (this->*AttributeFunc->MaxFunc)()));
+	}
+	
+	// CAL DAMAGE
+	
+	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
+	{
+		const float LocalIncomingDamage = GetIncomingDamage();
+		SetIncomingDamage(0.f);
+		if( LocalIncomingDamage > 0.f)
+		{
+			const float NewHealth  = GetVitalityMatrix() - LocalIncomingDamage;
+			SetVitalityMatrix(FMath::Clamp(NewHealth, 0, GetVMCapacity()));
+
+			ShowDamageText(Props, LocalIncomingDamage);
+			
+			if(NewHealth <- 0.f)   // Check if dead
+			{
+				if(IECMCombatInterface* CombatInterface = Cast<IECMCombatInterface>(Props.TargetAvatarActor)) { CombatInterface->Die(); }
+			}
+			else
+			{
+				HitReaction(Props);
+			}
+		}
+	}
+}
+
 #pragma endregion Clamping
 
 #pragma region Replicate
@@ -306,3 +269,24 @@ DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, DimensionalPocketCapacity)
 #undef DEFINE_ATTRIBUTE_REPNOTIFY
 
 #pragma endregion RefNofifies
+
+void UECMAttributeSet::ShowDamageText(const FEffectProperties& Props, float LocalIncomingDamage)
+{
+	// When hit, show damage number
+	if(Props.SourceCharacter != Props.TargetCharacter)
+	{
+		AECMPlayerController* PC = Cast<AECMPlayerController>(UGameplayStatics::GetPlayerController(Props.SourceCharacter, 0));
+
+		if (PC)
+		{
+			PC->ShowDamageNumber(LocalIncomingDamage, Props.TargetCharacter );
+		}
+	}
+}
+
+void UECMAttributeSet::HitReaction(const FEffectProperties& Props)
+{
+	FGameplayTagContainer TagContainer;
+	TagContainer.AddTag(FECMGameplayTags::Get().Effect_HitReact);
+	Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);	
+}

@@ -38,15 +38,22 @@ public:
 	/** Combat Interface */
 	virtual  FVector GetCombatSocketLocation() override;
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override { return HitReactMontage; }
+
+	virtual void Die() override;
+	
 	/** end Combat Interface */
 
 	virtual void PreInitializeComponents() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
+	UFUNCTION(NetMulticast, Reliable)
+	virtual void MulticastHandleDeath();
+	
+protected:
+
 	TObjectPtr<USkeletalMeshComponent> GetCharacterMesh() const { return GetMesh(); }
 	TObjectPtr<USkeletalMeshComponent> GetWeapon() const { return Weapon; }
 	
-protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
@@ -72,4 +79,16 @@ protected:
 	TObjectPtr<UECMAbilitySystemComponent> ECMAbilitySystemComponent;
 	UPROPERTY()
 	UAttributeSet* AttributeSet;
+
+	/* Dissolve Effects */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UMaterialInstance> DissolveMaterialInstance;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UMaterialInstance> WeaponDissolveMaterialInstance;
+
+	void Dissolve();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartDissolveTimeline(UMaterialInstanceDynamic* DynamicMaterialInstance, UMaterialInstanceDynamic* WeaponDynamicMaterialInstance);
+
 };

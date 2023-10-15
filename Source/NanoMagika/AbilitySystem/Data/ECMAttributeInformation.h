@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 #include "Engine/DataAsset.h"
+#include "NanoMagika/AbilitySystem/Attributes/ECMAttributeSet.h"
 #include "ECMAttributeInformation.generated.h"
 
 struct FGameplayTag;

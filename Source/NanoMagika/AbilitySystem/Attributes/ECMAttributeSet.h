@@ -16,6 +16,7 @@ GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 #pragma endregion Macros
 
+class AECMPlayerController;
 struct AttributeFunctionMappings;
 
 USTRUCT()
@@ -214,7 +215,6 @@ public:
 #pragma endregion Stats
 	
 	#pragma region Secondary_OnReps
-	// Vital - OnReps
 	UFUNCTION()
 	void OnRep_VMCapacity(const FGameplayAttributeData& OldVMC) const;
 	UFUNCTION()
@@ -251,25 +251,26 @@ public:
 // Tertiary - Gameplay Attributes
 #pragma region TertiaryAttributes
 #pragma endregion TertiaryAttributes
-
-
+	
+protected:
 // Meta - Gameplay Attributes
 #pragma region MetaAttributes
 	UPROPERTY(BlueprintReadOnly, Category = "Meta Attributes")
+	FGameplayAttributeData MaxPrimaryStat = 20.f;
+	ATTRIBUTE_ACCESSORS(UECMAttributeSet, MaxPrimaryStat);
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Meta Attributes")
 	FGameplayAttributeData IncomingDamage;
 	ATTRIBUTE_ACCESSORS(UECMAttributeSet, IncomingDamage);
-
 #pragma endregion MetaAttributes
 
 	
 private:
 	static void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties &Props);
 
-	// Container for Attribute Mappings
-	static TArray<AttributeFunctionMappings> GetVitalValvesMappings();
-	static TArray<AttributeFunctionMappings> GetPrimaryValvesMappings();
+	// Attribute Mappings for clamping
+	static TMap<FGameplayAttribute, AttributeFunctionMappings> GetAttributeMappings();
 
-	// Maximum valve for Primary Attributes
-	UPROPERTY(VisibleAnywhere,Category="Attributes")
-	float MaxPrimaryAttribute = 20.f;
+	void ShowDamageText(const FEffectProperties& Props, float LocalIncomingDamage);
+	static void HitReaction(const FEffectProperties& Props);
 };

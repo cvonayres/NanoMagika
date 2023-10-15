@@ -7,6 +7,7 @@
 #include "GameplayTagContainer.h"
 #include "ECMPlayerController.generated.h"
 
+class UECMDamageTextComponent;
 class AECMPlayerCameraManager;
 class UECMInputComponent;
 class UECMInputConfig;
@@ -34,6 +35,10 @@ public:
 
 	TObjectPtr<APlayerCameraManager> GetPCM() const { return PlayerCameraManager;}
 
+	UFUNCTION(Client,Reliable)
+	void ShowDamageNumber(float Damage, ACharacter* TargetCharacter);
+
+	
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
@@ -58,4 +63,7 @@ protected:
 	// Helper functions
 	bool GetECMCharacterASC();
 	bool CheckCameraMode(FName TagName);
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UECMDamageTextComponent> DamageTextComponentClass;
 };

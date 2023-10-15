@@ -26,6 +26,8 @@ public:
 	void HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount);;
 	UPROPERTY(BlueprintReadOnly, Category="User|Combat")
 	bool bHitReacting = false;
+
+	virtual void Die() override;
 	/** end Combat Interface */
 
 	// Health Bar
@@ -58,5 +60,9 @@ protected:
 	// TODO move to Character Class Info
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="User|UI")
 	TObjectPtr<UWidgetComponent> HealthBar;
+
+	// TODO move to Character Class Info
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="User|Character Class Defaults")
+	float LifeSpan = 5.f;
 	
 };

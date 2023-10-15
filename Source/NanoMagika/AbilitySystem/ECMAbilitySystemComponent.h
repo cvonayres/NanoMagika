@@ -25,7 +25,7 @@ public:
 	void AddGameplayEffect(const TSubclassOf<UGameplayEffect>& Effect, float Level);
 	
 	// Add Gameplay Abilities
-	void AddGameplayAbilities(const TArray<TSubclassOf<UGameplayAbility>>& Abilities, bool StartupTag);
+	void AddGameplayAbilities(const TArray<TSubclassOf<UGameplayAbility>>& Abilities, bool ReactToInput);
 
 	// Add Gameplay Tags
 	void  AddGameplayTags(const TArray<FGameplayTag>& Tags);

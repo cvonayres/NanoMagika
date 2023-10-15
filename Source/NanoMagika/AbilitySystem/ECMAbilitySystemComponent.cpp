@@ -21,13 +21,13 @@ void UECMAbilitySystemComponent::AddGameplayEffect(const TSubclassOf<UGameplayEf
 }
 
 // Grant Ability
-void UECMAbilitySystemComponent::AddGameplayAbilities(const TArray<TSubclassOf<UGameplayAbility>>& Abilities, bool StartupTag)
+void UECMAbilitySystemComponent::AddGameplayAbilities(const TArray<TSubclassOf<UGameplayAbility>>& Abilities, bool ReactToInput)
 {
 	for(const TSubclassOf<UGameplayAbility> AbilityClass : Abilities)
 	{
 		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
 
-		if (StartupTag)
+		if (ReactToInput) // For reacting to enhanced input [i.e. cast firebolt.
 		{
 			if(const UECMGameplayAbility* ECMAbility = Cast<UECMGameplayAbility>(AbilitySpec.Ability)) 
 			{

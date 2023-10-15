@@ -80,3 +80,39 @@ FVector AECMCharacterBase::GetCombatSocketLocation()
 	check(Weapon);
 	return Weapon->GetSocketLocation(WeaponTipSocketName);
 }
+
+// Could replace with a die ability and play a montage [see hit react]
+void AECMCharacterBase::Die() // Server Side only
+{
+	Weapon->DetachFromComponent(FDetachmentTransformRules(EDetachmentRule::KeepWorld, true)); // Drop weapon
+	MulticastHandleDeath(); // RPC call for clients
+}
+
+// Ragdoll
+void AECMCharacterBase::MulticastHandleDeath_Implementation()
+{
+	for (TArray<USkeletalMeshComponent*> SkMeshes = { GetMesh(), Weapon }; USkeletalMeshComponent* SkMesh : SkMeshes)
+	{
+		SkMesh->SetSimulatePhysics(true);
+		SkMesh->SetEnableGravity(true);
+		SkMesh->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+		SkMesh->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
+	}
+
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	Dissolve();
+}
+
+void AECMCharacterBase::Dissolve()
+{
+	if(IsValid(DissolveMaterialInstance) && IsValid(WeaponDissolveMaterialInstance))
+	{
+		UMaterialInstanceDynamic* DynamicMatInst = UMaterialInstanceDynamic::Create(DissolveMaterialInstance, this);
+		GetMesh()->SetMaterial(0, DynamicMatInst);
+
+		UMaterialInstanceDynamic* WeaponDynamicMatInst = UMaterialInstanceDynamic::Create(WeaponDissolveMaterialInstance, this);
+		Weapon->SetMaterial(0, WeaponDynamicMatInst);
+
+		StartDissolveTimeline(DynamicMatInst, WeaponDynamicMatInst);
+	}
+}

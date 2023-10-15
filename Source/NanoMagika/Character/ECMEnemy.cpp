@@ -45,15 +45,15 @@ void AECMEnemy::InitializeCharacter()
 
 void AECMEnemy::InitDefaultAttributes()
 {
-	UECMAbilitySystemLibrary::InitializeDefaultAttributes(this, EnemyTag, Level, GetECMASC());
+	UECMAbilitySystemLibrary::InitializeEnemyAttributes(this, EnemyTag, Level, GetECMASC());
 }
 void AECMEnemy::InitDefaultAbilities()
 {
-	UECMAbilitySystemLibrary::InitializeDefaultAbilities(this, EnemyTag, Level, GetECMASC());
+	UECMAbilitySystemLibrary::InitializeEnemyAbilities(this, EnemyTag, Level, GetECMASC());
 }
 void AECMEnemy::InitDefaultGameplayTags()
 {
-	UECMAbilitySystemLibrary::InitializeDefaultTags(this, EnemyTag, GetECMASC());
+	UECMAbilitySystemLibrary::InitializeEnemyTags(this, EnemyTag, GetECMASC());
 }
 
 void AECMEnemy::InitHealthBar()
@@ -84,9 +84,17 @@ void AECMEnemy::InitHealthBar()
 	OnMaxHealthChange.Broadcast(ECMAS->GetVMCapacity());
 }
 
+
 void AECMEnemy::HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
 {
 	bHitReacting = NewCount > 0;
 
 	GetCharacterMovement()->MaxWalkSpeed = bHitReacting ? 0.f: DefaultWalkingSpeed;
+}
+
+void AECMEnemy::Die()
+{
+	SetLifeSpan(LifeSpan);
+	
+	Super::Die();
 }

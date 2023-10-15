@@ -4,8 +4,10 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Components/GameFrameworkComponentManager.h"
 #include "EnhancedInputSubsystems.h"
+#include "GameFramework/Character.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 #include "NanoMagika/Input/ECMInputComponent.h"
+#include "NanoMagika/UI/Widget/ECMDamageTextComponent.h"
 
 AECMPlayerController::AECMPlayerController()
 {
@@ -18,6 +20,21 @@ void AECMPlayerController::PreInitializeComponents()
 	Super::PreInitializeComponents();
 	
 	UGameFrameworkComponentManager::AddGameFrameworkComponentReceiver(this); 	
+}
+
+void AECMPlayerController::ShowDamageNumber_Implementation(float Damage, ACharacter* TargetCharacter)
+{
+	if (IsValid(TargetCharacter) && DamageTextComponentClass)
+	{
+		// Create
+		UECMDamageTextComponent* DamageText = NewObject<UECMDamageTextComponent>(TargetCharacter, DamageTextComponentClass);
+		DamageText->RegisterComponent();
+		// Set location to target at spawn then detach
+		DamageText->AttachToComponent(TargetCharacter->GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+		DamageText->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
+		// Set damage text
+		DamageText->SetDamageText(Damage);
+	}
 }
 
 void AECMPlayerController::BeginPlay()

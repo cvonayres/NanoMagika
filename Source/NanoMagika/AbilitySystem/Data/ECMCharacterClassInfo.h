@@ -32,5 +32,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults")
 	TArray<FGameplayTag> CommonTags;
 
+	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults|Damage")
+	TObjectPtr<UCurveTable> DamageCalculationCoefficients;
+
 	TObjectPtr<UECMEnemySpecInfo> GetClassDefaultInfo(FGameplayTag EnemyTag);
+
 };

@@ -85,6 +85,7 @@ public:
 	DECLARE_GAMEPLAY_TAG(Attribute_Secondary_ARRecovery)
 	DECLARE_GAMEPLAY_TAG(Attribute_Secondary_KineticAbsorption)
 	DECLARE_GAMEPLAY_TAG(Attribute_Secondary_NanoshieldThreshold)
+	DECLARE_GAMEPLAY_TAG(Attribute_Secondary_AdaptiveReflex)
 	DECLARE_GAMEPLAY_TAG(Attribute_Secondary_ResonanceSyncQuality)
 	DECLARE_GAMEPLAY_TAG(Attribute_Secondary_ResonanceAmplification)
 	DECLARE_GAMEPLAY_TAG(Attribute_Secondary_EmpathicInfluence)

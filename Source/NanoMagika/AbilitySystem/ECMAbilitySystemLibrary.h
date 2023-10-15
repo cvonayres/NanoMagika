@@ -34,5 +34,11 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
 	static void InitializeEnemyTags(const UObject* WorldContextObject, FGameplayTag EnemyTag, UECMAbilitySystemComponent* ESMASC);
+
+	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
+	static UECMCharacterClassInfo* GetCharacterClassInfo(const UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
+	static UECMEnemySpecInfo* GetClassDefaultInfo(UECMCharacterClassInfo* CharacterClassInfo, FGameplayTag EnemyTag );
 	
 };

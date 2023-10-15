@@ -7,17 +7,14 @@
 #include "AbilitySystemComponent.h"
 #include "ECMAttributeSet.generated.h"
 
-#pragma region Macros
 // Macro for creating attribute getters, setters,etc
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
-#pragma endregion Macros
 
 class AECMPlayerController;
-struct AttributeFunctionMappings;
 
 USTRUCT()
 struct FEffectProperties
@@ -187,6 +184,10 @@ public:
 	FGameplayAttributeData NanoshieldThreshold;
 	ATTRIBUTE_ACCESSORS(UECMAttributeSet, NanoshieldThreshold);
 
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes|Secondary", ReplicatedUsing = OnRep_AdaptiveReflex)
+	FGameplayAttributeData AdaptiveReflex;
+	ATTRIBUTE_ACCESSORS(UECMAttributeSet, AdaptiveReflex);
+	
 	UPROPERTY(BlueprintReadOnly, Category = "Attributes|Secondary", ReplicatedUsing = OnRep_ResonanceSyncQuality)
 	FGameplayAttributeData ResonanceSyncQuality;
 	ATTRIBUTE_ACCESSORS(UECMAttributeSet, ResonanceSyncQuality);
@@ -232,6 +233,8 @@ public:
 	UFUNCTION()
 	void OnRep_NanoshieldThreshold(const FGameplayAttributeData& OldNST) const;
 	UFUNCTION()
+	void OnRep_AdaptiveReflex(const FGameplayAttributeData& OldAR) const;
+	UFUNCTION()
 	void OnRep_ResonanceSyncQuality(const FGameplayAttributeData& OldRSQ) const;
 	UFUNCTION()
 	void OnRep_ResonanceAmplification(const FGameplayAttributeData& OldRA) const;
@@ -252,7 +255,6 @@ public:
 #pragma region TertiaryAttributes
 #pragma endregion TertiaryAttributes
 	
-protected:
 // Meta - Gameplay Attributes
 #pragma region MetaAttributes
 	UPROPERTY(BlueprintReadOnly, Category = "Meta Attributes")
@@ -263,14 +265,15 @@ protected:
 	FGameplayAttributeData IncomingDamage;
 	ATTRIBUTE_ACCESSORS(UECMAttributeSet, IncomingDamage);
 #pragma endregion MetaAttributes
-
 	
 private:
 	static void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties &Props);
+	void ClampAttributePost(const FGameplayAttribute& Attribute);
+	void HandleDamage(const FGameplayAttribute& Attribute, const FEffectProperties& Props);
 
-	// Attribute Mappings for clamping
-	static TMap<FGameplayAttribute, AttributeFunctionMappings> GetAttributeMappings();
-
-	void ShowDamageText(const FEffectProperties& Props, float LocalIncomingDamage);
+	static void ShowDamageText(const FEffectProperties& Props, float LocalIncomingDamage);
+	
 	static void HitReaction(const FEffectProperties& Props);
+	
+
 };

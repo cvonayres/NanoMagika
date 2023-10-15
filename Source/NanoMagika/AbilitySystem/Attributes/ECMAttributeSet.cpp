@@ -40,6 +40,7 @@ UECMAttributeSet::UECMAttributeSet()
     TagsToAttributes.Add(GameplayTags.Attribute_Secondary_ARRecovery, GetARRecoveryAttribute);
 	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_KineticAbsorption, GetKineticAbsorptionAttribute);
 	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_NanoshieldThreshold, GetNanoshieldThresholdAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_AdaptiveReflex, GetAdaptiveReflexAttribute);
 	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_ResonanceSyncQuality, GetResonanceSyncQualityAttribute);
 	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_ResonanceAmplification, GetResonanceAmplificationAttribute);
 	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_EmpathicInfluence, GetEmpathicInfluenceAttribute);
@@ -54,42 +55,49 @@ UECMAttributeSet::UECMAttributeSet()
 
 #pragma endregion Mapping
 
-struct AttributeFunctionMappings
+#pragma region AttributeChange
+
+struct FECMAttibuteTMap
 {
-	float (UECMAttributeSet::*Getter)() const = nullptr;
-	void (UECMAttributeSet::*Setter)(float) = nullptr;
-	float (UECMAttributeSet::*MaxFunc)() const;
+	FECMAttibuteTMap(){ }
+
+	struct AttributeFunctionMappings
+	{
+		float (UECMAttributeSet::*Getter)() const = nullptr;
+		void (UECMAttributeSet::*Setter)(float) = nullptr;
+		float (UECMAttributeSet::*MaxFunc)() const;
+	};
+	
+	TMap<FGameplayAttribute, AttributeFunctionMappings> AttributeMap {
+			{ UECMAttributeSet::GetVitalityMatrixAttribute(), { &UECMAttributeSet::GetVitalityMatrix, &UECMAttributeSet::SetVitalityMatrix, &UECMAttributeSet::GetVMCapacity } },
+			{ UECMAttributeSet::GetEnergeticEnduranceAttribute(), { &UECMAttributeSet::GetEnergeticEndurance, &UECMAttributeSet::SetEnergeticEndurance, &UECMAttributeSet::GetEECapacity } },
+			{ UECMAttributeSet::GetArcaneReservoirAttribute(), { &UECMAttributeSet::GetArcaneReservoir, &UECMAttributeSet::SetArcaneReservoir, &UECMAttributeSet::GetARCapacity } },
+			{ UECMAttributeSet::GetDefensiveSynchronyAttribute(), { &UECMAttributeSet::GetDefensiveSynchrony, &UECMAttributeSet::SetDefensiveSynchrony, &UECMAttributeSet::GetKineticAbsorption } },
+			{ UECMAttributeSet:: GetBarrierMatrixAttribute(), { &UECMAttributeSet::GetBarrierMatrix, &UECMAttributeSet::SetBarrierMatrix, &UECMAttributeSet::GetNanoshieldThreshold } },
+
+			{ UECMAttributeSet::GetPhysiqueAttribute(), { &UECMAttributeSet::GetPhysique, &UECMAttributeSet::SetPhysique, &UECMAttributeSet::GetMaxPrimaryStat } },
+			{ UECMAttributeSet::GetAdaptivityAttribute(), { &UECMAttributeSet::GetAdaptivity, &UECMAttributeSet::SetAdaptivity, &UECMAttributeSet::GetMaxPrimaryStat } },
+			{ UECMAttributeSet::GetNeuralAgilityAttribute(), { &UECMAttributeSet::GetNeuralAgility, &UECMAttributeSet::SetNeuralAgility, &UECMAttributeSet::GetMaxPrimaryStat } },
+			{ UECMAttributeSet::GetEmpathicResonanceAttribute(), { &UECMAttributeSet::GetEmpathicResonance, &UECMAttributeSet::SetEmpathicResonance, &UECMAttributeSet::GetMaxPrimaryStat } },
+			{ UECMAttributeSet::GetEssenceControlAttribute(), { &UECMAttributeSet::GetEssenceControl, &UECMAttributeSet::SetEssenceControl, &UECMAttributeSet::GetMaxPrimaryStat } },
+			{ UECMAttributeSet::GetNanomancyAttribute(), { &UECMAttributeSet::GetNanomancy, &UECMAttributeSet::SetNanomancy, &UECMAttributeSet::GetMaxPrimaryStat } },
+			} ;
 };
 
-// All Attributes to be clamped
-TMap<FGameplayAttribute, AttributeFunctionMappings> UECMAttributeSet::GetAttributeMappings()
+static const FECMAttibuteTMap& GetAttributeTMap()
 {
-	return {
-		{ GetVitalityMatrixAttribute(), { &UECMAttributeSet::GetVitalityMatrix, &UECMAttributeSet::SetVitalityMatrix, &UECMAttributeSet::GetVMCapacity } },
-		{ GetEnergeticEnduranceAttribute(), { &UECMAttributeSet::GetEnergeticEndurance, &UECMAttributeSet::SetEnergeticEndurance, &UECMAttributeSet::GetEECapacity } },
-		{ GetArcaneReservoirAttribute(), { &UECMAttributeSet::GetArcaneReservoir, &UECMAttributeSet::SetArcaneReservoir, &UECMAttributeSet::GetARCapacity } },
-		{ GetDefensiveSynchronyAttribute(), { &UECMAttributeSet::GetDefensiveSynchrony, &UECMAttributeSet::SetDefensiveSynchrony, &UECMAttributeSet::GetKineticAbsorption } },
-		{ GetBarrierMatrixAttribute(), { &UECMAttributeSet::GetBarrierMatrix, &UECMAttributeSet::SetBarrierMatrix, &UECMAttributeSet::GetNanoshieldThreshold } },
-
-		{ GetPhysiqueAttribute(), { &UECMAttributeSet::GetPhysique, &UECMAttributeSet::SetPhysique, &UECMAttributeSet::GetMaxPrimaryStat } },
-		{ GetAdaptivityAttribute(), { &UECMAttributeSet::GetAdaptivity, &UECMAttributeSet::SetAdaptivity, &UECMAttributeSet::GetMaxPrimaryStat } },
-		{ GetNeuralAgilityAttribute(), { &UECMAttributeSet::GetNeuralAgility, &UECMAttributeSet::SetNeuralAgility, &UECMAttributeSet::GetMaxPrimaryStat } },
-		{ GetEmpathicResonanceAttribute(), { &UECMAttributeSet::GetEmpathicResonance, &UECMAttributeSet::SetEmpathicResonance, &UECMAttributeSet::GetMaxPrimaryStat } },
-		{ GetEssenceControlAttribute(), { &UECMAttributeSet::GetEssenceControl, &UECMAttributeSet::SetEssenceControl, &UECMAttributeSet::GetMaxPrimaryStat } },
-		{ GetNanomancyAttribute(), { &UECMAttributeSet::GetNanomancy, &UECMAttributeSet::SetNanomancy, &UECMAttributeSet::GetMaxPrimaryStat } },
-	};
+	static FECMAttibuteTMap AttributeTMapStatic;
+	return AttributeTMapStatic;
 }
-
 
 // Clamp Valves
 void UECMAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
 	Super::PreAttributeChange(Attribute, NewValue);
-
-	if(auto AttributeMap = GetAttributeMappings(); AttributeMap.Contains(Attribute))
+	
+	if (auto AttributeMap = GetAttributeTMap().AttributeMap; AttributeMap.Contains(Attribute))
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, (this->*AttributeMap.Find(Attribute)->MaxFunc)());
-		//UE_LOG(LogTemp, Warning, TEXT("Changed Health: %f"), NewValue);
 	}
 }
 
@@ -97,11 +105,9 @@ void UECMAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData&
 {
 	// Source = causer, Target = target of the effect (owner of this AS)
 
-	//Get Context Handle
-	Props.EffectContextHandle = Data.EffectSpec.GetContext();
+	Props.EffectContextHandle = Data.EffectSpec.GetContext();	//Get Context Handle
 
-	//Get Source Ability System Component
-	Props.SourceASC = Props.EffectContextHandle.GetOriginalInstigatorAbilitySystemComponent();
+	Props.SourceASC = Props.EffectContextHandle.GetOriginalInstigatorAbilitySystemComponent(); 	//Get Source Ability System Component
 
 	// Get Source Actor, Controller & Character
 	if(IsValid(Props.SourceASC) && Props.SourceASC->AbilityActorInfo.IsValid() && Props.SourceASC->AbilityActorInfo->AvatarActor.IsValid())
@@ -131,48 +137,72 @@ void UECMAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData&
 	}
 }
 
-// Harvest Data & Clamp again
 void UECMAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
 	
-	// Gets GameplayEffect Prop & Attribute from Data packet
 	FEffectProperties Props;
-	SetEffectProperties(Data, Props);
-	const FGameplayAttribute Attribute = Data.EvaluatedData.Attribute;
+	SetEffectProperties(Data, Props); // Set Effect Properties [i.e. source/target ASC, ACtor, Controller & Character]
 
-	if(auto AttributeMap = GetAttributeMappings(); AttributeMap.Contains(Attribute))
-	{
-		const AttributeFunctionMappings* AttributeFunc = AttributeMap.Find(Attribute);
-		(this->*AttributeFunc->Setter)(FMath::Clamp((this->*AttributeFunc->Getter)(), 0.f, (this->*AttributeFunc->MaxFunc)()));
-	}
-	
-	// CAL DAMAGE
-	
-	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
-	{
-		const float LocalIncomingDamage = GetIncomingDamage();
-		SetIncomingDamage(0.f);
-		if( LocalIncomingDamage > 0.f)
-		{
-			const float NewHealth  = GetVitalityMatrix() - LocalIncomingDamage;
-			SetVitalityMatrix(FMath::Clamp(NewHealth, 0, GetVMCapacity()));
+	ClampAttributePost(Data.EvaluatedData.Attribute); // Clamp Attribute
 
-			ShowDamageText(Props, LocalIncomingDamage);
+	HandleDamage(Data.EvaluatedData.Attribute, Props); 	// Handle Damage
+
+}
+
+void UECMAttributeSet::ClampAttributePost(const FGameplayAttribute& Attribute)
+{
+	if(GetAttributeTMap().AttributeMap.Contains(Attribute) == false) return;
+
+	const FECMAttibuteTMap::AttributeFunctionMappings* AttributeFunc = GetAttributeTMap().AttributeMap.Find(Attribute);
+
+	(this->*AttributeFunc->Setter)(FMath::Clamp((this->*AttributeFunc->Getter)(), 0.f, (this->*AttributeFunc->MaxFunc)()));
+}
+
+void UECMAttributeSet::HandleDamage(const FGameplayAttribute& Attribute, const FEffectProperties& Props)
+{
+	if (Attribute != GetIncomingDamageAttribute() || GetIncomingDamage() <= 1.f) return;
+
+	const float LocalIncomingDamage = GetIncomingDamage();
+	SetIncomingDamage(0.f);
+
+	const float NewHealth  = GetVitalityMatrix() - LocalIncomingDamage;
+	SetVitalityMatrix(FMath::Clamp(NewHealth, 0, GetVMCapacity()));
+
+	ShowDamageText(Props, LocalIncomingDamage); // Show floating damage numbers
 			
-			if(NewHealth <- 0.f)   // Check if dead
-			{
-				if(IECMCombatInterface* CombatInterface = Cast<IECMCombatInterface>(Props.TargetAvatarActor)) { CombatInterface->Die(); }
-			}
-			else
-			{
-				HitReaction(Props);
-			}
+	if(NewHealth <- 0.f)   // Check if dead
+	{
+		if(IECMCombatInterface* CombatInterface = Cast<IECMCombatInterface>(Props.TargetAvatarActor))
+		{
+			CombatInterface->Die();
+		}
+	}
+	else
+	{
+		HitReaction(Props);
+	}
+}
+
+void UECMAttributeSet::ShowDamageText(const FEffectProperties& Props, const float LocalIncomingDamage)
+{
+	if(Props.SourceCharacter != Props.TargetCharacter)
+	{
+		if (AECMPlayerController* PC = Cast<AECMPlayerController>(UGameplayStatics::GetPlayerController(Props.SourceCharacter, 0)))
+		{
+			PC->ShowDamageNumber(LocalIncomingDamage, Props.TargetCharacter );
 		}
 	}
 }
 
-#pragma endregion Clamping
+void UECMAttributeSet::HitReaction(const FEffectProperties& Props)
+{
+	FGameplayTagContainer TagContainer;
+	TagContainer.AddTag(FECMGameplayTags::Get().Effect_HitReact);
+	Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);	
+}
+
+#pragma endregion AttributeChange
 
 #pragma region Replicate
 // Replicate attributes
@@ -208,6 +238,7 @@ void UECMAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 		DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, ARRecovery, COND_None, REPNOTIFY_Always);
 		DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, KineticAbsorption, COND_None, REPNOTIFY_Always);
 		DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, NanoshieldThreshold, COND_None, REPNOTIFY_Always);
+		DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, AdaptiveReflex, COND_None, REPNOTIFY_Always);
 		DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, ResonanceSyncQuality, COND_None, REPNOTIFY_Always);
 		DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, ResonanceAmplification, COND_None, REPNOTIFY_Always);
 		DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, EmpathicInfluence, COND_None, REPNOTIFY_Always);
@@ -255,6 +286,7 @@ DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, ARCapacity)
 DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, ARRecovery)
 DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, KineticAbsorption)
 DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, NanoshieldThreshold)
+DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, AdaptiveReflex)
 DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, ResonanceSyncQuality)
 DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, ResonanceAmplification)
 DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, EmpathicInfluence)
@@ -269,24 +301,3 @@ DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, DimensionalPocketCapacity)
 #undef DEFINE_ATTRIBUTE_REPNOTIFY
 
 #pragma endregion RefNofifies
-
-void UECMAttributeSet::ShowDamageText(const FEffectProperties& Props, float LocalIncomingDamage)
-{
-	// When hit, show damage number
-	if(Props.SourceCharacter != Props.TargetCharacter)
-	{
-		AECMPlayerController* PC = Cast<AECMPlayerController>(UGameplayStatics::GetPlayerController(Props.SourceCharacter, 0));
-
-		if (PC)
-		{
-			PC->ShowDamageNumber(LocalIncomingDamage, Props.TargetCharacter );
-		}
-	}
-}
-
-void UECMAttributeSet::HitReaction(const FEffectProperties& Props)
-{
-	FGameplayTagContainer TagContainer;
-	TagContainer.AddTag(FECMGameplayTags::Get().Effect_HitReact);
-	Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);	
-}

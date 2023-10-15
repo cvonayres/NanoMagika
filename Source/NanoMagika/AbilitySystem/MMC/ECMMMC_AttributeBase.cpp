@@ -35,7 +35,7 @@ void UECMMMC_AttributeBase::GatherData(const FGameplayEffectSpec Spec, TArray<fl
 	checkf(CombatInterface, TEXT("CombatInterface Not set for Effect Spec Object"))
 	DataExtOut.PlayerLevel = CombatInterface->GetPlayerLevel();
 
-	// Cycle through all attributes and fill in appropiate Attribute definitions.
+	// Cycle through all attributes and fill in appropriate Attribute definitions.
 	for (int32 i = 0; i < AttributeValuesOut.Num(); i++)
 	{
 		GetCapturedAttributeMagnitude(AttributeDefs[i], Spec, EvaluationParams, AttributeValuesOut[i]);

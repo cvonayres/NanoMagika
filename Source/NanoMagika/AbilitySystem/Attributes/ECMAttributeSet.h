@@ -253,6 +253,42 @@ public:
 
 // Tertiary - Gameplay Attributes
 #pragma region TertiaryAttributes
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes|Resistance", ReplicatedUsing = OnRep_ResistancePhysical)
+	FGameplayAttributeData ResistancePhysical;
+	ATTRIBUTE_ACCESSORS(UECMAttributeSet, ResistancePhysical);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes|Resistance", ReplicatedUsing = OnRep_ResistanceFire)
+	FGameplayAttributeData ResistanceFire;
+	ATTRIBUTE_ACCESSORS(UECMAttributeSet, ResistanceFire);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes|Resistance", ReplicatedUsing = OnRep_ResistanceFrost)
+	FGameplayAttributeData ResistanceFrost;
+	ATTRIBUTE_ACCESSORS(UECMAttributeSet, ResistanceFrost);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes|Resistance", ReplicatedUsing = OnRep_ResistanceLightning)
+	FGameplayAttributeData ResistanceLightning;
+	ATTRIBUTE_ACCESSORS(UECMAttributeSet, ResistanceLightning);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes|Resistance", ReplicatedUsing = OnRep_ResistanceEarth)
+	FGameplayAttributeData ResistanceEarth;
+	ATTRIBUTE_ACCESSORS(UECMAttributeSet, ResistanceEarth);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes|Resistance", ReplicatedUsing = OnRep_ResistanceNanotech)
+	FGameplayAttributeData ResistanceNanotech;
+	ATTRIBUTE_ACCESSORS(UECMAttributeSet, ResistanceNanotech);
+	
+	UFUNCTION()
+	void OnRep_ResistancePhysical(const FGameplayAttributeData& OldPhy) const;
+	UFUNCTION()
+	void OnRep_ResistanceFire(const FGameplayAttributeData& OldFire) const;
+	UFUNCTION()
+	void OnRep_ResistanceFrost(const FGameplayAttributeData& OldFrost) const;
+	UFUNCTION()
+	void OnRep_ResistanceLightning(const FGameplayAttributeData& OldLig) const;
+	UFUNCTION()
+	void OnRep_ResistanceEarth(const FGameplayAttributeData& OldEarth) const;
+	UFUNCTION()
+	void OnRep_ResistanceNanotech(const FGameplayAttributeData& OldNano) const;
 #pragma endregion TertiaryAttributes
 	
 // Meta - Gameplay Attributes
@@ -269,7 +305,7 @@ public:
 private:
 	static void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties &Props);
 	void ClampAttributePost(const FGameplayAttribute& Attribute);
-	void HandleDamage(const FGameplayAttribute& Attribute, const FEffectProperties& Props);
+	void HandleDamage(const FGameplayEffectModCallbackData& Data, const FEffectProperties& Props);
 
 	static void ShowDamageText(const FEffectProperties& Props, float LocalIncomingDamage);
 	

@@ -90,9 +90,13 @@ void FECMGameplayTags::InitNativeGameplayTags()
 	INIT_TAG(Attribute_Secondary_DimensionalPocketCapacity, "Attribute.Secondary.DimensionalPocketCapacity")
 
 	/** Declares the "Tertiary Attributes" gameplay tag. */
-	INIT_TAG(Attribute_Tertiary_FireResistance, "Attribute.Tertiary.FireResistance")
-	INIT_TAG(Attribute_Tertiary_LightingResistance, "Attribute.Tertiary.LightingResistance")
-	INIT_TAG(Attribute_Tertiary_NanotechResistance, "Attribute.Tertiary.NanotechResistance")
+	INIT_TAG(Attribute_Resistance_Physical, "Attribute.Resistance.Physical")
+	INIT_TAG(Attribute_Resistance_Fire, "Attribute.Resistance.Fire")
+	INIT_TAG(Attribute_Resistance_Frost, "Attribute.Resistance.Frost")
+	INIT_TAG(Attribute_Resistance_Lightning, "Attribute.Resistance.Lightning")
+	INIT_TAG(Attribute_Resistance_Earth, "Attribute.Resistance.Earth")
+	INIT_TAG(Attribute_Resistance_Nanotech, "Attribute.Resistance.Nanotech")
+
 #pragma endregion Attributes
 
 #pragma region Character
@@ -123,8 +127,24 @@ void FECMGameplayTags::InitNativeGameplayTags()
 	INIT_TAG(Effect_Healing, "Effect.Healing")
 	INIT_TAG(Effect_Damage, "Effect.Damage")
 	INIT_TAG(Effect_HitReact, "Effect.HitReact")
+	
+	INIT_TAG(Effect_Damage_Physical, "Effect.Damage.Physical")
+	INIT_TAG(Effect_Damage_Fire, "Effect.Damage.Fire")
+	INIT_TAG(Effect_Damage_Frost, "Effect.Damage.Frost")
+	INIT_TAG(Effect_Damage_Lightning, "Effect.Damage.Lightning")
+	INIT_TAG(Effect_Damage_Earth, "Effect.Damage.Earth")
+	INIT_TAG(Effect_Damage_Nanotech, "Effect.Damage.Nanotech")
 
 #pragma endregion Effects
-	
+
 	#undef INIT_TAG
+
+	// Add to TMap
+	GameplayTags.DamageTypeToResistance.Add(GameplayTags.Effect_Damage_Physical, GameplayTags.Attribute_Resistance_Physical);
+	GameplayTags.DamageTypeToResistance.Add(GameplayTags.Effect_Damage_Fire, GameplayTags.Attribute_Resistance_Fire);
+	GameplayTags.DamageTypeToResistance.Add(GameplayTags.Effect_Damage_Frost, GameplayTags.Attribute_Resistance_Frost);
+	GameplayTags.DamageTypeToResistance.Add(GameplayTags.Effect_Damage_Lightning, GameplayTags.Attribute_Resistance_Lightning);
+	GameplayTags.DamageTypeToResistance.Add(GameplayTags.Effect_Damage_Earth, GameplayTags.Attribute_Resistance_Earth);
+	GameplayTags.DamageTypeToResistance.Add(GameplayTags.Effect_Damage_Nanotech, GameplayTags.Attribute_Resistance_Nanotech);
+
 }

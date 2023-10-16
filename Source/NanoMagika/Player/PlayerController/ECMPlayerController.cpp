@@ -22,21 +22,6 @@ void AECMPlayerController::PreInitializeComponents()
 	UGameFrameworkComponentManager::AddGameFrameworkComponentReceiver(this); 	
 }
 
-void AECMPlayerController::ShowDamageNumber_Implementation(float Damage, ACharacter* TargetCharacter)
-{
-	if (IsValid(TargetCharacter) && DamageTextComponentClass)
-	{
-		// Create
-		UECMDamageTextComponent* DamageText = NewObject<UECMDamageTextComponent>(TargetCharacter, DamageTextComponentClass);
-		DamageText->RegisterComponent();
-		// Set location to target at spawn then detach
-		DamageText->AttachToComponent(TargetCharacter->GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
-		DamageText->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
-		// Set damage text
-		DamageText->SetDamageText(Damage);
-	}
-}
-
 void AECMPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -65,20 +50,23 @@ void AECMPlayerController::SetupInputComponent()
 	ECMInputComponent = CastChecked<UECMInputComponent>(InputComponent);
 }
 
+void AECMPlayerController::AbilityInputTagPressed(FGameplayTag InputTag) { }
+void AECMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag) { }
+void AECMPlayerController::AbilityInputTagHeld(FGameplayTag InputTag) { }
 
-void AECMPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
+void AECMPlayerController::ShowDamageNumber_Implementation(float Damage, ACharacter* TargetCharacter, bool bBlockHit, bool bCriticalHit)
 {
-	// GEngine->AddOnScreenDebugMessage(1,3,FColor::Red, *InputTag.ToString());
-}
-
-void AECMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
-{
-	// GEngine->AddOnScreenDebugMessage(2,3,FColor::Blue, *InputTag.ToString());
-}
-
-void AECMPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
-{
-	// GEngine->AddOnScreenDebugMessage(3,3,FColor::Green, *InputTag.ToString());
+	if (IsValid(TargetCharacter) && DamageTextComponentClass && IsLocalController())
+	{
+		// Create
+		UECMDamageTextComponent* DamageText = NewObject<UECMDamageTextComponent>(TargetCharacter, DamageTextComponentClass);
+		DamageText->RegisterComponent();
+		// Set location to target at spawn then detach
+		DamageText->AttachToComponent(TargetCharacter->GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+		DamageText->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
+		// Set damage text
+		DamageText->SetDamageText(Damage, bBlockHit, bCriticalHit);
+	}
 }
 
 // Helper functions

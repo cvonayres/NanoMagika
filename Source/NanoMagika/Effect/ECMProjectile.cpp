@@ -33,8 +33,6 @@ AECMProjectile::AECMProjectile()
 	ProjectileMovement->ProjectileGravityScale = GravityScale;
 }
 
-
-
 void AECMProjectile::BeginPlay()
 {
 	Super::BeginPlay();
@@ -48,7 +46,10 @@ void AECMProjectile::BeginPlay()
 
 void AECMProjectile::Destroyed()
 {
-	if(!bHit && !HasAuthority()) { SpawnFX(); }
+	if(!bHit && !HasAuthority())
+	{
+		SpawnFX();
+	}
 	
 	Super::Destroyed();
 }
@@ -56,7 +57,9 @@ void AECMProjectile::Destroyed()
 void AECMProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
                                UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	SpawnFX();
+	if (DamageEffectSpecHandle.Data.IsValid() && DamageEffectSpecHandle.Data.Get()->GetContext().GetEffectCauser() == OtherActor) return;
+
+	if (!bHit) 	SpawnFX();
 	
 	if(HasAuthority())
 	{
@@ -64,6 +67,7 @@ void AECMProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 		{
 			TargetASC->ApplyGameplayEffectSpecToSelf(*DamageEffectSpecHandle.Data.Get());
 		}
+		
 		Destroy() ;
 	}
 	else { bHit = true ; }
@@ -78,5 +82,5 @@ void AECMProjectile::SpawnFX() const
 	// Spawn Impact SFX
 	UGameplayStatics::PlaySoundAtLocation(this, ImpactSFX, GetActorLocation(), FRotator::ZeroRotator);
 
-	LoopingSFXComponent->Stop();
+	if(LoopingSFXComponent) LoopingSFXComponent->Stop();
 }

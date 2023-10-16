@@ -26,7 +26,7 @@ AECMEnemy::AECMEnemy()
 void AECMEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	InitializeCharacter();
 }
 

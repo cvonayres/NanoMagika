@@ -4,6 +4,7 @@
 #include "ECMAbilitySystemComponent.h"
 #include "Data/ECMEnemySpecInfo.h"
 #include "Kismet/GameplayStatics.h"
+#include "NanoMagika/ECMAbilityTypes.h"
 #include "NanoMagika/Game/ECMGameMode.h"
 #include "NanoMagika/Player/PlayerState/ECMPlayerState.h"
 #include "NanoMagika/UI/HUD/ECMHUD.h"
@@ -89,4 +90,38 @@ UECMCharacterClassInfo* UECMAbilitySystemLibrary::GetCharacterClassInfo(const UO
 UECMEnemySpecInfo* UECMAbilitySystemLibrary::GetClassDefaultInfo(UECMCharacterClassInfo* CharacterClassInfo, const FGameplayTag EnemyTag )
 {
 	return CharacterClassInfo->GetClassDefaultInfo(EnemyTag);
+}
+
+bool UECMAbilitySystemLibrary::IsBlockedHit(const FGameplayEffectContextHandle& EffectContextHandle)
+{
+	if(const FECMGameplayEffectContext* ECMEffectContext = static_cast<const FECMGameplayEffectContext*>(EffectContextHandle.Get()))
+	{
+		return ECMEffectContext->IsBlockedHit();
+	}
+	return false;	
+}
+
+void UECMAbilitySystemLibrary::SetIsBlockedHit(FGameplayEffectContextHandle& EffectContextHandle, bool bInIsBlockedHit)
+{
+	if(FECMGameplayEffectContext* ECMEffectContext = static_cast<FECMGameplayEffectContext*>(EffectContextHandle.Get()))
+	{
+		ECMEffectContext->SetIsBlockingHit(bInIsBlockedHit);
+	}
+}
+
+bool UECMAbilitySystemLibrary::IsCriticalHit(const FGameplayEffectContextHandle& EffectContextHandle)
+{
+	if(const FECMGameplayEffectContext* ECMEffectContext = static_cast<const FECMGameplayEffectContext*>(EffectContextHandle.Get()))
+	{
+		return ECMEffectContext->IsCriticalHit();
+	}
+	return false;	
+}
+
+void UECMAbilitySystemLibrary::SetIsCriticalHit(FGameplayEffectContextHandle& EffectContextHandle,	bool bInIsCriticalHit)
+{
+	if(FECMGameplayEffectContext* ECMEffectContext = static_cast<FECMGameplayEffectContext*>(EffectContextHandle.Get()))
+	{
+		ECMEffectContext->SetIsCriticalHit(bInIsCriticalHit);
+	}
 }

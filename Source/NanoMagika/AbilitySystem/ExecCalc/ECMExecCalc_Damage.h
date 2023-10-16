@@ -22,8 +22,10 @@ public:
 private:
 	FGameplayEffectAttributeCaptureDefinition PhysiqueDef;
 
-	static void BlockCal(const FGameplayEffectCustomExecutionParameters& ExecutionParams, const FAggregatorEvaluateParameters& EvaluateParameters, float& Damage, bool& bBlocked);
-	static void CritCal(const FGameplayEffectCustomExecutionParameters& ExecutionParams, const FAggregatorEvaluateParameters& EvaluateParameters, float& Damage, bool& bCritHit);
+	static void ResistanceCal(const FGameplayEffectCustomExecutionParameters& ExecutionParams, const FAggregatorEvaluateParameters& EvaluateParameters, const FGameplayEffectSpec& Spec, float& Damage);
+
+	static void BlockCal(const FGameplayEffectCustomExecutionParameters& ExecutionParams, const FAggregatorEvaluateParameters& EvaluateParameters, FGameplayEffectContextHandle& EffectContextHandle, float& Damage, bool& bBlockedHit);
+	static void CritCal(const FGameplayEffectCustomExecutionParameters& ExecutionParams, const FAggregatorEvaluateParameters& EvaluateParameters, FGameplayEffectContextHandle& EffectContextHandle, float& Damage, bool& bCriticalHit);
 	static void ArmorPenetrationCal(IECMCombatInterface* SourceCombatInterface, const UECMCharacterClassInfo* CharacterClassInfo, float& Damage);
 
 };

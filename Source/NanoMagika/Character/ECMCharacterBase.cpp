@@ -37,12 +37,15 @@ void AECMCharacterBase::InitializeCharacter()
 	// Set callbacks on ECM Ability System Component and native ASC
 	GetAbilitySystemComponent()->InitAbilityActorInfo(this, this);
 	
-	GetECMASC()->BindEffectApplied();
-	
-	// Initialise Default Attributes, Abilities and Gameplay tags
-	InitDefaultAttributes();
-	InitDefaultAbilities();
-	InitDefaultGameplayTags();	
+	if(HasAuthority())
+	{
+		GetECMASC()->BindEffectApplied();
+
+		// Initialise Default Attributes, Abilities and Gameplay tags
+		InitDefaultAttributes();
+		InitDefaultAbilities();
+		InitDefaultGameplayTags();	
+	}
 }
 
 void AECMCharacterBase::EndPlay(const EEndPlayReason::Type EndPlayReason)

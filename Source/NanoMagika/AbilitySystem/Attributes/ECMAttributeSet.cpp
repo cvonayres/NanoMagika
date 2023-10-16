@@ -4,8 +4,8 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "GameplayEffectExtension.h"
 #include "GameFramework/Character.h"
-#include "Kismet/GameplayStatics.h"
 #include "NanoMagika/ECMGameplayTags.h"
+#include "NanoMagika/AbilitySystem/ECMAbilitySystemLibrary.h"
 #include "NanoMagika/Interaction/ECMCombatInterface.h"
 #include "NanoMagika/Player/PlayerController/ECMPlayerController.h"
 #include "Net/UnrealNetwork.h"
@@ -50,7 +50,12 @@ UECMAttributeSet::UECMAttributeSet()
 	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_DimensionalPocketCapacity, GetDimensionalPocketCapacityAttribute);
 
 	// Tertiary Attributes to be mapped
-
+	TagsToAttributes.Add(GameplayTags.Attribute_Resistance_Physical, GetResistancePhysicalAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Resistance_Fire, GetResistanceFireAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Resistance_Frost, GetResistanceFrostAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Resistance_Lightning, GetResistanceLightningAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Resistance_Earth, GetResistanceEarthAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Resistance_Nanotech, GetResistanceNanotechAttribute);
 }
 
 #pragma endregion Mapping
@@ -146,8 +151,7 @@ void UECMAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 
 	ClampAttributePost(Data.EvaluatedData.Attribute); // Clamp Attribute
 
-	HandleDamage(Data.EvaluatedData.Attribute, Props); 	// Handle Damage
-
+	HandleDamage(Data, Props); 	// Handle Damage
 }
 
 void UECMAttributeSet::ClampAttributePost(const FGameplayAttribute& Attribute)
@@ -159,16 +163,16 @@ void UECMAttributeSet::ClampAttributePost(const FGameplayAttribute& Attribute)
 	(this->*AttributeFunc->Setter)(FMath::Clamp((this->*AttributeFunc->Getter)(), 0.f, (this->*AttributeFunc->MaxFunc)()));
 }
 
-void UECMAttributeSet::HandleDamage(const FGameplayAttribute& Attribute, const FEffectProperties& Props)
+void UECMAttributeSet::HandleDamage(const FGameplayEffectModCallbackData& Data, const FEffectProperties& Props)
 {
-	if (Attribute != GetIncomingDamageAttribute() || GetIncomingDamage() <= 1.f) return;
+	if (Data.EvaluatedData.Attribute != GetIncomingDamageAttribute() || GetIncomingDamage() <= 1.f) return;
 
 	const float LocalIncomingDamage = GetIncomingDamage();
 	SetIncomingDamage(0.f);
 
 	const float NewHealth  = GetVitalityMatrix() - LocalIncomingDamage;
 	SetVitalityMatrix(FMath::Clamp(NewHealth, 0, GetVMCapacity()));
-
+	
 	ShowDamageText(Props, LocalIncomingDamage); // Show floating damage numbers
 			
 	if(NewHealth <- 0.f)   // Check if dead
@@ -186,11 +190,14 @@ void UECMAttributeSet::HandleDamage(const FGameplayAttribute& Attribute, const F
 
 void UECMAttributeSet::ShowDamageText(const FEffectProperties& Props, const float LocalIncomingDamage)
 {
+	const bool bBlock = UECMAbilitySystemLibrary::IsBlockedHit(Props.EffectContextHandle);
+	const bool bCritical = UECMAbilitySystemLibrary::IsCriticalHit(Props.EffectContextHandle);
+	
 	if(Props.SourceCharacter != Props.TargetCharacter)
 	{
-		if (AECMPlayerController* PC = Cast<AECMPlayerController>(UGameplayStatics::GetPlayerController(Props.SourceCharacter, 0)))
+		if (AECMPlayerController* PC = Cast<AECMPlayerController>(Props.SourceCharacter->GetController()))
 		{
-			PC->ShowDamageNumber(LocalIncomingDamage, Props.TargetCharacter );
+			PC->ShowDamageNumber(LocalIncomingDamage, Props.TargetCharacter, bBlock, bCritical);
 		}
 	}
 }
@@ -248,9 +255,15 @@ void UECMAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 		DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, DimensionalPocketCapacity, COND_None, REPNOTIFY_Always);
 	#pragma endregion RepSecondaryAttributes
 	
-	// Tertiary Attributes to be replicated
-	#pragma region RepTertiaryAttributes
-	#pragma endregion RepTertiaryAttributes
+	// Resistance Attributes to be replicated
+	#pragma region ResistanceAttributes
+	DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, ResistancePhysical, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, ResistanceFire, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, ResistanceFrost, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, ResistanceLightning, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, ResistanceEarth, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, ResistanceNanotech, COND_None, REPNOTIFY_Always);
+	#pragma endregion ResistanceAttributes
 }
 #pragma endregion Replicate
 
@@ -295,7 +308,13 @@ DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, SignalStealth)
 DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, ReactionSpeed)
 DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, DimensionalPocketCapacity)
 
-// Tertiary - Gameplay Attributes
+// Resistance - Gameplay Attributes
+DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, ResistancePhysical)
+DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, ResistanceFire)
+DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, ResistanceFrost)
+DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, ResistanceLightning)
+DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, ResistanceEarth)
+DEFINE_ATTRIBUTE_REPNOTIFY(UECMAttributeSet, ResistanceNanotech)
 
 // Undefine the macro to prevent possible interference with other code
 #undef DEFINE_ATTRIBUTE_REPNOTIFY

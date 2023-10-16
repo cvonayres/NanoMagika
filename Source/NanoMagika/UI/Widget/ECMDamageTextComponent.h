@@ -15,5 +15,5 @@ class NANOMAGIKA_API UECMDamageTextComponent : public UWidgetComponent
 
 public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void SetDamageText(float Damage);
+	void SetDamageText(float Damage, bool bBlockHit, bool bCriticalHit);
 };

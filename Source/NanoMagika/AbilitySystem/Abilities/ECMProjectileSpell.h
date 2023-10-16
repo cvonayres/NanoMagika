@@ -3,13 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ECMGameplayAbility.h"
+#include "ECMDamageAbility.h"
 #include "ECMProjectileSpell.generated.h"
 
 class AECMProjectile;
 
 UCLASS()
-class NANOMAGIKA_API UECMProjectileSpell : public UECMGameplayAbility
+class NANOMAGIKA_API UECMProjectileSpell : public UECMDamageAbility
 {
 	GENERATED_BODY()
 
@@ -28,6 +28,6 @@ protected:
 	UFUNCTION(BlueprintCallable, Category="Projectile")
 	void SpawnProjectile(const FVector& ProjectileTargetLocation);
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Projectile")
-	TSubclassOf<UGameplayEffect> DamageEffectClass;
+	void PopulateContextHandle(FGameplayEffectContextHandle& EffectContextHandle, AECMProjectile* Projectile, const FVector& ProjectileTargetLocation) const;
+	void CreateAndApplySpecHandle(AECMProjectile* Projectile, const UAbilitySystemComponent* SourceASC, const FGameplayEffectContextHandle& EffectContextHandle);
 };

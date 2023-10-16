@@ -36,7 +36,7 @@ public:
 	TObjectPtr<APlayerCameraManager> GetPCM() const { return PlayerCameraManager;}
 
 	UFUNCTION(Client,Reliable)
-	void ShowDamageNumber(float Damage, ACharacter* TargetCharacter);
+	void ShowDamageNumber(float Damage, ACharacter* TargetCharacter, bool bBlockHit, bool bCriticalHit);
 
 	
 protected:

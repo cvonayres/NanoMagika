@@ -94,11 +94,15 @@ public:
 	DECLARE_GAMEPLAY_TAG(Attribute_Secondary_ReactionSpeed)
 	DECLARE_GAMEPLAY_TAG(Attribute_Secondary_DimensionalPocketCapacity)
 		
-	/** Declares the "Tertiary Attributes" gameplay tag. */
-	DECLARE_GAMEPLAY_TAG(Attribute_Tertiary_FireResistance)
-	DECLARE_GAMEPLAY_TAG(Attribute_Tertiary_LightingResistance)
-	DECLARE_GAMEPLAY_TAG(Attribute_Tertiary_NanotechResistance)
-#pragma endregion Attributes
+	/** Declares the "Resistance Attributes" gameplay tag. */
+	DECLARE_GAMEPLAY_TAG(Attribute_Resistance_Physical)
+	DECLARE_GAMEPLAY_TAG(Attribute_Resistance_Fire)
+	DECLARE_GAMEPLAY_TAG(Attribute_Resistance_Frost)
+	DECLARE_GAMEPLAY_TAG(Attribute_Resistance_Lightning)
+	DECLARE_GAMEPLAY_TAG(Attribute_Resistance_Earth)
+	DECLARE_GAMEPLAY_TAG(Attribute_Resistance_Nanotech)
+
+	#pragma endregion Attributes
 
 #pragma region Character
 	/** Declares the "Character Type" gameplay tag. */
@@ -124,15 +128,23 @@ public:
 #pragma endregion UIMessages
 
 #pragma region Effects
-	DECLARE_GAMEPLAY_TAG(Effect_Healing)
 	DECLARE_GAMEPLAY_TAG(Effect_Damage)
+	DECLARE_GAMEPLAY_TAG(Effect_Healing)
 	DECLARE_GAMEPLAY_TAG(Effect_HitReact)
 
+	DECLARE_GAMEPLAY_TAG(Effect_Damage_Physical)
+	DECLARE_GAMEPLAY_TAG(Effect_Damage_Fire)
+	DECLARE_GAMEPLAY_TAG(Effect_Damage_Frost)
+	DECLARE_GAMEPLAY_TAG(Effect_Damage_Lightning)
+	DECLARE_GAMEPLAY_TAG(Effect_Damage_Earth)
+	DECLARE_GAMEPLAY_TAG(Effect_Damage_Nanotech)
+
 #pragma endregion Effects
+#undef DECLARE_GAMEPLAY_TAG
 
+	TMap<FGameplayTag, FGameplayTag> DamageTypeToResistance;
 	
-	#undef DECLARE_GAMEPLAY_TAG
-
 private:
 	static FECMGameplayTags GameplayTags;
+
 };

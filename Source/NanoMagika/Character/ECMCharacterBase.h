@@ -64,6 +64,7 @@ protected:
 	UAnimMontage* HitReactMontage;
 
 	// Initiate Ability System [overridden in child classes]
+	void InitializeAbilityActorInfo();
 	virtual void InitializeCharacter();
 	virtual void InitDefaultAttributes() { };
 	virtual void InitDefaultAbilities() { };

@@ -13,40 +13,20 @@
 #include "NanoMagika/Input/ECMInputComponent.h"
 #include "NanoMagika/Player/PlayerController/ECMPlayerController.h"
 
-void AECMPlayerCameraManager::BeginPlay()
-{
-	Super::BeginPlay();
-
-	TryGetPawnAndController();
-}
+//TODO add a static struct to define tags
 
 // Tries to Get Pawn and Controller - will repeat until time limit is reached
-void AECMPlayerCameraManager::TryGetPawnAndController()
+void AECMPlayerCameraManager::InitPCM(const ACharacter* Character)
 {
-	if(PCOwner && PCOwner->GetPawn()) 
-	{
-		GetWorld()->GetTimerManager().ClearTimer(TimerHandle_GetPawnAndController); // Clear Timer
+	if(! Character->IsLocallyControlled() ) return;
 
-		PlayerPawn = PCOwner->GetPawn(); // Store Pawn
-
-		StartingViewMode(); // Update setting with ViewMode from Tag in Player Character
+	CharacterRef = const_cast<ACharacter*>(Character);
 	
-		BindInputs(); // Bind inputs for this class
-	}
-	else // Repeat until time limit
-	{
-		TimeElapsedTrying += CheckInterval; // Increment the elapsed time
-        
-		if(TimeElapsedTrying >= TimeLimitForCheck)
-		{
-			UE_LOG(LogTemp, Error, TEXT("Failed to get the PlayerController and Pawn in the allotted time."));
-			GetWorld()->GetTimerManager().ClearTimer(TimerHandle_GetPawnAndController);
-		}
-		else
-		{
-			GetWorld()->GetTimerManager().SetTimer(TimerHandle_GetPawnAndController, this, &AECMPlayerCameraManager::TryGetPawnAndController, CheckInterval, false);
-		}
-	}
+	checkf(CharacterRef, TEXT("Character const cast failed"));
+		
+	StartingViewMode(); // Update setting with ViewMode from Tag in Player Character
+	
+	BindInputs(); // Bind inputs for this class
 }
 
 // Call Specific View Mode dependent on Character Starting Tag
@@ -61,6 +41,7 @@ void AECMPlayerCameraManager::StartingViewMode()
 	if (CheckCameraMode("Player.CameraMode.FPV"))	    { UpdateCameraMode(FPV_Settings, FPVTag, TPVTag, TDVTag); }
 	else if (CheckCameraMode("Player.CameraMode.TPV"))	{ UpdateCameraMode(TPV_Settings, TPVTag, FPVTag, TDVTag); }
 	else if (CheckCameraMode("Player.CameraMode.TDV"))	{ UpdateCameraMode(TDV_Settings, TDVTag, FPVTag, TPVTag); }
+	else {	UE_LOG(LogTemp, Warning, TEXT("Player CameraMode Tag not found, check initial character tag includes CameraMode FPV,TPV or TDV")) }
 }
 
 // Call Update Camera Mode passing in right Data Asset and swaps the tags on Character.CameraMode
@@ -99,11 +80,11 @@ void AECMPlayerCameraManager::UpdateCameraModeCPP(const UDA_CameraMode* CameraMo
 		CameraComponent->bUsePawnControlRotation = CameraModeDA->CameraSettings.CameraUsePawnControlRotation; // Prevent the camera from rotating with the spring arm	}
 	}
 
-	if(GetCharacter()) // Set Character properties from Data Asset
+	if(CharacterRef) // Set Character properties from Data Asset
 	{
-		Character->bUseControllerRotationPitch = CameraModeDA->CameraSettings.UseControllerRotationPitch;
-		Character->bUseControllerRotationRoll = CameraModeDA->CameraSettings.UseControllerRotationRoll;
-		Character->bUseControllerRotationYaw = CameraModeDA->CameraSettings.UseControllerRotationYaw;	
+		CharacterRef->bUseControllerRotationPitch = CameraModeDA->CameraSettings.UseControllerRotationPitch;
+		CharacterRef->bUseControllerRotationRoll = CameraModeDA->CameraSettings.UseControllerRotationRoll;
+		CharacterRef->bUseControllerRotationYaw = CameraModeDA->CameraSettings.UseControllerRotationYaw;	
 	}
 
 	if(GetCharacterMovementComponent()) // Set Character Movement Component properties from Data Asset
@@ -120,8 +101,7 @@ void AECMPlayerCameraManager::BindInputs()
 {
 	if (AECMPlayerController* ECMPC = Cast<AECMPlayerController>(PCOwner))
 	{
-		if (UECMInputComponent* ECMInputComponent = ECMPC->GetInputComponent()
-)
+		if (UECMInputComponent* ECMInputComponent = ECMPC->GetInputComponent())
 		{
 			ECMInputComponent->BindAction(ZoomAction, ETriggerEvent::Triggered, this, &AECMPlayerCameraManager::ZoomCamera);
 			ECMInputComponent->BindActionToTagOnStarted(ECMPC->GetInputConfig(), this, &AECMPlayerCameraManager::AbilityInputTagPressed);
@@ -132,6 +112,8 @@ void AECMPlayerCameraManager::BindInputs()
 // Call Update ViewMode on Tags activation
 void AECMPlayerCameraManager::AbilityInputTagPressed(FGameplayTag InputTag)
 {
+	if(const FGameplayTag CameraModeTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode")); !InputTag.MatchesTagExact(CameraModeTag)) 	{ return; }
+	
 	const FGameplayTag FPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.FPV"));
 	const FGameplayTag TPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TPV"));
 	const FGameplayTag TDVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TDV"));
@@ -139,6 +121,7 @@ void AECMPlayerCameraManager::AbilityInputTagPressed(FGameplayTag InputTag)
 	if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_FPV))      { UpdateCameraMode(FPV_Settings, FPVTag, TPVTag, TDVTag); }
 	else if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_TPV)) { UpdateCameraMode(TPV_Settings, TPVTag, FPVTag, TDVTag); }
 	else if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_TDV)) { UpdateCameraMode(TDV_Settings, TDVTag, FPVTag, TPVTag); }
+	else {	UE_LOG(LogTemp, Warning, TEXT("Player CameraMode Tag not found, during Tag update")) }
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst - due to use in input binding.
@@ -158,7 +141,7 @@ bool AECMPlayerCameraManager::GetSpringArm()
 {
 	if(SpringArmComponent) return true;
 
-	SpringArmComponent = PlayerPawn->FindComponentByClass<USpringArmComponent>();
+	SpringArmComponent = CharacterRef->FindComponentByClass<USpringArmComponent>();
 
 	return (SpringArmComponent != nullptr);
 }
@@ -166,26 +149,17 @@ bool AECMPlayerCameraManager::GetCamera()
 {
 	if(CameraComponent) return true;
 
-	CameraComponent = PlayerPawn->FindComponentByClass<UCameraComponent>();
+	CameraComponent = CharacterRef->FindComponentByClass<UCameraComponent>();
 	
 	return (CameraComponent != nullptr);
-
-}
-bool AECMPlayerCameraManager::GetCharacter()
-{
-	if(Character) return true;
-
-	Character = Cast<ACharacter>(PlayerPawn);
-
-	return (Character != nullptr);
 }
 bool AECMPlayerCameraManager::GetCharacterMovementComponent()
 {
 	if(CharacterCMC) return true;
 
-	check(Character);
+	check(CharacterRef);
 	
-	CharacterCMC = Character->GetCharacterMovement();
+	CharacterCMC = CharacterRef->GetCharacterMovement();
 
 	return (CharacterCMC != nullptr);
 }
@@ -193,10 +167,11 @@ bool AECMPlayerCameraManager::GetCharacterASC()
 {
 	if(CharacterASC) return true;
 
-	CharacterASC = Cast<UAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(PlayerPawn));
+	CharacterASC = Cast<UAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(CharacterRef));
 
 	return (CharacterASC != nullptr);
 }
+
 bool AECMPlayerCameraManager::CheckCameraMode(FName TagName)
 {
 	if(!GetCharacterASC()) { return false; }

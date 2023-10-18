@@ -27,12 +27,17 @@ void AECMEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	InitializeCharacter();
+	InitializeAbilityActorInfo();
+	
+	InitializeCharacter();	
 }
 
 void AECMEnemy::InitializeCharacter()
 {
-	Super::InitializeCharacter();
+	if (HasAuthority())
+	{
+		Super::InitializeCharacter();
+	}
 	
 	InitHealthBar(); // Health Bar
 	

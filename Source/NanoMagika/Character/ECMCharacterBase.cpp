@@ -32,20 +32,20 @@ void AECMCharacterBase::PreInitializeComponents()
 
 void AECMCharacterBase::BeginPlay() { Super::BeginPlay(); }
 
+// Set callbacks on ECM Ability System Component and native ASC
+void AECMCharacterBase::InitializeAbilityActorInfo()
+{
+	GetAbilitySystemComponent()->InitAbilityActorInfo(this, this);
+}
+
+// Initialise Default Attributes, Abilities and Gameplay tags
 void AECMCharacterBase::InitializeCharacter()
 {
-	// Set callbacks on ECM Ability System Component and native ASC
-	GetAbilitySystemComponent()->InitAbilityActorInfo(this, this);
-	
-	if(HasAuthority())
-	{
-		GetECMASC()->BindEffectApplied();
+	GetECMASC()->BindEffectApplied();
 
-		// Initialise Default Attributes, Abilities and Gameplay tags
-		InitDefaultAttributes();
-		InitDefaultAbilities();
-		InitDefaultGameplayTags();	
-	}
+	InitDefaultAttributes();
+	InitDefaultAbilities();
+	InitDefaultGameplayTags();
 }
 
 void AECMCharacterBase::EndPlay(const EEndPlayReason::Type EndPlayReason)

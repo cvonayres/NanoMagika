@@ -24,10 +24,15 @@ public:
 	/** Combat Interface */
 	virtual int32 GetPlayerLevel() override;
 	/** end Combat Interface */
+
+	void SetbUseControllerRotationPitch(bool Valve) { bUseControllerRotationPitch = Valve ; }
+	void SetbUseControllerRotationRoll(bool Valve) { bUseControllerRotationRoll = Valve ; }
+	void SetbUseControllerRotationYaw(bool Valve) { bUseControllerRotationYaw = Valve ; }
 	
 protected:
 	// Init Ability System
 	virtual void InitializeCharacter() override;
+	void InitializeCharacterWithController() const;
 	virtual void InitDefaultAttributes() override;
 	virtual void InitDefaultAbilities() override;
 	virtual void InitDefaultGameplayTags() override;
@@ -62,5 +67,6 @@ private:
 	class AECMPlayerState* PlayerStateRef;
 	
 	// Called when we have a valid player controller
+	void InitPCM() const;
 	void InitHUD() const;
 };

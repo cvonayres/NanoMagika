@@ -4,6 +4,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
+#include "NanoMagika/Player/PlayerCameraManager/ECMPlayerCameraManager.h"
 #include "NanoMagika/Player/PlayerController/ECMPlayerController.h"
 #include "NanoMagika/Player/PlayerState/ECMPlayerState.h"
 #include "NanoMagika/UI/HUD/ECMHUD.h"
@@ -24,11 +25,12 @@ void AECMCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	// Controller Reference for the Server
-	ControllerRef = Cast<AECMPlayerController>(NewController);
-
 	// Init Character for the Server
 	InitializeCharacter();
+
+	// Controller Reference for the Server
+	ControllerRef = Cast<AECMPlayerController>(NewController);
+	if(ControllerRef) {	InitializeCharacterWithController(); }
 }
 
 // Client side ready
@@ -36,13 +38,16 @@ void AECMCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
 
+	// Init Character for the client
+
+	InitializeCharacter();
+	
 	// Controller Reference for the Client
 	ControllerRef = Cast<AECMPlayerController>(GetController());
-
-	// Init Character for the client
-	InitializeCharacter();
+	if(ControllerRef) {	InitializeCharacterWithController(); }
 }
 
+// Initialise all characters
 void AECMCharacter::InitializeCharacter()
 {
 	PlayerStateRef =  GetPlayerState<AECMPlayerState>();
@@ -55,7 +60,19 @@ void AECMCharacter::InitializeCharacter()
 	// Get Attribute Set
 	SetAttributeSet(PlayerStateRef->GetAttributeSet());
 
+	InitializeAbilityActorInfo();
+
+	// Initialise Character, Attributes, Abilities and Tags
 	Super::InitializeCharacter();
+}
+
+// Additional Initialise for Controller Characters 
+void AECMCharacter::InitializeCharacterWithController() const
+{
+	if (!ControllerRef->IsLocalPlayerController()) return;
+	
+	// Initialise Player Camera Manager
+	InitPCM();
 	
 	// Initialise HUD Overlay widget Controller
 	InitHUD();
@@ -81,15 +98,31 @@ void AECMCharacter::InitDefaultGameplayTags()
 	GetECMASC()->AddGameplayTags(DefaultCharacterTags);
 }
 
-// Gets Player controller and cast ability system and attribute set to Overlap
+// Get ECM Player Camera Manager and calls Initialise
+void AECMCharacter::InitPCM() const
+{
+	
+	if(AECMPlayerCameraManager* PCM = Cast<AECMPlayerCameraManager>(ControllerRef->PlayerCameraManager))
+	{
+		PCM->InitPCM(this);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player Camera Manager not found for [%s]"), *this->GetActorNameOrLabel())
+	}
+}
+
+// Get ECMHUD and calls Initialise sending along ability system and attribute set to Overlap
 void AECMCharacter::InitHUD() const
 {
-	if(ControllerRef == nullptr) return;
-
-	AECMHUD* ECMHUD = Cast<AECMHUD>(ControllerRef->GetHUD());
-	if(ECMHUD == nullptr) return;
-
-	ECMHUD->InitOverlay(ControllerRef, PlayerStateRef, GetAbilitySystemComponent() ,GetAttributeSet());
+	if(AECMHUD* ECMHUD = Cast<AECMHUD>(ControllerRef->GetHUD()))
+	{
+		ECMHUD->InitOverlay(ControllerRef, PlayerStateRef, GetAbilitySystemComponent() ,GetAttributeSet());
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("HUD not found for [%s]"), *this->GetActorNameOrLabel())
+	}
 }
 
 /* Combat Interface */
@@ -99,6 +132,4 @@ int32 AECMCharacter::GetPlayerLevel()
 
 	return PlayerStateRef->GetPlayerLevel();
 }
-
-
 /* end Combat Interface */

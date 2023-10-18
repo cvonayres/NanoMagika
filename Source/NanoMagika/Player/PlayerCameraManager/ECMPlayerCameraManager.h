@@ -7,6 +7,7 @@
 #include "Camera/PlayerCameraManager.h"
 #include "ECMPlayerCameraManager.generated.h"
 
+class AECMCharacter;
 class UAbilitySystemComponent;
 class UCharacterMovementComponent;
 class UInputAction;
@@ -28,6 +29,9 @@ class NANOMAGIKA_API AECMPlayerCameraManager : public APlayerCameraManager
 	GENERATED_BODY()
 
 public:
+	UFUNCTION(Category="Camera")
+	void InitPCM(const ACharacter* Character);
+	
 	UFUNCTION(BlueprintCallable, Category="Camera")
 	void UpdateCameraMode(UDA_CameraMode* CameraModeDA, const FGameplayTag AddTag, const FGameplayTag RemoveTag1, const FGameplayTag RemoveTag2);
 
@@ -38,13 +42,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Camera")
 	TObjectPtr<UDA_CameraMode> TDV_Settings;
 
-protected:
-	virtual void BeginPlay() override;
-
 private:
-	// Trying to Get Pawn and Controller
-	void TryGetPawnAndController();
-    
 	FTimerHandle TimerHandle_GetPawnAndController;
 	float TimeElapsedTrying = 0.0f;
 	float TimeLimitForCheck = 10.0f;  // Time limit, in seconds.
@@ -74,9 +72,7 @@ private:
 
 	// Useful pointers
 	UPROPERTY()
-	APawn* PlayerPawn = nullptr;
-	UPROPERTY()
-	ACharacter* Character = nullptr;
+	ACharacter* CharacterRef = nullptr;
 	UPROPERTY()
 	UAbilitySystemComponent* CharacterASC = nullptr;
 	UPROPERTY()
@@ -89,7 +85,6 @@ private:
 	// Helper functions
 	bool GetSpringArm();
 	bool GetCamera();
-	bool GetCharacter();
 	bool GetCharacterASC();
 	bool GetCharacterMovementComponent();
 

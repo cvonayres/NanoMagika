@@ -17,27 +17,38 @@ AECMEffectActor::AECMEffectActor()
 // Applies gameplay effect on Overlap Begin - Called by BP
 void AECMEffectActor::OnOverlap(AActor* TargetActor)
 {
+	const AECMCharacterBase* Character = Cast<AECMCharacterBase>(TargetActor);
+	if (Character == nullptr) return;
+
+	const UAbilitySystemComponent* CharacterASC = Character->GetAbilitySystemComponent();
+	if (CharacterASC == nullptr) return;
+	
+	bool HasTag = false;
+	for (const FGameplayTag& Tag : RequiredTagOnActor)
+	{
+		if (CharacterASC->HasMatchingGameplayTag(Tag))
+		{
+			HasTag = true;
+			break;
+		}
+	}
+	if(!HasTag) return;
+
+	// Lambda function to handle repetitive logic
+	auto HandleEffectApplication = [this, &TargetActor](EEffectApplicationPolicy Policy, TSubclassOf<UGameplayEffect> EffectClass)
+	{
+		if (Policy == EEffectApplicationPolicy::ApplyOnOverlap)
+		{
+			if (EffectClass) ApplyEffectToTarget(TargetActor, EffectClass);
+			else ErrorMessage();
+		}
+	};
+
 	// Apply Gameplay effect on BeginOverlap
-	if(InstanceEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
-	{
-		if(InstantGameplayEffectClass) ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
-		else ErrorMessage();
-	}
-	if(DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
-	{
-		if(DurationGameplayEffectClass) ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
-		else ErrorMessage();
-	}
-	if(InfiniteEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
-	{
-		if(InfiniteGameplayEffectClass) ApplyEffectToTarget(TargetActor, InfiniteGameplayEffectClass);
-		else ErrorMessage();
-	}
-	if(PeriodicEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
-	{
-		if(PeriodicGameplayEffectClass) ApplyEffectToTarget(TargetActor, PeriodicGameplayEffectClass);
-		else ErrorMessage();
-	}
+	HandleEffectApplication(InstanceEffectApplicationPolicy, InstantGameplayEffectClass);
+	HandleEffectApplication(DurationEffectApplicationPolicy, DurationGameplayEffectClass);
+	HandleEffectApplication(InfiniteEffectApplicationPolicy, InfiniteGameplayEffectClass);
+	HandleEffectApplication(PeriodicEffectApplicationPolicy, PeriodicGameplayEffectClass);
 
 	// Destroy Actor if policy is set on BeginOverlap
 	if(DestroyPolicy == EDestroyPolicy::ApplyOnOverlap)	Destroy();
@@ -123,7 +134,7 @@ void AECMEffectActor::ApplyEffect(UAbilitySystemComponent* TargetASC, TSubclassO
 	if(bIsInfinite && InfiniteEffectRemovalPolicy == EEffectRemovalPolicy::RemoveOnEndOverlap)
 	{
 		ActiveEffectHandles.Add(ActiveEffectHandle, TargetASC);
-	}	
+	}
 }
 
 void AECMEffectActor::ErrorMessage() const

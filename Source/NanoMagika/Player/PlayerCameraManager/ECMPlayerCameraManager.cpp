@@ -13,7 +13,14 @@
 #include "NanoMagika/Input/ECMInputComponent.h"
 #include "NanoMagika/Player/PlayerController/ECMPlayerController.h"
 
-//TODO add a static struct to define tags
+struct CameraModesStruct
+{
+	const FGameplayTag FPVTag = FECMGameplayTags::Get().Player_CameraMode_FPV;
+	const FGameplayTag TPVTag = FECMGameplayTags::Get().Player_CameraMode_TPV;
+	const FGameplayTag TDVTag = FECMGameplayTags::Get().Player_CameraMode_TDV;	
+};
+
+static CameraModesStruct CameraMode;
 
 // Tries to Get Pawn and Controller - will repeat until time limit is reached
 void AECMPlayerCameraManager::InitPCM(const ACharacter* Character)
@@ -33,14 +40,10 @@ void AECMPlayerCameraManager::InitPCM(const ACharacter* Character)
 void AECMPlayerCameraManager::StartingViewMode()
 {
 	if(!GetCharacterASC()) return;
-
-	const FGameplayTag FPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.FPV"));
-	const FGameplayTag TPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TPV"));
-	const FGameplayTag TDVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TDV"));
-
-	if (CheckCameraMode("Player.CameraMode.FPV"))	    { UpdateCameraMode(FPV_Settings, FPVTag, TPVTag, TDVTag); }
-	else if (CheckCameraMode("Player.CameraMode.TPV"))	{ UpdateCameraMode(TPV_Settings, TPVTag, FPVTag, TDVTag); }
-	else if (CheckCameraMode("Player.CameraMode.TDV"))	{ UpdateCameraMode(TDV_Settings, TDVTag, FPVTag, TPVTag); }
+	
+	if (CheckCameraMode("Player.CameraMode.FPV"))	    { UpdateCameraMode(FPV_Settings, CameraMode.FPVTag, CameraMode.TPVTag, CameraMode.TDVTag); }
+	else if (CheckCameraMode("Player.CameraMode.TPV"))	{ UpdateCameraMode(TPV_Settings, CameraMode.TPVTag, CameraMode.FPVTag, CameraMode.TDVTag); }
+	else if (CheckCameraMode("Player.CameraMode.TDV"))	{ UpdateCameraMode(TDV_Settings, CameraMode.TDVTag, CameraMode.FPVTag, CameraMode.TPVTag); }
 	else {	UE_LOG(LogTemp, Warning, TEXT("Player CameraMode Tag not found, check initial character tag includes CameraMode FPV,TPV or TDV")) }
 }
 
@@ -113,14 +116,10 @@ void AECMPlayerCameraManager::BindInputs()
 void AECMPlayerCameraManager::AbilityInputTagPressed(FGameplayTag InputTag)
 {
 	if(const FGameplayTag CameraModeTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode")); !InputTag.MatchesTagExact(CameraModeTag)) 	{ return; }
-	
-	const FGameplayTag FPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.FPV"));
-	const FGameplayTag TPVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TPV"));
-	const FGameplayTag TDVTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode.TDV"));
-	
-	if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_FPV))      { UpdateCameraMode(FPV_Settings, FPVTag, TPVTag, TDVTag); }
-	else if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_TPV)) { UpdateCameraMode(TPV_Settings, TPVTag, FPVTag, TDVTag); }
-	else if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_TDV)) { UpdateCameraMode(TDV_Settings, TDVTag, FPVTag, TPVTag); }
+
+	if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_FPV))      { UpdateCameraMode(FPV_Settings, CameraMode.FPVTag, CameraMode.TPVTag, CameraMode.TDVTag); }
+	else if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_TPV)) { UpdateCameraMode(TPV_Settings, CameraMode.TPVTag, CameraMode.FPVTag, CameraMode.TDVTag); }
+	else if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_TDV)) { UpdateCameraMode(TDV_Settings, CameraMode.TDVTag, CameraMode.FPVTag, CameraMode.TPVTag); }
 	else {	UE_LOG(LogTemp, Warning, TEXT("Player CameraMode Tag not found, during Tag update")) }
 }
 

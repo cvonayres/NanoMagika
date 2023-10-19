@@ -17,6 +17,8 @@ class UGameplayEffect;
 class UAttributeSet;
 class UAbilitySystemComponent;
 
+// TODO reorganise character with three init, init_all [health bar on enemy, register asset, init_Server [ability system, etc], init_LocalControlled [HMI, Camera]
+
 UCLASS(Abstract)
 class NANOMAGIKA_API AECMCharacterBase : public ACharacter, public IAbilitySystemInterface, public IECMCombatInterface
 {

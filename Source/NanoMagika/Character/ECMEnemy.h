@@ -8,6 +8,8 @@
 #include "NanoMagika/UI/WidgetController/ECMWidgetController.h"
 #include "ECMEnemy.generated.h"
 
+class AECMAIController;
+class UBehaviorTree;
 class FOnAttributeChangedSignature;
 class UWidgetComponent;
 
@@ -19,10 +21,12 @@ class NANOMAGIKA_API AECMEnemy : public AECMCharacterBase
 public:
 	AECMEnemy();
 
+	virtual void PossessedBy(AController* NewController) override;
+	
 	/** Combat Interface */
 	FORCEINLINE virtual int32 GetPlayerLevel() override { return Level; }
 
-	// Hit React // TODO Move to base class, we shoudl all react
+	// Hit React // TODO Move to base class, we should all react
 	void HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount);;
 	UPROPERTY(BlueprintReadOnly, Category="User|Combat")
 	bool bHitReacting = false;
@@ -37,6 +41,7 @@ public:
 	FOnAttributeChangedSignature OnMaxHealthChange;
 	
 protected:
+	// This is the default Tag that is used to get the Data asset from the global library, not part of GAS
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="User|Character Class Defaults")
 	FGameplayTag EnemyTag = FGameplayTag();
 	
@@ -53,16 +58,21 @@ protected:
 	// Health Bar
 	void InitHealthBar();
 	
-	// TODO move secondary attribute
-	UPROPERTY(BlueprintReadOnly, Category="User|Character Class Defaults")
-	float DefaultWalkingSpeed = 350.f;
+	// TODO move secondary attribute make speed depenmdent of stats
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="User|Character Class Defaults")
+	float DefaultWalkingSpeed = 200.f;
+	
+	// TODO move to Character Class Info
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="User|Character Class Defaults")
+	float LifeSpan = 5.f;
 	
 	// TODO move to Character Class Info
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="User|UI")
 	TObjectPtr<UWidgetComponent> HealthBar;
 
-	// TODO move to Character Class Info
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="User|Character Class Defaults")
-	float LifeSpan = 5.f;
-	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="User|AI")
+	TObjectPtr<UBehaviorTree> BehaviorTree;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="User|AI")
+	TObjectPtr<AECMAIController> AIController;
 };

@@ -26,6 +26,7 @@ public class NanoMagika : ModuleRules
 		PrivateDependencyModuleNames.AddRange(new string[]
 		{
 			"NavigationSystem",
+			"AIModule",
 		});
 
 		// Uncomment if you are using Slate UI

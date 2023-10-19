@@ -3,12 +3,15 @@
 #include "ECMEnemy.h"
 
 #include "ECMCharacter.h"
+#include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "NanoMagika/ECMGameplayTags.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemLibrary.h"
 #include "NanoMagika/AbilitySystem/Attributes/ECMAttributeSet.h"
+#include "NanoMagika/AI/ECMAIController.h"
 #include "NanoMagika/UI/Widget/ECMUserWidget.h"
 
 AECMEnemy::AECMEnemy()
@@ -21,8 +24,32 @@ AECMEnemy::AECMEnemy()
 	
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>("HealthBar");
 	HealthBar->SetupAttachment(GetRootComponent());
+
+	GetCharacterMovement()->MaxWalkSpeed = DefaultWalkingSpeed;
+
+	GetCharacterMovement()->bUseControllerDesiredRotation;
+	GetCharacterMovement()->RotationRate = FRotator(0,360,0);
+
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
 }
 
+// Server side ready
+void AECMEnemy::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if(!HasAuthority()) return; // Only on server
+	AIController = Cast<AECMAIController>(NewController);
+
+	check(AIController);
+	AIController->GetBlackboardComponent()->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
+	AIController->RunBehaviorTree(BehaviorTree);
+		
+}
+
+// Client side ready
 void AECMEnemy::BeginPlay()
 {
 	Super::BeginPlay();
@@ -38,7 +65,7 @@ void AECMEnemy::InitializeCharacter()
 	{
 		Super::InitializeCharacter();
 	}
-	
+
 	InitHealthBar(); // Health Bar
 	
 	if(GetAbilitySystemComponent()) // Hit React

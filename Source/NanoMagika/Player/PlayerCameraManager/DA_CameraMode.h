@@ -17,6 +17,10 @@ struct FCameraSettings
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGameplayTag GameplayTag = FGameplayTag();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FGameplayTag TagToRemove1 = FGameplayTag();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FGameplayTag TagToRemove2 = FGameplayTag();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SpringArm")
 	FVector Location = FVector(0.f,0.f,0.f);

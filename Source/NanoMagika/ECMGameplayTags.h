@@ -47,9 +47,9 @@ public:
 	DECLARE_GAMEPLAY_TAG(Input_Action_MoveByMouse)
 	DECLARE_GAMEPLAY_TAG(Input_Action_MoveToMouseClicked)
 	
-	DECLARE_GAMEPLAY_TAG(Input_Action_Camera_FPV)
-	DECLARE_GAMEPLAY_TAG(Input_Action_Camera_TPV)
-	DECLARE_GAMEPLAY_TAG(Input_Action_Camera_TDV)
+	DECLARE_GAMEPLAY_TAG(Input_Action_CameraMode_FPV)
+	DECLARE_GAMEPLAY_TAG(Input_Action_CameraMode_TPV)
+	DECLARE_GAMEPLAY_TAG(Input_Action_CameraMode_TDV)
 	
 	DECLARE_GAMEPLAY_TAG(Input_Mouse_LMB)
 	DECLARE_GAMEPLAY_TAG(Input_Mouse_RMB)
@@ -113,6 +113,10 @@ public:
 
 	DECLARE_GAMEPLAY_TAG(Character_Type_NPC_Quest)
 	DECLARE_GAMEPLAY_TAG(Character_Type_NPC_Merchant)
+
+	DECLARE_GAMEPLAY_TAG(Character_Class_Melee)
+	DECLARE_GAMEPLAY_TAG(Character_Class_Ranged)
+		
 #pragma endregion Character
 	
 #pragma region UIMessages

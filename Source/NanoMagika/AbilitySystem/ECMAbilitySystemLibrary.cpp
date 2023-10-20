@@ -1,6 +1,8 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMAbilitySystemLibrary.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
 #include "ECMAbilitySystemComponent.h"
 #include "Data/ECMEnemySpecInfo.h"
 #include "Kismet/GameplayStatics.h"
@@ -123,5 +125,35 @@ void UECMAbilitySystemLibrary::SetIsCriticalHit(FGameplayEffectContextHandle& Ef
 	if(FECMGameplayEffectContext* ECMEffectContext = static_cast<FECMGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
 		ECMEffectContext->SetIsCriticalHit(bInIsCriticalHit);
+	}
+}
+
+bool UECMAbilitySystemLibrary::ActorHasASC(AActor* Actor)
+{
+	return UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor) != nullptr;
+}
+
+bool UECMAbilitySystemLibrary::ActorASCContainsTag(AActor* Actor, const FGameplayTag TagToMatch)
+{
+	if(const UAbilitySystemComponent* ActorASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor))
+	{
+		return ActorASC->HasMatchingGameplayTag(TagToMatch);
+	}
+	return false;
+}
+
+void UECMAbilitySystemLibrary::AddTagToActor(AActor* Actor, FGameplayTag TagToAdd)
+{
+	if(UAbilitySystemComponent* ActorASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor))
+	{
+		return ActorASC->AddLooseGameplayTag(TagToAdd);
+	}
+}
+
+void UECMAbilitySystemLibrary::RemoveTagFromActor(AActor* Actor, FGameplayTag TagToRemove)
+{
+	if(UAbilitySystemComponent* ActorASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor))
+	{
+		return ActorASC->RemoveLooseGameplayTag(TagToRemove);
 	}
 }

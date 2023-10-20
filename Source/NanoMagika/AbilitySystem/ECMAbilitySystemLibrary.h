@@ -55,4 +55,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|GameplayEffects")
 	static void SetIsCriticalHit(UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle, bool bInIsCriticalHit);
 
+	static bool ActorHasASC(AActor* Actor);
+	static bool ActorASCContainsTag(AActor* Actor, FGameplayTag TagToMatch);
+	static void AddTagToActor(AActor* Actor, FGameplayTag TagToAdd);
+	static void RemoveTagFromActor(AActor* Actor, FGameplayTag TagToRemove);
+
+
+	
 };

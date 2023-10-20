@@ -70,6 +70,7 @@ void AECMCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> Gam
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(),AbilitySystemComponent);
 }
 
+//TODO check if needed
 // Helper function to Get ECM version of ASC & AS, if not available cast from default ASC.
 UECMAbilitySystemComponent* AECMCharacterBase::GetECMASC() const
 {

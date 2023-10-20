@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
-#include "GameplayTagContainer.h"
 #include "NanoMagika/Interaction/ECMCombatInterface.h"
 #include "ECMCharacterBase.generated.h"
 
@@ -28,7 +27,7 @@ public:
 	AECMCharacterBase();
 	
 	/** Ability System Interface */
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent;}
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }
 	bool SetAbilitySystemComponent(TObjectPtr<UAbilitySystemComponent> ASCIn) { AbilitySystemComponent = ASCIn; return true; }
 
 	UAttributeSet* GetAttributeSet() const {return AttributeSet;}

@@ -1,26 +1,15 @@
 // Copyright Electronic CAD Monkey [ECM]
 
 #include "ECMPlayerCameraManager.h"
-
 #include "AbilitySystemBlueprintLibrary.h"
-#include "AbilitySystemComponent.h"
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "NanoMagika/ECMGameplayTags.h"
+#include "NanoMagika/AbilitySystem/ECMAbilitySystemLibrary.h"
 #include "NanoMagika/Input/ECMInputComponent.h"
 #include "NanoMagika/Player/PlayerController/ECMPlayerController.h"
-
-struct CameraModesStruct
-{
-	const FGameplayTag FPVTag = FECMGameplayTags::Get().Player_CameraMode_FPV;
-	const FGameplayTag TPVTag = FECMGameplayTags::Get().Player_CameraMode_TPV;
-	const FGameplayTag TDVTag = FECMGameplayTags::Get().Player_CameraMode_TDV;	
-};
-
-static CameraModesStruct CameraMode;
 
 // Tries to Get Pawn and Controller - will repeat until time limit is reached
 void AECMPlayerCameraManager::InitPCM(const ACharacter* Character)
@@ -30,7 +19,7 @@ void AECMPlayerCameraManager::InitPCM(const ACharacter* Character)
 	CharacterRef = const_cast<ACharacter*>(Character);
 	
 	checkf(CharacterRef, TEXT("Character const cast failed"));
-		
+	
 	StartingViewMode(); // Update setting with ViewMode from Tag in Player Character
 	
 	BindInputs(); // Bind inputs for this class
@@ -39,26 +28,33 @@ void AECMPlayerCameraManager::InitPCM(const ACharacter* Character)
 // Call Specific View Mode dependent on Character Starting Tag
 void AECMPlayerCameraManager::StartingViewMode()
 {
-	if(!GetCharacterASC()) return;
-	
-	if (CheckCameraMode("Player.CameraMode.FPV"))	    { UpdateCameraMode(FPV_Settings, CameraMode.FPVTag, CameraMode.TPVTag, CameraMode.TDVTag); }
-	else if (CheckCameraMode("Player.CameraMode.TPV"))	{ UpdateCameraMode(TPV_Settings, CameraMode.TPVTag, CameraMode.FPVTag, CameraMode.TDVTag); }
-	else if (CheckCameraMode("Player.CameraMode.TDV"))	{ UpdateCameraMode(TDV_Settings, CameraMode.TDVTag, CameraMode.FPVTag, CameraMode.TPVTag); }
+	if( !UECMAbilitySystemLibrary::ActorHasASC(CharacterRef) ) return;
+
+	if (UECMAbilitySystemLibrary::ActorASCContainsTag(CharacterRef, CameraLookUpTags.PlayerTag_FPV))
+	{
+		UpdateCameraModeCPP(FPV_Settings);
+	}
+	else if (UECMAbilitySystemLibrary::ActorASCContainsTag(CharacterRef, CameraLookUpTags.PlayerTag_TPV))
+	{
+		UpdateCameraModeCPP(FPV_Settings);
+	}
+	else if (UECMAbilitySystemLibrary::ActorASCContainsTag(CharacterRef, CameraLookUpTags.PlayerTag_TDV))
+	{
+		UpdateCameraModeCPP(TDV_Settings);
+	}
 	else {	UE_LOG(LogTemp, Warning, TEXT("Player CameraMode Tag not found, check initial character tag includes CameraMode FPV,TPV or TDV")) }
 }
 
 // Call Update Camera Mode passing in right Data Asset and swaps the tags on Character.CameraMode
-void AECMPlayerCameraManager::UpdateCameraMode(UDA_CameraMode* CameraModeDA, const FGameplayTag AddTag, const FGameplayTag RemoveTag1, const FGameplayTag RemoveTag2)
+void AECMPlayerCameraManager::UpdateCameraMode(UDA_CameraMode* CameraModeDA)
 {
-	UpdateCameraModeCPP(CameraModeDA);
+	if (UECMAbilitySystemLibrary::ActorASCContainsTag(CharacterRef, CameraModeDA->CameraSettings.GameplayTag) ) {	return;	} 
 	
-	if(!GetCharacterASC()) return;
-
-	if(CharacterASC->HasMatchingGameplayTag(AddTag)) return; // Finish if we are already have this tag active.
-
-	CharacterASC->AddLooseGameplayTag(AddTag);
-	CharacterASC->RemoveLooseGameplayTag(RemoveTag1);
-	CharacterASC->RemoveLooseGameplayTag(RemoveTag2);
+	UECMAbilitySystemLibrary::AddTagToActor(CharacterRef, CameraModeDA->CameraSettings.GameplayTag);
+	UECMAbilitySystemLibrary::RemoveTagFromActor(CharacterRef, CameraModeDA->CameraSettings.TagToRemove1);
+	UECMAbilitySystemLibrary::RemoveTagFromActor(CharacterRef, CameraModeDA->CameraSettings.TagToRemove2);
+	
+	UpdateCameraModeCPP(CameraModeDA);
 }
 
 // Update setting dependent on Camera Mode
@@ -66,8 +62,8 @@ void AECMPlayerCameraManager::UpdateCameraModeCPP(const UDA_CameraMode* CameraMo
 {
 	check(CameraModeDA);
 	
-	if(GetSpringArm()) // Set spring arm properties from Data Asset
-	{
+	if(IsSpringArmValid()) // Set spring arm properties from Data Asset
+		{
 		SpringArmComponent->SetRelativeLocation(CameraModeDA->CameraSettings.Location);
 		SpringArmComponent->SetRelativeRotation(CameraModeDA->CameraSettings.Rotation);
 		SpringArmComponent->TargetArmLength = CameraModeDA->CameraSettings.TargetArmLength; 
@@ -76,26 +72,26 @@ void AECMPlayerCameraManager::UpdateCameraModeCPP(const UDA_CameraMode* CameraMo
 		SpringArmComponent->bInheritRoll = CameraModeDA->CameraSettings.InheritRoll;
 		SpringArmComponent->bInheritYaw = CameraModeDA->CameraSettings.InheritYaw;
 		SpringArmComponent->bEnableCameraLag = CameraModeDA->CameraSettings.EnableCameraLag;
-	}
+		}
 	
-	if(GetCamera()) // Set camera properties from Data Asset
-	{
+	if(IsCameraValid()) // Set camera properties from Data Asset
+		{
 		CameraComponent->bUsePawnControlRotation = CameraModeDA->CameraSettings.CameraUsePawnControlRotation; // Prevent the camera from rotating with the spring arm	}
-	}
+		}
 
 	if(CharacterRef) // Set Character properties from Data Asset
 	{
 		CharacterRef->bUseControllerRotationPitch = CameraModeDA->CameraSettings.UseControllerRotationPitch;
 		CharacterRef->bUseControllerRotationRoll = CameraModeDA->CameraSettings.UseControllerRotationRoll;
 		CharacterRef->bUseControllerRotationYaw = CameraModeDA->CameraSettings.UseControllerRotationYaw;	
-	}
 
-	if(GetCharacterMovementComponent()) // Set Character Movement Component properties from Data Asset
-	{
-		CharacterCMC->bOrientRotationToMovement = CameraModeDA->CameraSettings.bOrientRotationToMovement;
-		CharacterCMC->RotationRate = CameraModeDA->CameraSettings.RotationRate;
-		CharacterCMC->bConstrainToPlane = CameraModeDA->CameraSettings.ConstrainToPlane;
-		CharacterCMC->bSnapToPlaneAtStart = CameraModeDA->CameraSettings.SnapToPlaneAtStart;
+		if(UCharacterMovementComponent* CharacterCMC = CharacterRef->GetCharacterMovement()) // Set Character Movement Component properties from Data Asset
+		{
+			CharacterCMC->bOrientRotationToMovement = CameraModeDA->CameraSettings.bOrientRotationToMovement;
+			CharacterCMC->RotationRate = CameraModeDA->CameraSettings.RotationRate;
+			CharacterCMC->bConstrainToPlane = CameraModeDA->CameraSettings.ConstrainToPlane;
+			CharacterCMC->bSnapToPlaneAtStart = CameraModeDA->CameraSettings.SnapToPlaneAtStart;
+		}
 	}
 }
 
@@ -115,20 +111,29 @@ void AECMPlayerCameraManager::BindInputs()
 // Call Update ViewMode on Tags activation
 void AECMPlayerCameraManager::AbilityInputTagPressed(FGameplayTag InputTag)
 {
-	if(const FGameplayTag CameraModeTag = FGameplayTag::RequestGameplayTag(FName("Player.CameraMode")); !InputTag.MatchesTagExact(CameraModeTag)) 	{ return; }
+	if( !InputTag.MatchesTag(CameraLookUpTags.InputTag_CameraMode)) 	{ return; }
 
-	if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_FPV))      { UpdateCameraMode(FPV_Settings, CameraMode.FPVTag, CameraMode.TPVTag, CameraMode.TDVTag); }
-	else if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_TPV)) { UpdateCameraMode(TPV_Settings, CameraMode.TPVTag, CameraMode.FPVTag, CameraMode.TDVTag); }
-	else if(InputTag.MatchesTagExact(FECMGameplayTags::Get().Input_Action_Camera_TDV)) { UpdateCameraMode(TDV_Settings, CameraMode.TDVTag, CameraMode.FPVTag, CameraMode.TPVTag); }
+	if(InputTag.MatchesTagExact(CameraLookUpTags.InputTag_FPV))
+	{
+		UpdateCameraMode(FPV_Settings);
+	}
+	else if(InputTag.MatchesTagExact(CameraLookUpTags.InputTag_TPV))
+	{
+		UpdateCameraMode(TPV_Settings);
+	}
+	else if(InputTag.MatchesTagExact(CameraLookUpTags.InputTag_TDV))
+	{
+		UpdateCameraMode(TDV_Settings);
+	}
 	else {	UE_LOG(LogTemp, Warning, TEXT("Player CameraMode Tag not found, during Tag update")) }
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst - due to use in input binding.
 void AECMPlayerCameraManager::ZoomCamera(const FInputActionValue& InputActionValve)
 {
-	if(CheckCameraMode("Player.CameraMode.FPV")){ return; } // If in First Person View.
-	
-	if(SpringArmComponent == nullptr) return;
+	if( !UECMAbilitySystemLibrary::ActorHasASC(CharacterRef) || !IsSpringArmValid()) return;
+
+	if (UECMAbilitySystemLibrary::ActorASCContainsTag(CharacterRef, CameraLookUpTags.PlayerTag_FPV)) return ; 
 	
 	const float InputAxisVector  = InputActionValve.Get<float>();
 
@@ -136,7 +141,7 @@ void AECMPlayerCameraManager::ZoomCamera(const FInputActionValue& InputActionVal
 }
 
 // Helper Functions
-bool AECMPlayerCameraManager::GetSpringArm()
+bool AECMPlayerCameraManager::IsSpringArmValid()
 {
 	if(SpringArmComponent) return true;
 
@@ -144,37 +149,11 @@ bool AECMPlayerCameraManager::GetSpringArm()
 
 	return (SpringArmComponent != nullptr);
 }
-bool AECMPlayerCameraManager::GetCamera()
+bool AECMPlayerCameraManager::IsCameraValid()
 {
 	if(CameraComponent) return true;
 
 	CameraComponent = CharacterRef->FindComponentByClass<UCameraComponent>();
 	
 	return (CameraComponent != nullptr);
-}
-bool AECMPlayerCameraManager::GetCharacterMovementComponent()
-{
-	if(CharacterCMC) return true;
-
-	check(CharacterRef);
-	
-	CharacterCMC = CharacterRef->GetCharacterMovement();
-
-	return (CharacterCMC != nullptr);
-}
-bool AECMPlayerCameraManager::GetCharacterASC()
-{
-	if(CharacterASC) return true;
-
-	CharacterASC = Cast<UAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(CharacterRef));
-
-	return (CharacterASC != nullptr);
-}
-
-bool AECMPlayerCameraManager::CheckCameraMode(FName TagName)
-{
-	if(!GetCharacterASC()) { return false; }
-	
-	const FGameplayTag Tag = FGameplayTag::RequestGameplayTag(TagName);
-	return (CharacterASC->HasMatchingGameplayTag(Tag));
 }

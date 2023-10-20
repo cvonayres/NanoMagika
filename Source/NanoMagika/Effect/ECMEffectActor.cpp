@@ -3,7 +3,7 @@
 #include "ECMEffectActor.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
-#include "NanoMagika/Character/ECMCharacter.h"
+#include "NanoMagika/AbilitySystem/ECMAbilitySystemLibrary.h"
 
 // Sets default values
 AECMEffectActor::AECMEffectActor()
@@ -17,95 +17,87 @@ AECMEffectActor::AECMEffectActor()
 // Applies gameplay effect on Overlap Begin - Called by BP
 void AECMEffectActor::OnOverlap(AActor* TargetActor)
 {
-	const AECMCharacterBase* Character = Cast<AECMCharacterBase>(TargetActor);
-	if (Character == nullptr) return;
-
-	const UAbilitySystemComponent* CharacterASC = Character->GetAbilitySystemComponent();
-	if (CharacterASC == nullptr) return;
-	
-	bool HasTag = false;
+	// Check if any required tag is present on the target actor
 	for (const FGameplayTag& Tag : RequiredTagOnActor)
 	{
-		if (CharacterASC->HasMatchingGameplayTag(Tag))
+		if (UECMAbilitySystemLibrary::ActorASCContainsTag(TargetActor, Tag))
 		{
-			HasTag = true;
-			break;
+			auto HandleEffectApplication = [this, &TargetActor](EEffectApplicationPolicy Policy, TSubclassOf<UGameplayEffect> EffectClass)
+			{
+				if (Policy == EEffectApplicationPolicy::ApplyOnOverlap)
+				{
+					if (EffectClass) ApplyEffectToTarget(TargetActor, EffectClass);
+					else ErrorMessage();
+				}
+			};
+
+			// Apply Gameplay effect on BeginOverlap
+			HandleEffectApplication(InstanceEffectApplicationPolicy, InstantGameplayEffectClass);
+			HandleEffectApplication(DurationEffectApplicationPolicy, DurationGameplayEffectClass);
+			HandleEffectApplication(InfiniteEffectApplicationPolicy, InfiniteGameplayEffectClass);
+			HandleEffectApplication(PeriodicEffectApplicationPolicy, PeriodicGameplayEffectClass);
+
+			if (DestroyPolicy == EDestroyPolicy::ApplyOnOverlap) Destroy();
+			
+			return; // Since we found a tag and processed it, exit function early
 		}
 	}
-	if(!HasTag) return;
-
-	// Lambda function to handle repetitive logic
-	auto HandleEffectApplication = [this, &TargetActor](EEffectApplicationPolicy Policy, TSubclassOf<UGameplayEffect> EffectClass)
-	{
-		if (Policy == EEffectApplicationPolicy::ApplyOnOverlap)
-		{
-			if (EffectClass) ApplyEffectToTarget(TargetActor, EffectClass);
-			else ErrorMessage();
-		}
-	};
-
-	// Apply Gameplay effect on BeginOverlap
-	HandleEffectApplication(InstanceEffectApplicationPolicy, InstantGameplayEffectClass);
-	HandleEffectApplication(DurationEffectApplicationPolicy, DurationGameplayEffectClass);
-	HandleEffectApplication(InfiniteEffectApplicationPolicy, InfiniteGameplayEffectClass);
-	HandleEffectApplication(PeriodicEffectApplicationPolicy, PeriodicGameplayEffectClass);
-
-	// Destroy Actor if policy is set on BeginOverlap
-	if(DestroyPolicy == EDestroyPolicy::ApplyOnOverlap)	Destroy();
 }
 
 // Applies gameplay effect on Overlap End - Called by BP
 void AECMEffectActor::OnEndOverlap(AActor* TargetActor)
 {
-	// Apply Gameplay effect on EndOverlap
-	if(InstanceEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
+	// Check if any required tag is present on the target actor
+	for (const FGameplayTag& Tag : RequiredTagOnActor)
 	{
-		if(InstantGameplayEffectClass) ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
-		else ErrorMessage();
-	}
-	if(DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
-	{
-		if(DurationGameplayEffectClass) ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
-		else ErrorMessage();
-	}
-	if(InfiniteEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
-	{
-		if(InfiniteGameplayEffectClass) ApplyEffectToTarget(TargetActor, InfiniteGameplayEffectClass);
-		else ErrorMessage();
-	}
-	if(PeriodicEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
-	{
-		if(PeriodicGameplayEffectClass)	ApplyEffectToTarget(TargetActor, PeriodicGameplayEffectClass);
-		else ErrorMessage();
-	}
-
-	// Remove Active Gameplay effect for infinite effects with a remove policy of on EndOverlap
-	if(InfiniteEffectRemovalPolicy == EEffectRemovalPolicy::RemoveOnEndOverlap)
-	{
-		//Get Target Ability System Component
-		UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
-		if(!IsValid(TargetASC)) return;
-
-		// Remove Active Ability and add to map for cleanup 
-		TArray<FActiveGameplayEffectHandle> HandlesToRemove;
-		for (TTuple<FActiveGameplayEffectHandle, UAbilitySystemComponent*> HandlePair  : ActiveEffectHandles)
+		if (UECMAbilitySystemLibrary::ActorASCContainsTag(TargetActor, Tag))
 		{
-			if (TargetASC == HandlePair.Value)
+			auto HandleEffectApplication = [this, &TargetActor](EEffectApplicationPolicy Policy, TSubclassOf<UGameplayEffect> EffectClass)
 			{
-				TargetASC->RemoveActiveGameplayEffect(HandlePair.Key, 1);
-				HandlesToRemove.Add(HandlePair.Key);
-			} 
-		}
+				if (Policy == EEffectApplicationPolicy::ApplyOnEndOverlap)
+				{
+					if (EffectClass) ApplyEffectToTarget(TargetActor, EffectClass);
+					else ErrorMessage();
+				}
+			};
 
-		// Remove handle of removed active gameplay effect
-		for(FActiveGameplayEffectHandle& Handle : HandlesToRemove)
-		{
-			ActiveEffectHandles.FindAndRemoveChecked(Handle);	
+			// Apply Gameplay effect on EndOverlap
+			HandleEffectApplication(InstanceEffectApplicationPolicy, InstantGameplayEffectClass);
+			HandleEffectApplication(DurationEffectApplicationPolicy, DurationGameplayEffectClass);
+			HandleEffectApplication(InfiniteEffectApplicationPolicy, InfiniteGameplayEffectClass);
+			HandleEffectApplication(PeriodicEffectApplicationPolicy, PeriodicGameplayEffectClass);
+
+			// Remove Active Gameplay effect for infinite effects with a remove policy of on EndOverlap
+			if(InfiniteEffectRemovalPolicy == EEffectRemovalPolicy::RemoveOnEndOverlap)
+			{
+				//Get Target Ability System Component
+				UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+				if(!IsValid(TargetASC)) return;
+
+				// Remove Active Ability and add to map for cleanup 
+				TArray<FActiveGameplayEffectHandle> HandlesToRemove;
+				for (TTuple<FActiveGameplayEffectHandle, UAbilitySystemComponent*> HandlePair  : ActiveEffectHandles)
+				{
+					if (TargetASC == HandlePair.Value)
+					{
+						TargetASC->RemoveActiveGameplayEffect(HandlePair.Key, 1);
+						HandlesToRemove.Add(HandlePair.Key);
+					} 
+				}
+
+				// Remove handle of removed active gameplay effect
+				for(FActiveGameplayEffectHandle& Handle : HandlesToRemove)
+				{
+					ActiveEffectHandles.FindAndRemoveChecked(Handle);	
+				}
+			}
+
+			// Destroy Actor if policy is set on EndOverlap
+			if(DestroyPolicy == EDestroyPolicy::ApplyOnEndOverlap) Destroy();
+			
+			return; // Since we found a tag and processed it, exit function early
 		}
 	}
-
-	// Destroy Actor if policy is set on EndOverlap
-	if(DestroyPolicy == EDestroyPolicy::ApplyOnEndOverlap) Destroy();
 }
 
 // Applies gameplay effect to target

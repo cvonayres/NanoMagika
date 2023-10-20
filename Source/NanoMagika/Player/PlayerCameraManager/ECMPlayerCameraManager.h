@@ -15,12 +15,25 @@ class UCameraComponent;
 class USpringArmComponent;
 struct FInputActionValue;
 
-UENUM(BlueprintType)
-enum class ECameraMode : uint8
+USTRUCT(BlueprintType)
+struct FCameraTags
 {
-	FirstPersonView UMETA(DisplayName = "First Person View"),
-	ThirdPersonView UMETA(DisplayName = "Third Person View"),
-	TopDownView     UMETA(DisplayName = "Top Down View")
+	GENERATED_BODY()
+
+	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
+	FGameplayTag PlayerTag_FPV;
+	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
+	FGameplayTag PlayerTag_TPV;
+	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
+	FGameplayTag PlayerTag_TDV;
+	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
+	FGameplayTag InputTag_CameraMode;
+	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
+	FGameplayTag InputTag_FPV;
+	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
+	FGameplayTag InputTag_TPV;
+	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
+	FGameplayTag InputTag_TDV;
 };
 
 UCLASS()
@@ -33,8 +46,10 @@ public:
 	void InitPCM(const ACharacter* Character);
 	
 	UFUNCTION(BlueprintCallable, Category="Camera")
-	void UpdateCameraMode(UDA_CameraMode* CameraModeDA, const FGameplayTag AddTag, const FGameplayTag RemoveTag1, const FGameplayTag RemoveTag2);
+	void UpdateCameraMode(UDA_CameraMode* CameraModeDA);
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Camera")
+	FCameraTags CameraLookUpTags;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Camera")
 	TObjectPtr<UDA_CameraMode> FPV_Settings;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Camera")
@@ -74,19 +89,20 @@ private:
 	UPROPERTY()
 	ACharacter* CharacterRef = nullptr;
 	UPROPERTY()
-	UAbilitySystemComponent* CharacterASC = nullptr;
-	UPROPERTY()
-	UCharacterMovementComponent* CharacterCMC = nullptr;
-	UPROPERTY()
 	TObjectPtr<USpringArmComponent> SpringArmComponent = nullptr;
 	UPROPERTY()
 	TObjectPtr<UCameraComponent> CameraComponent = nullptr;
 	
 	// Helper functions
-	bool GetSpringArm();
-	bool GetCamera();
-	bool GetCharacterASC();
-	bool GetCharacterMovementComponent();
+	bool IsSpringArmValid();
+	bool IsCameraValid();
 
-	bool CheckCameraMode(FName TagName);
+	FGameplayTag PlayerTag_FPV;
+	FGameplayTag PlayerTag_TPV;
+	FGameplayTag PlayerTag_TDV;
+	FGameplayTag InputTag_CameraMode;
+	FGameplayTag InputTag_FPV;
+	FGameplayTag InputTag_TPV;
+	FGameplayTag InputTag_TDV;
+
 };

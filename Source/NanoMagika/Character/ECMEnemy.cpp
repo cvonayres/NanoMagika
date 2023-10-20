@@ -16,6 +16,7 @@
 
 AECMEnemy::AECMEnemy()
 {
+	//TODO Check as this is why the ASC and AS only need to be set on the server - check tags may need to change to mixed>
 	SetAbilitySystemComponent(CreateDefaultSubobject<UECMAbilitySystemComponent>("AbilitySystemComponent"));
 	AECMCharacterBase::GetAbilitySystemComponent()->SetIsReplicated(true);
 	AECMCharacterBase::GetAbilitySystemComponent()->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
@@ -43,10 +44,17 @@ void AECMEnemy::PossessedBy(AController* NewController)
 	if(!HasAuthority()) return; // Only on server
 	AIController = Cast<AECMAIController>(NewController);
 
+	if(NewController->IsLocalPlayerController()) return;
+
 	check(AIController);
-	AIController->GetBlackboardComponent()->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
+	BlackboardComponentRef = AIController->GetBlackboardComponent();
+	check(BlackboardComponentRef);
+	BlackboardComponentRef->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
 	AIController->RunBehaviorTree(BehaviorTree);
-		
+
+	// Init Blackboard keys
+	// SetBBKey_HitReacting(false);
+
 }
 
 // Client side ready
@@ -95,7 +103,6 @@ void AECMEnemy::InitHealthBar()
 
 	ECMUserWidget->SetWidgetControllerRef(this); // Setting Widget Controller To Self
 
-
 	auto  ECMAS = Cast<UECMAttributeSet>(GetAttributeSet());
 	if (ECMAS == nullptr) return;
 
@@ -116,12 +123,13 @@ void AECMEnemy::InitHealthBar()
 	OnMaxHealthChange.Broadcast(ECMAS->GetVMCapacity());
 }
 
-
 void AECMEnemy::HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
 {
 	bHitReacting = NewCount > 0;
 
 	GetCharacterMovement()->MaxWalkSpeed = bHitReacting ? 0.f: DefaultWalkingSpeed;
+
+	// SetBBKey_HitReacting(bHitReacting);
 }
 
 void AECMEnemy::Die()
@@ -130,3 +138,10 @@ void AECMEnemy::Die()
 	
 	Super::Die();
 }
+/*
+// Blackboard Keys
+void AECMEnemy::SetBBKey_HitReacting(const bool Valve) const
+{
+	BlackboardComponentRef->SetValueAsBool(FName("HitReacting"), Valve);
+}
+*/

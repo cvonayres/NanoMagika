@@ -8,10 +8,7 @@
 #include "NanoMagika/UI/WidgetController/ECMWidgetController.h"
 #include "ECMEnemy.generated.h"
 
-class AECMAIController;
-class UBehaviorTree;
 class FOnAttributeChangedSignature;
-class UWidgetComponent;
 
 UCLASS()
 class NANOMAGIKA_API AECMEnemy : public AECMCharacterBase
@@ -58,7 +55,7 @@ protected:
 	// Health Bar
 	void InitHealthBar();
 	
-	// TODO move secondary attribute make speed depenmdent of stats
+	// TODO move secondary attribute make speed dependant of stats
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="User|Character Class Defaults")
 	float DefaultWalkingSpeed = 200.f;
 	
@@ -68,11 +65,15 @@ protected:
 	
 	// TODO move to Character Class Info
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="User|UI")
-	TObjectPtr<UWidgetComponent> HealthBar;
+	TObjectPtr<class UWidgetComponent> HealthBar;
 
+	UPROPERTY()
+	class UBlackboardComponent* BlackboardComponentRef;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="User|AI")
-	TObjectPtr<UBehaviorTree> BehaviorTree;
+	TObjectPtr<class UBehaviorTree> BehaviorTree;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="User|AI")
-	TObjectPtr<AECMAIController> AIController;
+	TObjectPtr<class AECMAIController> AIController;
+
+	// void SetBBKey_HitReacting(bool Valve) const;
 };

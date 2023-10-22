@@ -27,6 +27,8 @@ public class NanoMagika : ModuleRules
 		{
 			"NavigationSystem",
 			"AIModule",
+			"NetCore",
+			
 		});
 
 		// Uncomment if you are using Slate UI

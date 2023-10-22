@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "ECMGameMode.generated.h"
 
+class UECMItemClassInfo;
 class UECMCharacterClassInfo;
 
 UCLASS
@@ -20,5 +21,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category="CharacterClassDefaults")
 	TObjectPtr<UECMCharacterClassInfo> CharacterClassInfo;
 
-	
+	UPROPERTY(EditDefaultsOnly, Category="CharacterClassDefaults")
+	TObjectPtr<UECMItemClassInfo> ItemClassInfo;
+
 };

@@ -12,6 +12,7 @@
 #include "NanoMagika/UI/HUD/ECMHUD.h"
 #include "NanoMagika/UI/WidgetController/ECMWidgetController.h"
 
+# pragma region OverlayWidgetController
 FWidgetControllerParam UECMAbilitySystemLibrary::GetParams(APlayerController* PC)
 {
 	AECMPlayerState* PS = PC->GetPlayerState<AECMPlayerState>();
@@ -46,6 +47,21 @@ UECMAttributeMenuWidgetController* UECMAbilitySystemLibrary::GetAttributeMenuWid
 	}
 	return nullptr;
 }
+# pragma endregion OverlayWidgetController
+
+// TODO make this generic to all NPCs
+# pragma region InitializeEnemy
+UECMCharacterClassInfo* UECMAbilitySystemLibrary::GetCharacterClassInfo(const UObject* WorldContextObject)
+{
+	const AECMGameMode* ECMGameMode = Cast<AECMGameMode>(UGameplayStatics::GetGameMode(WorldContextObject));
+	if (ECMGameMode == nullptr) return nullptr;
+	return ECMGameMode->CharacterClassInfo;
+}
+
+UECMEnemySpecInfo* UECMAbilitySystemLibrary::GetClassDefaultInfo(UECMCharacterClassInfo* CharacterClassInfo, const FGameplayTag EnemyTag )
+{
+	return CharacterClassInfo->GetClassDefaultInfo(EnemyTag);
+}
 
 // Add Default Attributes defined in Character Class Info, Primary, Secondary & Vital
 void UECMAbilitySystemLibrary::InitializeEnemyAttributes(const UObject* WorldContextObject, FGameplayTag EnemyTag, float Level, UECMAbilitySystemComponent* ESMASC)
@@ -72,28 +88,24 @@ void UECMAbilitySystemLibrary::InitializeEnemyAbilities(const UObject* WorldCont
 }
 
 // Add Default Tags defined in Character Class Info, both CLass Specific and Common
-void UECMAbilitySystemLibrary::InitializeEnemyTags(const UObject* WorldContextObject, FGameplayTag EnemyTag, UECMAbilitySystemComponent* ECMASC)
+void UECMAbilitySystemLibrary::InitializeEnemyTags(const UObject* WorldContextObject, const FGameplayTag EnemyTag, UECMAbilitySystemComponent* ECMASC)
 {
 	const TObjectPtr<UECMCharacterClassInfo> CharacterClassInfo = GetCharacterClassInfo(WorldContextObject);
 	const TObjectPtr<UECMEnemySpecInfo> ClassDefaultInfo = GetClassDefaultInfo(CharacterClassInfo, EnemyTag);
 
-	ECMASC->AddGameplayTags( ClassDefaultInfo.Get()->Tags );	// Enemy Specific Tag	
-
-	ECMASC->AddGameplayTags( CharacterClassInfo->CommonTags ); // Enemy Common Tags
+	TArray<FGameplayTag> TagsToAdd;
+	TagsToAdd.Empty();
+	
+	TagsToAdd.Add(EnemyTag);								// Enemy Definition Tag
+	TagsToAdd.Add(ClassDefaultInfo.Get()->ClassTag);		// Enemy Class Tag	
+	TagsToAdd.Append(ClassDefaultInfo.Get()->Tags);			// Enemy Specific Tag
+	TagsToAdd.Append(CharacterClassInfo->CommonTags);		// Enemy Common Tags
+	
+	ECMASC->AddGameplayTags( TagsToAdd ); 
 }
+# pragma endregion InitializeEnemy
 
-UECMCharacterClassInfo* UECMAbilitySystemLibrary::GetCharacterClassInfo(const UObject* WorldContextObject)
-{
-	const AECMGameMode* ECMGameMode = Cast<AECMGameMode>(UGameplayStatics::GetGameMode(WorldContextObject));
-	if (ECMGameMode == nullptr) return nullptr;
-	return ECMGameMode->CharacterClassInfo;
-}
-
-UECMEnemySpecInfo* UECMAbilitySystemLibrary::GetClassDefaultInfo(UECMCharacterClassInfo* CharacterClassInfo, const FGameplayTag EnemyTag )
-{
-	return CharacterClassInfo->GetClassDefaultInfo(EnemyTag);
-}
-
+# pragma region DamageCalculation
 bool UECMAbilitySystemLibrary::IsBlockedHit(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if(const FECMGameplayEffectContext* ECMEffectContext = static_cast<const FECMGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -102,7 +114,6 @@ bool UECMAbilitySystemLibrary::IsBlockedHit(const FGameplayEffectContextHandle& 
 	}
 	return false;	
 }
-
 void UECMAbilitySystemLibrary::SetIsBlockedHit(FGameplayEffectContextHandle& EffectContextHandle, bool bInIsBlockedHit)
 {
 	if(FECMGameplayEffectContext* ECMEffectContext = static_cast<FECMGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -110,7 +121,6 @@ void UECMAbilitySystemLibrary::SetIsBlockedHit(FGameplayEffectContextHandle& Eff
 		ECMEffectContext->SetIsBlockingHit(bInIsBlockedHit);
 	}
 }
-
 bool UECMAbilitySystemLibrary::IsCriticalHit(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if(const FECMGameplayEffectContext* ECMEffectContext = static_cast<const FECMGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -119,7 +129,6 @@ bool UECMAbilitySystemLibrary::IsCriticalHit(const FGameplayEffectContextHandle&
 	}
 	return false;	
 }
-
 void UECMAbilitySystemLibrary::SetIsCriticalHit(FGameplayEffectContextHandle& EffectContextHandle,	bool bInIsCriticalHit)
 {
 	if(FECMGameplayEffectContext* ECMEffectContext = static_cast<FECMGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -127,7 +136,9 @@ void UECMAbilitySystemLibrary::SetIsCriticalHit(FGameplayEffectContextHandle& Ef
 		ECMEffectContext->SetIsCriticalHit(bInIsCriticalHit);
 	}
 }
+# pragma endregion DamageCalculation
 
+# pragma region ActorTags
 bool UECMAbilitySystemLibrary::ActorHasASC(AActor* Actor)
 {
 	return UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor) != nullptr;
@@ -135,25 +146,22 @@ bool UECMAbilitySystemLibrary::ActorHasASC(AActor* Actor)
 
 bool UECMAbilitySystemLibrary::ActorASCContainsTag(AActor* Actor, const FGameplayTag TagToMatch)
 {
-	if(const UAbilitySystemComponent* ActorASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor))
-	{
-		return ActorASC->HasMatchingGameplayTag(TagToMatch);
-	}
-	return false;
+	checkf(ActorHasASC(Actor), TEXT("Actor: [%s] does not have a Ability System Component"));
+
+	return UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor)->HasMatchingGameplayTag(TagToMatch);
 }
 
 void UECMAbilitySystemLibrary::AddTagToActor(AActor* Actor, FGameplayTag TagToAdd)
 {
-	if(UAbilitySystemComponent* ActorASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor))
-	{
-		return ActorASC->AddLooseGameplayTag(TagToAdd);
-	}
+	checkf(ActorHasASC(Actor), TEXT("Actor: [%s] does not have a Ability System Component"));
+
+	UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor)->AddLooseGameplayTag(TagToAdd);
 }
 
 void UECMAbilitySystemLibrary::RemoveTagFromActor(AActor* Actor, FGameplayTag TagToRemove)
 {
-	if(UAbilitySystemComponent* ActorASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor))
-	{
-		return ActorASC->RemoveLooseGameplayTag(TagToRemove);
-	}
+	checkf(ActorHasASC(Actor), TEXT("Actor: [%s] does not have a Ability System Component"));
+
+	UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor)->RemoveLooseGameplayTag(TagToRemove);
 }
+# pragma endregion ActorTags

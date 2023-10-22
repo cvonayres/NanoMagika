@@ -52,9 +52,6 @@ void AECMEnemy::PossessedBy(AController* NewController)
 	BlackboardComponentRef->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
 	AIController->RunBehaviorTree(BehaviorTree);
 
-	// Init Blackboard keys
-	// SetBBKey_HitReacting(false);
-
 }
 
 // Client side ready

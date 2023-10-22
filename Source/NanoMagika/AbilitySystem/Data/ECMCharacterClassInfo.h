@@ -20,16 +20,16 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category="CharacterClassDefaults")
 	TMap<FGameplayTag, UECMEnemySpecInfo*> CharacterClassInformation;
 
-	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults")
+	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults|Attributes")
 	TSubclassOf<UGameplayEffect> VitalAttribute;
 	
-	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults")
+	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults|Attributes")
 	TSubclassOf<UGameplayEffect> SecondaryAttribute;
 
-	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults")
+	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults|Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> CommonAbilities;
 
-	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults")
+	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults|Tags")
 	TArray<FGameplayTag> CommonTags;
 
 	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults|Damage")

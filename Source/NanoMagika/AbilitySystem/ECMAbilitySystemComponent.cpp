@@ -27,7 +27,7 @@ void UECMAbilitySystemComponent::AddGameplayAbilities(const TArray<TSubclassOf<U
 	{
 		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
 
-		if (ReactToInput) // For reacting to enhanced input [i.e. cast firebolt.
+		if (ReactToInput) // For reacting to enhanced input [i.e. cast firebolt]
 		{
 			if(const UECMGameplayAbility* ECMAbility = Cast<UECMGameplayAbility>(AbilitySpec.Ability)) 
 			{

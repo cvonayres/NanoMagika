@@ -233,6 +233,8 @@ void UECMAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 		DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, NeuralAgility, COND_None, REPNOTIFY_Always);
 		DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, EmpathicResonance, COND_None, REPNOTIFY_Always);
 		DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, EssenceControl, COND_None, REPNOTIFY_Always);
+		DOREPLIFETIME_CONDITION_NOTIFY(UECMAttributeSet, Nanomancy, COND_None, REPNOTIFY_Always);
+
 	#pragma endregion RepPrimaryAttributes
 
 	// Secondary Attributes to be replicated

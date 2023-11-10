@@ -9,9 +9,6 @@
 #include "ECMAbilitySystemLibrary.generated.h"
 
 struct FGameplayEffectContextHandle;
-class UECMAbilitySystemComponent;
-class UECMAttributeMenuWidgetController;
-class UECMOverlayWidgetController;
 
 UCLASS()
 class NANOMAGIKA_API UECMAbilitySystemLibrary : public UBlueprintFunctionLibrary
@@ -31,9 +28,9 @@ public:
 	static UECMCharacterClassInfo* GetCharacterClassInfo(const UObject* WorldContextObject);
 	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
 	static UECMEnemySpecInfo* GetClassDefaultInfo(UECMCharacterClassInfo* CharacterClassInfo, FGameplayTag EnemyTag );UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
-	static void InitializeEnemyAttributes(const UObject* WorldContextObject, FGameplayTag EnemyTag, float Level, UECMAbilitySystemComponent* ESMASC);
+	static void InitializeEnemyAttributes(const UObject* WorldContextObject, FGameplayTag EnemyTag, float CharacterLevel, UECMAbilitySystemComponent* ESMASC);
 	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
-	static void InitializeEnemyAbilities(const UObject* WorldContextObject, FGameplayTag EnemyTag, float Level, UECMAbilitySystemComponent* ESMASC);
+	static void InitializeEnemyAbilities(const UObject* WorldContextObject, FGameplayTag EnemyTag, UECMAbilitySystemComponent* ESMASC);
 	UFUNCTION(BlueprintCallable, Category="ECMABilitySystemLibrary|CharacterClass")
 	static void InitializeEnemyTags(const UObject* WorldContextObject, FGameplayTag EnemyTag, UECMAbilitySystemComponent* ESMASC);
 
@@ -52,5 +49,4 @@ public:
 	static bool ActorASCContainsTag(AActor* Actor, FGameplayTag TagToMatch);
 	static void AddTagToActor(AActor* Actor, FGameplayTag TagToAdd);
 	static void RemoveTagFromActor(AActor* Actor, FGameplayTag TagToRemove);
-
 };

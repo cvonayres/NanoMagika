@@ -9,7 +9,7 @@
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemLibrary.h"
 #include "NanoMagika/Character/ECMCharacterBase.h"
 
-
+// TODO Replace its being call constantly for all enemies
 void UECMBTService_FindNearestPlayer::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
 	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);

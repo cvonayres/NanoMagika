@@ -4,6 +4,7 @@
 
 #include "Abilities/ECMGameplayAbility.h"
 #include "NanoMagika/ECMGameplayTags.h"
+#include "NanoMagika/Character/ECMCharacter.h"
 
 // Bind Effect Applied to callback on ASC Effect Applied To Self.
 void UECMAbilitySystemComponent::BindEffectApplied()
@@ -12,7 +13,7 @@ void UECMAbilitySystemComponent::BindEffectApplied()
 }
 
 // Adds GameplayEffect Tags loosely
-void UECMAbilitySystemComponent::AddGameplayEffect(const TSubclassOf<UGameplayEffect>& Effect, float Level)
+void UECMAbilitySystemComponent::AddGameplayEffect(const TSubclassOf<UGameplayEffect>& Effect, const float Level)
 {
 	FGameplayEffectContextHandle ContextHandle = MakeEffectContext();
 	ContextHandle.AddSourceObject(GetAvatarActor());
@@ -20,22 +21,36 @@ void UECMAbilitySystemComponent::AddGameplayEffect(const TSubclassOf<UGameplayEf
 	ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 }
 
-// Grant Ability
-void UECMAbilitySystemComponent::AddGameplayAbilities(const TArray<TSubclassOf<UGameplayAbility>>& Abilities, bool ReactToInput)
+void UECMAbilitySystemComponent::AddGameplayAbilities(const TArray<TSubclassOf<UECMGameplayAbility>>& Abilities)
 {
-	for(const TSubclassOf<UGameplayAbility> AbilityClass : Abilities)
-	{
-		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
+	if (Abilities.IsEmpty()) return;
 
-		if (ReactToInput) // For reacting to enhanced input [i.e. cast firebolt]
+	for (const TSubclassOf<UECMGameplayAbility>& AbilityClass : Abilities)
+	{
+		// Create an instance of the ability to access its properties
+		const UECMGameplayAbility* AbilityInstance = AbilityClass.GetDefaultObject();
+		const int32 Level = AbilityInstance->AbilityLevel; // Get the Ability level
+		const bool bBindToInput = AbilityInstance->BindToInputTag; // Check if we should bind the ability to an input
+
+		// Create a new FGameplayAbilitySpec with the AbilityClass and Level
+		FGameplayAbilitySpec AbilitySpec(AbilityClass, Level);
+
+		// If bBindToInput is true, we want to react to enhanced input
+		if (bBindToInput)
 		{
-			if(const UECMGameplayAbility* ECMAbility = Cast<UECMGameplayAbility>(AbilitySpec.Ability)) 
+			FGameplayTag BoundInputTag = AbilityInstance->InputTag; // Get the input tag
+
+			// Check if the input tag is valid and matches the desired input tag
+			if (BoundInputTag.IsValid() && BoundInputTag.MatchesTag(FGameplayTag::RequestGameplayTag("Input")))
 			{
-				AbilitySpec.DynamicAbilityTags.AddTag(ECMAbility->StartupInputTag);
+				// Add the input tag to the DynamicAbilityTags of the AbilitySpec
+				AbilitySpec.DynamicAbilityTags.AddTag(BoundInputTag);
 			}
 		}
+
+		// Give the ability to the component
 		GiveAbility(AbilitySpec);
-	}	
+	}
 }
 
 // Adds Gameplay Tags loosely

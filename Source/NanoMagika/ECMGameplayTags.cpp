@@ -54,6 +54,13 @@ void FECMGameplayTags::InitNativeGameplayTags()
 	INIT_TAG(Input_Action_CameraMode_TDV, "Input.Action.CameraMode.TDV")
 
 #pragma endregion Input
+	
+#pragma region Abilitities
+	/** Declares the "Inputs" gameplay tag. */
+	INIT_TAG(Abilities_Attack_Melee, "Abilities.Attack.Melee")
+	INIT_TAG(Abilities_Attack_Ranged, "Abilities.Attack.Ranged")
+
+#pragma endregion Abilitities
 
 #pragma region Attributes
 	/** Declares the "Vital Attributes" gameplay tag. */
@@ -103,8 +110,7 @@ void FECMGameplayTags::InitNativeGameplayTags()
 	/** Declares the "Character Type" gameplay tag. */
 	INIT_TAG(Character_Type_Player, "Character.Type.Player")
 
-	INIT_TAG(Character_Type_Enemy_Goblin_Slingshot, "Character.Type.Enemy.Goblin_Slingshot")
-	INIT_TAG(Character_Type_Enemy_Goblin_Spear, "Character.Type.Enemy.Goblin_Spear")
+	INIT_TAG(Character_Type_Enemy, "Character.Type.Enemy")
 
 	INIT_TAG(Character_Type_NPC_Quest, "Character.Type.NPC.Quest")
 	INIT_TAG(Character_Type_NPC_Merchant, "Character.Type.NPC.Merchant")
@@ -139,6 +145,14 @@ void FECMGameplayTags::InitNativeGameplayTags()
 	INIT_TAG(Effect_Damage_Nanotech, "Effect.Damage.Nanotech")
 
 #pragma endregion Effects
+
+#pragma region Montage
+/** Declares the "Montage" gameplay tag. */
+	INIT_TAG(Montage_Attack_Weapon, "Montage.Attack.Weapon")
+	INIT_TAG(Montage_Attack_RightHand, "Montage.Attack.RighHand")
+	INIT_TAG(Montage_Attack_LeftHand, "Montage.Attack.LeftHand")
+	
+#pragma endregion Montage
 
 	#undef INIT_TAG
 

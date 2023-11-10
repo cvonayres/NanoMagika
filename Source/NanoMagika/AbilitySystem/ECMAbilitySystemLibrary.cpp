@@ -64,27 +64,27 @@ UECMEnemySpecInfo* UECMAbilitySystemLibrary::GetClassDefaultInfo(UECMCharacterCl
 }
 
 // Add Default Attributes defined in Character Class Info, Primary, Secondary & Vital
-void UECMAbilitySystemLibrary::InitializeEnemyAttributes(const UObject* WorldContextObject, FGameplayTag EnemyTag, float Level, UECMAbilitySystemComponent* ESMASC)
+void UECMAbilitySystemLibrary::InitializeEnemyAttributes(const UObject* WorldContextObject, const FGameplayTag EnemyTag, const float CharacterLevel, UECMAbilitySystemComponent* ESMASC)
 {
 	const TObjectPtr<UECMCharacterClassInfo> CharacterClassInfo = GetCharacterClassInfo(WorldContextObject);
 	const TObjectPtr<UECMEnemySpecInfo> ClassDefaultInfo = GetClassDefaultInfo(CharacterClassInfo, EnemyTag);
 
-	ESMASC->AddGameplayEffect( ClassDefaultInfo.Get()->PrimaryAttribute, Level );
+	ESMASC->AddGameplayEffect( ClassDefaultInfo.Get()->PrimaryAttribute, CharacterLevel );
 
-	ESMASC->AddGameplayEffect( CharacterClassInfo->SecondaryAttribute, Level );
+	ESMASC->AddGameplayEffect( CharacterClassInfo->SecondaryAttribute, CharacterLevel );
 
-	ESMASC->AddGameplayEffect( CharacterClassInfo->VitalAttribute, Level );
+	ESMASC->AddGameplayEffect( CharacterClassInfo->VitalAttribute, CharacterLevel );
 }
 
 // Add Default Abilities defined in Character Class Info, both CLass Specific and Common
-void UECMAbilitySystemLibrary::InitializeEnemyAbilities(const UObject* WorldContextObject, FGameplayTag EnemyTag, float Level, UECMAbilitySystemComponent* ESMASC)
+void UECMAbilitySystemLibrary::InitializeEnemyAbilities(const UObject* WorldContextObject, const FGameplayTag EnemyTag, UECMAbilitySystemComponent* ESMASC)
 {
 	const TObjectPtr<UECMCharacterClassInfo> CharacterClassInfo = GetCharacterClassInfo(WorldContextObject);
 	const TObjectPtr<UECMEnemySpecInfo> ClassDefaultInfo = GetClassDefaultInfo(CharacterClassInfo, EnemyTag);
 	
-	ESMASC->AddGameplayAbilities( ClassDefaultInfo.Get()->Abilities, false ); // Enemy Specific Abilities	
+	ESMASC->AddGameplayAbilities( ClassDefaultInfo.Get()->Abilities); // Enemy Specific Abilities	
 	
-	ESMASC->AddGameplayAbilities( CharacterClassInfo->CommonAbilities, false ); // Enemy Common Abilities
+	ESMASC->AddGameplayAbilities( CharacterClassInfo->CommonAbilities); // Enemy Common Abilities
 }
 
 // Add Default Tags defined in Character Class Info, both CLass Specific and Common
@@ -164,4 +164,5 @@ void UECMAbilitySystemLibrary::RemoveTagFromActor(AActor* Actor, FGameplayTag Ta
 
 	UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor)->RemoveLooseGameplayTag(TagToRemove);
 }
+
 # pragma endregion ActorTags

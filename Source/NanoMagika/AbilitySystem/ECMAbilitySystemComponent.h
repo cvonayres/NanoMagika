@@ -6,6 +6,7 @@
 #include "AbilitySystemComponent.h"
 #include "ECMAbilitySystemComponent.generated.h"
 
+class UECMGameplayAbility;
 DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssestTags, const FGameplayTagContainer& /*AssetTags*/)
 
 UCLASS()
@@ -25,7 +26,7 @@ public:
 	void AddGameplayEffect(const TSubclassOf<UGameplayEffect>& Effect, float Level);
 	
 	// Add Gameplay Abilities
-	void AddGameplayAbilities(const TArray<TSubclassOf<UGameplayAbility>>& Abilities, bool ReactToInput);
+	void AddGameplayAbilities(const TArray<TSubclassOf<UECMGameplayAbility>>&  Abilities);
 
 	// Add Gameplay Tags
 	void  AddGameplayTags(const TArray<FGameplayTag>& Tags);

@@ -46,6 +46,10 @@
 		{
 			"Name": "MotionWarping",
 			"Enabled": true
+		},
+		{
+			"Name": "ECMInventory",
+			"Enabled": false
 		}
 	]
 }

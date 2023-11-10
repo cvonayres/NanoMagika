@@ -11,12 +11,12 @@
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemLibrary.h"
 #include "NanoMagika/AbilitySystem/Attributes/ECMAttributeSet.h"
+#include "NanoMagika/AbilitySystem/Data/ECMEnemySpecInfo.h"
 #include "NanoMagika/AI/ECMAIController.h"
 #include "NanoMagika/UI/Widget/ECMUserWidget.h"
 
 AECMEnemy::AECMEnemy()
 {
-	//TODO Check as this is why the ASC and AS only need to be set on the server - check tags may need to change to mixed>
 	SetAbilitySystemComponent(CreateDefaultSubobject<UECMAbilitySystemComponent>("AbilitySystemComponent"));
 	AECMCharacterBase::GetAbilitySystemComponent()->SetIsReplicated(true);
 	AECMCharacterBase::GetAbilitySystemComponent()->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
@@ -25,8 +25,6 @@ AECMEnemy::AECMEnemy()
 	
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>("HealthBar");
 	HealthBar->SetupAttachment(GetRootComponent());
-
-	GetCharacterMovement()->MaxWalkSpeed = DefaultWalkingSpeed;
 
 	GetCharacterMovement()->bUseControllerDesiredRotation;
 	GetCharacterMovement()->RotationRate = FRotator(0,360,0);
@@ -58,6 +56,12 @@ void AECMEnemy::PossessedBy(AController* NewController)
 void AECMEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+
+	ClassInfo = UECMAbilitySystemLibrary::GetCharacterClassInfo(this);
+	if(ClassInfo == nullptr ) return;
+	
+	ClassSpec =  UECMAbilitySystemLibrary::GetClassDefaultInfo(ClassInfo, EnemyTag);
+	if(ClassSpec == nullptr ) return;
 	
 	InitializeAbilityActorInfo();
 	
@@ -70,10 +74,10 @@ void AECMEnemy::InitializeCharacter()
 	{
 		Super::InitializeCharacter();
 	}
-
+	
 	InitHealthBar(); // Health Bar
 	
-	if(GetAbilitySystemComponent()) // Hit React
+	if( GetAbilitySystemComponent()) // Hit React
 	{
 		GetAbilitySystemComponent()->RegisterGameplayTagEvent(FECMGameplayTags::Get().Effect_HitReact, EGameplayTagEventType::NewOrRemoved).AddUObject(
 		this, &AECMEnemy::HitReactTagChanged);
@@ -83,10 +87,14 @@ void AECMEnemy::InitializeCharacter()
 void AECMEnemy::InitDefaultAttributes()
 {
 	UECMAbilitySystemLibrary::InitializeEnemyAttributes(this, EnemyTag, Level, GetECMASC());
+
+	checkf(ClassSpec, TEXT("Class not found for enemy"));
+	GetCharacterMovement()->MaxWalkSpeed = ClassSpec->DefaultWalkingSpeed;
+
 }
 void AECMEnemy::InitDefaultAbilities()
 {
-	UECMAbilitySystemLibrary::InitializeEnemyAbilities(this, EnemyTag, Level, GetECMASC());
+	UECMAbilitySystemLibrary::InitializeEnemyAbilities(this, EnemyTag, GetECMASC());
 }
 void AECMEnemy::InitDefaultGameplayTags()
 {
@@ -120,25 +128,16 @@ void AECMEnemy::InitHealthBar()
 	OnMaxHealthChange.Broadcast(ECMAS->GetVMCapacity());
 }
 
-void AECMEnemy::HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
+void AECMEnemy::HitReactTagChanged(const FGameplayTag CallbackTag, const int32 NewCount)
 {
 	bHitReacting = NewCount > 0;
 
-	GetCharacterMovement()->MaxWalkSpeed = bHitReacting ? 0.f: DefaultWalkingSpeed;
-
-	// SetBBKey_HitReacting(bHitReacting);
+	GetCharacterMovement()->MaxWalkSpeed = bHitReacting ? 0.f: ClassSpec->DefaultWalkingSpeed;
 }
 
 void AECMEnemy::Die()
 {
-	SetLifeSpan(LifeSpan);
+	SetLifeSpan(ClassInfo->LifeSpan);
 	
 	Super::Die();
 }
-/*
-// Blackboard Keys
-void AECMEnemy::SetBBKey_HitReacting(const bool Valve) const
-{
-	BlackboardComponentRef->SetValueAsBool(FName("HitReacting"), Valve);
-}
-*/

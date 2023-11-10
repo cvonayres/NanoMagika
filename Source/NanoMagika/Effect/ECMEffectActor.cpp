@@ -3,6 +3,7 @@
 #include "ECMEffectActor.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "GameFramework/Character.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemLibrary.h"
 
 // Sets default values
@@ -17,6 +18,9 @@ AECMEffectActor::AECMEffectActor()
 // Applies gameplay effect on Overlap Begin - Called by BP
 void AECMEffectActor::OnOverlap(AActor* TargetActor)
 {
+	const ACharacter* TestCharacter = Cast<ACharacter>(TargetActor);
+	if ( TestCharacter == nullptr) return ;
+	
 	// Check if any required tag is present on the target actor
 	for (const FGameplayTag& Tag : RequiredTagOnActor)
 	{

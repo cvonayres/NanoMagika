@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "ECMCharacterBase.h"
+#include "Abilities/GameplayAbility.h"
 #include "ECMCharacter.generated.h"
 
+class UECMGameplayAbility;
 class UCameraComponent;
 class USpringArmComponent;
 
@@ -23,6 +25,9 @@ public:
 
 	/** Combat Interface */
 	virtual int32 GetPlayerLevel() override;
+
+	virtual UAnimMontage* GetHitReactMontage_Implementation() override { return HitReactMontage; }
+
 	/** end Combat Interface */
 
 	void SetbUseControllerRotationPitch(bool Valve) { bUseControllerRotationPitch = Valve ; }
@@ -47,11 +52,14 @@ protected:
 
 	// Default Character Abilities
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="User|Abilities")
-	TArray<TSubclassOf<UGameplayAbility>> DefaultCharacterAbilities;
+	TArray<TSubclassOf<UECMGameplayAbility>> DefaultCharacterAbilities;
 	
 	// Default Character Gameplay Tags
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="User|GameplayTags")
 	TArray<FGameplayTag> DefaultCharacterTags;
+	
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	UAnimMontage* HitReactMontage;
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))

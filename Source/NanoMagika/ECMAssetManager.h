@@ -6,9 +6,6 @@
 #include "Engine/AssetManager.h"
 #include "ECMAssetManager.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class NANOMAGIKA_API UECMAssetManager : public UAssetManager
 {

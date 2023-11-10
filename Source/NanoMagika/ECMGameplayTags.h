@@ -14,7 +14,7 @@
 struct FECMGameplayTags
 {
 public:
-	static const FECMGameplayTags& Get() { return GameplayTags;}
+	static FECMGameplayTags& Get() { return GameplayTags;}
 	static void InitNativeGameplayTags ();
 
 	#define DECLARE_GAMEPLAY_TAG(name) FGameplayTag name;
@@ -59,6 +59,13 @@ public:
 	DECLARE_GAMEPLAY_TAG(Input_Key_Num3)
 	DECLARE_GAMEPLAY_TAG(Input_Key_Num4)
 #pragma endregion Input
+
+#pragma region Abilitities
+	/** Declares the "Inputs" gameplay tag. */
+	DECLARE_GAMEPLAY_TAG(Abilities_Attack_Melee)
+	DECLARE_GAMEPLAY_TAG(Abilities_Attack_Ranged)
+
+#pragma endregion Abilitities
 
 #pragma region Attributes
 	/** Declares the "Vital Attributes" gameplay tag. */
@@ -108,8 +115,7 @@ public:
 	/** Declares the "Character Type" gameplay tag. */
 	DECLARE_GAMEPLAY_TAG(Character_Type_Player)
 	
-	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy_Goblin_Slingshot)
-	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy_Goblin_Spear)
+	DECLARE_GAMEPLAY_TAG(Character_Type_Enemy)
 
 	DECLARE_GAMEPLAY_TAG(Character_Type_NPC_Quest)
 	DECLARE_GAMEPLAY_TAG(Character_Type_NPC_Merchant)
@@ -144,6 +150,15 @@ public:
 	DECLARE_GAMEPLAY_TAG(Effect_Damage_Nanotech)
 
 #pragma endregion Effects
+
+#pragma region Montage
+	/** Declares the "Montage Attack" gameplay tag. */
+	DECLARE_GAMEPLAY_TAG(Montage_Attack_Weapon)
+	DECLARE_GAMEPLAY_TAG(Montage_Attack_RightHand)
+	DECLARE_GAMEPLAY_TAG(Montage_Attack_LeftHand)
+#pragma endregion Montage
+
+	
 #undef DECLARE_GAMEPLAY_TAG
 
 	TMap<FGameplayTag, FGameplayTag> DamageTypeToResistance;

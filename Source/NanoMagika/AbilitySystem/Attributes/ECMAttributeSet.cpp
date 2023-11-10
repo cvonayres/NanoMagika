@@ -198,6 +198,11 @@ void UECMAttributeSet::ShowDamageText(const FEffectProperties& Props, const floa
 		if (AECMPlayerController* PC = Cast<AECMPlayerController>(Props.SourceCharacter->GetController()))
 		{
 			PC->ShowDamageNumber(LocalIncomingDamage, Props.TargetCharacter, bBlock, bCritical);
+			return;
+		}
+		if (AECMPlayerController* PC = Cast<AECMPlayerController>(Props.TargetCharacter->GetController()))
+		{
+			PC->ShowDamageNumber(LocalIncomingDamage, Props.TargetCharacter, bBlock, bCritical);
 		}
 	}
 }

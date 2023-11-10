@@ -4,6 +4,7 @@
 #include "AbilitySystemComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/GameFrameworkComponentManager.h"
+#include "NanoMagika/ECMGameplayTags.h"
 #include "NanoMagika/NanoMagika.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 
@@ -79,10 +80,25 @@ UECMAbilitySystemComponent* AECMCharacterBase::GetECMASC() const
 }
 
 // Helper function to Get Socket Location on weapon to spawn projectiles from
-FVector AECMCharacterBase::GetCombatSocketLocation()
+FVector AECMCharacterBase::GetCombatSocketLocation_Implementation(const FGameplayTag& MontageTag)
 {
-	check(Weapon);
-	return Weapon->GetSocketLocation(WeaponTipSocketName);
+	FVector Location = FVector::Zero();
+	const FECMGameplayTags& GameplayTags = FECMGameplayTags::Get();
+    
+	if (MontageTag == GameplayTags.Montage_Attack_Weapon && IsValid(Weapon))
+	{
+		Location = Weapon->GetSocketLocation(WeaponTipSocketName);
+	}
+	else if (MontageTag == GameplayTags.Montage_Attack_RightHand)
+	{
+		Location = GetMesh()->GetSocketLocation(RightHandSocketName);
+	}
+	else if (MontageTag == GameplayTags.Montage_Attack_LeftHand)
+	{
+		Location = GetMesh()->GetSocketLocation(LeftHandSocketName);
+	}
+	
+	return Location;
 }
 
 // Could replace with a die ability and play a montage [see hit react]
@@ -105,18 +121,26 @@ void AECMCharacterBase::MulticastHandleDeath_Implementation()
 
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	Dissolve();
+	
+	bIsDead = true;
 }
 
 void AECMCharacterBase::Dissolve()
 {
-	if(IsValid(DissolveMaterialInstance) && IsValid(WeaponDissolveMaterialInstance))
+	UMaterialInstanceDynamic* DynamicMatInst = nullptr;
+	UMaterialInstanceDynamic* WeaponDynamicMatInst = nullptr;
+	if(IsValid(DissolveMaterialInstance))
 	{
-		UMaterialInstanceDynamic* DynamicMatInst = UMaterialInstanceDynamic::Create(DissolveMaterialInstance, this);
+		DynamicMatInst = UMaterialInstanceDynamic::Create(DissolveMaterialInstance, this);
 		GetMesh()->SetMaterial(0, DynamicMatInst);
-
-		UMaterialInstanceDynamic* WeaponDynamicMatInst = UMaterialInstanceDynamic::Create(WeaponDissolveMaterialInstance, this);
+	};
+	if (IsValid(WeaponDissolveMaterialInstance))
+	{
+		WeaponDynamicMatInst = UMaterialInstanceDynamic::Create(WeaponDissolveMaterialInstance, this);
 		Weapon->SetMaterial(0, WeaponDynamicMatInst);
-
+	}
+	if (DynamicMatInst != nullptr || WeaponDynamicMatInst != nullptr )
+	{
 		StartDissolveTimeline(DynamicMatInst, WeaponDynamicMatInst);
 	}
 }

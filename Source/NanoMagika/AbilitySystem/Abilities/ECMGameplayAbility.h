@@ -12,6 +12,15 @@ class NANOMAGIKA_API UECMGameplayAbility : public UGameplayAbility
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditDefaultsOnly, Category="Input")
-	FGameplayTag StartupInputTag;
+	UECMGameplayAbility();
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Default")
+	int32 AbilityLevel = 1;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Default")
+	bool BindToInputTag = false;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Default", meta = (EditCondition = BindToInputTag))
+	FGameplayTag InputTag = FGameplayTag();
+
 };

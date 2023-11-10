@@ -20,6 +20,5 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="BB Keys")
 	FBlackboardKeySelector DistanceToTargetSelector;
-
 	
 };

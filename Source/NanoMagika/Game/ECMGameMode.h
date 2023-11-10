@@ -20,8 +20,4 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly, Category="CharacterClassDefaults")
 	TObjectPtr<UECMCharacterClassInfo> CharacterClassInfo;
-
-	UPROPERTY(EditDefaultsOnly, Category="CharacterClassDefaults")
-	TObjectPtr<UECMItemClassInfo> ItemClassInfo;
-
 };

@@ -7,6 +7,7 @@
 #include "Engine/DataAsset.h"
 #include "ECMCharacterClassInfo.generated.h"
 
+class UECMGameplayAbility;
 class UECMEnemySpecInfo;
 class UGameplayAbility;
 class UGameplayEffect;
@@ -17,24 +18,27 @@ class NANOMAGIKA_API UECMCharacterClassInfo : public UDataAsset
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditDefaultsOnly, Category="CharacterClassDefaults")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CharacterClassDefaults")
 	TMap<FGameplayTag, UECMEnemySpecInfo*> CharacterClassInformation;
 
-	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults|Attributes")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CommonClassDefaults|Attributes")
 	TSubclassOf<UGameplayEffect> VitalAttribute;
 	
-	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults|Attributes")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CommonClassDefaults|Attributes")
 	TSubclassOf<UGameplayEffect> SecondaryAttribute;
 
-	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults|Abilities")
-	TArray<TSubclassOf<UGameplayAbility>> CommonAbilities;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CommonClassDefaults|Abilities")
+	TArray<TSubclassOf<UECMGameplayAbility>>  CommonAbilities;
 
-	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults|Tags")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CommonClassDefaults|Tags")
 	TArray<FGameplayTag> CommonTags;
 
-	UPROPERTY(EditDefaultsOnly, Category="CommonClassDefaults|Damage")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CommonClassDefaults|Damage")
 	TObjectPtr<UCurveTable> DamageCalculationCoefficients;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="CommonClassDefaults|Lifetime")
+	float LifeSpan = 5.f;
+	
 	TObjectPtr<UECMEnemySpecInfo> GetClassDefaultInfo(FGameplayTag EnemyTag);
-
+	
 };

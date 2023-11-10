@@ -85,14 +85,12 @@ void AECMCharacter::InitDefaultAttributes()
 	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
 }
-
 void AECMCharacter::InitDefaultAbilities() 
 {
-	if(!HasAuthority()) return;
+	if(!HasAuthority() || DefaultCharacterAbilities.IsEmpty()) return;
 	
-	GetECMASC()->AddGameplayAbilities(DefaultCharacterAbilities, true);
+	GetECMASC()->AddGameplayAbilities(DefaultCharacterAbilities);
 }
-
 void AECMCharacter::InitDefaultGameplayTags()
 {
 	GetECMASC()->AddGameplayTags(DefaultCharacterTags);

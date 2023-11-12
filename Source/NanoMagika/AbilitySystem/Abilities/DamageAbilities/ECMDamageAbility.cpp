@@ -13,12 +13,12 @@ void UECMDamageAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 	OwningActor = GetAvatarActorFromActorInfo();
 	if ( OwningActor == nullptr || !OwningActor->Implements<UECMCombatInterface>() ) return;
 
-	// Function is only implemented on Emeny Characters
+	// Function is only implemented on Enemy Characters
 	TargetActor = IECMCombatInterface::Execute_GetCombatTarget(OwningActor);
 	if ( TargetActor )
 	{
 		IECMCombatInterface::Execute_UpdateFacingTarget(OwningActor, TargetActor->GetActorLocation());
-	
+
 		GetRandomAttackMontages();
 	} 
 	

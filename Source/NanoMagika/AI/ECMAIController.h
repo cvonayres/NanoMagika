@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "BehaviorTree/BehaviorTreeTypes.h"
 #include "ECMAIController.generated.h"
 
 
@@ -20,6 +21,8 @@ public:
 protected:
 	UPROPERTY()
 	TObjectPtr<UBehaviorTreeComponent> BehaviorTreeComponent;
-	
+
+	UFUNCTION(BlueprintCallable)
+	void InitializeBB() const;
 };
 

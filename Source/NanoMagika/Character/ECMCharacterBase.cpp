@@ -42,10 +42,14 @@ void AECMCharacterBase::InitializeAbilityActorInfo()
 // Initialise Default Attributes, Abilities and Gameplay tags
 void AECMCharacterBase::InitializeCharacter()
 {
-	GetECMASC()->BindEffectApplied();
+	if (HasAuthority())	{
+		
+		GetECMASC()->BindEffectApplied();
 
-	InitDefaultAttributes();
-	InitDefaultAbilities();
+		InitDefaultAttributes();
+		InitDefaultAbilities();
+	}
+	
 	InitDefaultGameplayTags();
 }
 

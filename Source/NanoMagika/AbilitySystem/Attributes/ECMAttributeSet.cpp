@@ -190,6 +190,8 @@ void UECMAttributeSet::HandleDamage(const FGameplayEffectModCallbackData& Data, 
 
 void UECMAttributeSet::ShowDamageText(const FEffectProperties& Props, const float LocalIncomingDamage)
 {
+	if ( Props.SourceCharacter == nullptr ) return ;
+
 	const bool bBlock = UECMAbilitySystemLibrary::IsBlockedHit(Props.EffectContextHandle);
 	const bool bCritical = UECMAbilitySystemLibrary::IsCriticalHit(Props.EffectContextHandle);
 	

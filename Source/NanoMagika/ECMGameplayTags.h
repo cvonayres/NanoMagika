@@ -46,7 +46,8 @@ public:
 	DECLARE_GAMEPLAY_TAG(Input_Action_Move)
 	DECLARE_GAMEPLAY_TAG(Input_Action_MoveByMouse)
 	DECLARE_GAMEPLAY_TAG(Input_Action_MoveToMouseClicked)
-	
+
+	DECLARE_GAMEPLAY_TAG(Input_Action_CameraMode)
 	DECLARE_GAMEPLAY_TAG(Input_Action_CameraMode_FPV)
 	DECLARE_GAMEPLAY_TAG(Input_Action_CameraMode_TPV)
 	DECLARE_GAMEPLAY_TAG(Input_Action_CameraMode_TDV)

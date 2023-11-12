@@ -310,6 +310,4 @@ private:
 	static void ShowDamageText(const FEffectProperties& Props, float LocalIncomingDamage);
 	
 	static void HitReaction(const FEffectProperties& Props);
-	
-
 };

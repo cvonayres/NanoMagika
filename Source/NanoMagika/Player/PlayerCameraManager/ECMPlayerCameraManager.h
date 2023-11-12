@@ -3,17 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DA_CameraMode.h"
+#include "GameplayTagContainer.h"
+#include "InputActionValue.h"
 #include "Camera/PlayerCameraManager.h"
 #include "ECMPlayerCameraManager.generated.h"
 
-class AECMCharacter;
-class UAbilitySystemComponent;
-class UCharacterMovementComponent;
+class UDA_CameraMode;
 class UInputAction;
-class UCameraComponent;
 class USpringArmComponent;
-struct FInputActionValue;
+class UCameraComponent;
 
 USTRUCT(BlueprintType)
 struct FCameraTags
@@ -21,19 +19,54 @@ struct FCameraTags
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
-	FGameplayTag PlayerTag_FPV;
-	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
-	FGameplayTag PlayerTag_TPV;
-	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
-	FGameplayTag PlayerTag_TDV;
-	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
 	FGameplayTag InputTag_CameraMode;
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
-	FGameplayTag InputTag_FPV;
+	TMap<FGameplayTag, FGameplayTag> InputToDefaultMapping;
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
-	FGameplayTag InputTag_TPV;
-	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
-	FGameplayTag InputTag_TDV;
+	TMap<FGameplayTag, TObjectPtr<UDA_CameraMode>> TagToCameraSettingMapping;
+
+	FGameplayTag GetCameraTagFromInputTag (const FGameplayTag& InputTag)
+	{
+		if ( InputTag.IsValid() )
+		{
+			return  *InputToDefaultMapping.Find(InputTag);
+		}
+		return	FGameplayTag();
+	}
+	
+	TObjectPtr<UDA_CameraMode> GetSettingFromTag (const FGameplayTag& CameraTag)
+	{
+		if ( CameraTag.IsValid() )
+		{
+			return	*TagToCameraSettingMapping.Find(CameraTag);
+		}
+		return nullptr;
+	}
+};
+
+USTRUCT(BlueprintType)
+struct FZoomSettings
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, Category="Camera|Zoom", meta = (AllowPrivateAccess = "true"))
+	float ZoomMax;
+	UPROPERTY(EditAnywhere, Category="Camera|Zoom", meta = (AllowPrivateAccess = "true"))
+	float ZoomMin;
+	UPROPERTY(EditAnywhere, Category="Camera|Zoom", meta = (AllowPrivateAccess = "true"))
+	float ZoomDefault;
+	UPROPERTY(EditAnywhere, Category="Camera|Zoom", meta = (AllowPrivateAccess = "true"))
+	float ZoomRate;
+	
+	FZoomSettings()
+	{
+		ZoomMax = 1000.f;
+		ZoomMin = 200.f;
+		ZoomDefault = 800.f;
+		ZoomRate = 2.f;
+	}
 };
 
 UCLASS()
@@ -45,64 +78,48 @@ public:
 	UFUNCTION(Category="Camera")
 	void InitPCM(const ACharacter* Character);
 	
-	UFUNCTION(BlueprintCallable, Category="Camera")
-	void UpdateCameraMode(UDA_CameraMode* CameraModeDA);
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Camera")
-	FCameraTags CameraLookUpTags;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Camera")
-	TObjectPtr<UDA_CameraMode> FPV_Settings;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Camera")
-	TObjectPtr<UDA_CameraMode> TPV_Settings;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Camera")
-	TObjectPtr<UDA_CameraMode> TDV_Settings;
-
-private:
-	FTimerHandle TimerHandle_GetPawnAndController;
-	float TimeElapsedTrying = 0.0f;
-	float TimeLimitForCheck = 10.0f;  // Time limit, in seconds.
-	float CheckInterval = 0.5f;       // Interval to check, in seconds.
-
-	// Bind Enhanced Inputs
-	void BindInputs();
-	virtual void AbilityInputTagPressed(FGameplayTag InputTag);
-
-	// Zoom Controls
-	void ZoomCamera(const FInputActionValue& InputActionValve);
-
-	// Initiate Camera & Character Movement Component
-	void StartingViewMode();
-	void UpdateCameraModeCPP(const UDA_CameraMode* CameraMode);
+	FCameraTags CameraTags;
 	
-	UPROPERTY(EditAnywhere, Category="Camera|Zoom", meta = (AllowPrivateAccess = "true"))
+protected:
+	/** Zoom */
+	void ZoomCamera(const FInputActionValue& InputActionValve);
+	
+	UPROPERTY(EditAnywhere, Category="Camera|Zoom")
 	TObjectPtr<UInputAction> ZoomAction = nullptr;
-	UPROPERTY(EditAnywhere, Category="Camera|Zoom", meta = (AllowPrivateAccess = "true"))
-	float ZoomMax = 1000.f;
-	UPROPERTY(EditAnywhere, Category="Camera|Zoom", meta = (AllowPrivateAccess = "true"))
-	float ZoomMin = 200.f;
-	UPROPERTY(EditAnywhere, Category="Camera|Zoom", meta = (AllowPrivateAccess = "true"))
-	float ZoomDefault = 600.f;
-	UPROPERTY(EditAnywhere, Category="Camera|Zoom", meta = (AllowPrivateAccess = "true"))
-	float ZoomRate = 2.f;
+
+	UPROPERTY(EditAnywhere, Category="Camera|Zoom")
+	FZoomSettings ZoomSettings;
+	/* Zoom **/
 
 	// Useful pointers
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly, Category="Camera")
 	ACharacter* CharacterRef = nullptr;
-	UPROPERTY()
+	
+	UPROPERTY(BlueprintReadOnly, Category="Camera")
 	TObjectPtr<USpringArmComponent> SpringArmComponent = nullptr;
-	UPROPERTY()
+	
+	UPROPERTY(BlueprintReadOnly, Category="Camera")
 	TObjectPtr<UCameraComponent> CameraComponent = nullptr;
+
+	UPROPERTY(BlueprintReadOnly, Category="Camera")
+	bool bCanCheckForFade = false;
+	
+private:
+	// Initiate Camera & Character Movement Component
+	void StartingViewMode();
+	
+	// Bind Enhanced Inputs
+	void BindInputs();
+
+	// React to Bound Inputs
+	virtual void AbilityInputTagPressed(FGameplayTag InputTag);
+
+	// Update Camera Mode based on Default or Input buttons
+	void UpdateCameraMode(TObjectPtr<UDA_CameraMode> CameraDA);
 	
 	// Helper functions
 	bool IsSpringArmValid();
+	
 	bool IsCameraValid();
-
-	FGameplayTag PlayerTag_FPV;
-	FGameplayTag PlayerTag_TPV;
-	FGameplayTag PlayerTag_TDV;
-	FGameplayTag InputTag_CameraMode;
-	FGameplayTag InputTag_FPV;
-	FGameplayTag InputTag_TPV;
-	FGameplayTag InputTag_TDV;
-
 };

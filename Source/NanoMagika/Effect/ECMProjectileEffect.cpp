@@ -57,19 +57,11 @@ void AECMProjectileEffect::Destroyed()
 void AECMProjectileEffect::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
                                UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if(!DamageEffectSpecHandle.Data.IsValid())
-	{
-		return;
-	}
-
-	if (DamageEffectSpecHandle.Data.Get()->GetContext().GetEffectCauser() == OtherActor)
-	{
-		return;
-	}
-
-	if (!bHit) 	SpawnFX();
+	if( !DamageEffectSpecHandle.Data.IsValid() || DamageEffectSpecHandle.Data.Get()->GetContext().GetEffectCauser() == OtherActor ) { return; }
 	
-	if(HasAuthority())
+	if ( !bHit ) 	SpawnFX();
+	
+	if( HasAuthority() )
 	{
 		if (UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor))
 		{

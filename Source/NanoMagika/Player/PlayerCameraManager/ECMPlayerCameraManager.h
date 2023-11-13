@@ -17,9 +17,6 @@ USTRUCT(BlueprintType)
 struct FCameraTags
 {
 	GENERATED_BODY()
-
-	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
-	FGameplayTag InputTag_CameraMode;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
 	TMap<FGameplayTag, FGameplayTag> InputToDefaultMapping;
@@ -27,20 +24,20 @@ struct FCameraTags
 	UPROPERTY(EditDefaultsOnly, Category = "Camera|Defaults")
 	TMap<FGameplayTag, TObjectPtr<UDA_CameraMode>> TagToCameraSettingMapping;
 
-	FGameplayTag GetCameraTagFromInputTag (const FGameplayTag& InputTag)
+	FGameplayTag GetCameraTagFromInputTag (const FGameplayTag& InputTag) const
 	{
-		if ( InputTag.IsValid() )
+		if ( InputTag.IsValid()  && InputToDefaultMapping.Contains(InputTag))
 		{
-			return  *InputToDefaultMapping.Find(InputTag);
+			return  InputToDefaultMapping.FindRef(InputTag);
 		}
 		return	FGameplayTag();
 	}
 	
-	TObjectPtr<UDA_CameraMode> GetSettingFromTag (const FGameplayTag& CameraTag)
+	TObjectPtr<UDA_CameraMode> GetSettingFromTag (const FGameplayTag& CameraTag) const
 	{
-		if ( CameraTag.IsValid() )
+		if ( CameraTag.IsValid()  && TagToCameraSettingMapping.Contains(CameraTag))
 		{
-			return	*TagToCameraSettingMapping.Find(CameraTag);
+			return	TagToCameraSettingMapping.FindRef(CameraTag);
 		}
 		return nullptr;
 	}
@@ -107,7 +104,7 @@ protected:
 	
 private:
 	// Initiate Camera & Character Movement Component
-	void StartingViewMode();
+	void InitaliseFromDA();
 	
 	// Bind Enhanced Inputs
 	void BindInputs();

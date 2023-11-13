@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "ECMWidgetController.generated.h"
 
+class UECMAbilityInformation;
 struct FGameplayAttribute;
 struct FGameplayTag;
 class UECMAttributeInformation;
@@ -69,8 +70,11 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
 	TObjectPtr<UAttributeSet> AttributeSet;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="WidgetData")
 	TObjectPtr<UECMAttributeInformation> AttributeInfo;
-
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="WidgetData")
+	TObjectPtr<UECMAbilityInformation> AbilityInfo;
+	
 	void BroadcastAttributeInfo(const FGameplayTag& AttributeTag, const FGameplayAttribute& Attribute) const;
 };

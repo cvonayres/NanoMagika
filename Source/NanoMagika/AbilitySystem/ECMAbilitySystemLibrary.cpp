@@ -49,13 +49,12 @@ UECMAttributeMenuWidgetController* UECMAbilitySystemLibrary::GetAttributeMenuWid
 }
 # pragma endregion OverlayWidgetController
 
-// TODO make this generic to all NPCs
 # pragma region InitializeEnemy
 UECMCharacterClassInfo* UECMAbilitySystemLibrary::GetCharacterClassInfo(const UObject* WorldContextObject)
 {
 	const AECMGameMode* ECMGameMode = Cast<AECMGameMode>(UGameplayStatics::GetGameMode(WorldContextObject));
-	if (ECMGameMode == nullptr) return nullptr;
-	return ECMGameMode->CharacterClassInfo;
+
+	return ECMGameMode ? ECMGameMode->CharacterClassInfo : nullptr;
 }
 
 UECMEnemySpecInfo* UECMAbilitySystemLibrary::GetClassDefaultInfo(UECMCharacterClassInfo* CharacterClassInfo, const FGameplayTag EnemyTag )

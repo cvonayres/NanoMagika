@@ -3,6 +3,7 @@
 #include "ECMCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "NanoMagika/ECMLogChannels.h"
 #include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
 #include "NanoMagika/Player/PlayerCameraManager/ECMPlayerCameraManager.h"
 #include "NanoMagika/Player/PlayerController/ECMPlayerController.h"
@@ -25,12 +26,9 @@ void AECMCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	// Init Character for the Server
+	// Init ability actor info for the Server
 	InitializeCharacter();
-
-	// Controller Reference for the Server
-	ControllerRef = Cast<AECMPlayerController>(NewController);
-	if(ControllerRef) {	InitializeCharacterWithController(); }
+	InitDefaultAbilities();
 }
 
 // Client side ready
@@ -38,44 +36,34 @@ void AECMCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
 
-	// Init Character for the client
-
+	// Init ability actor info for the Client
 	InitializeCharacter();
-	
-	// Controller Reference for the Client
-	ControllerRef = Cast<AECMPlayerController>(GetController());
-	if(ControllerRef) {	InitializeCharacterWithController(); }
 }
 
 // Initialise all characters
 void AECMCharacter::InitializeCharacter()
 {
-	PlayerStateRef =  GetPlayerState<AECMPlayerState>();
+	PlayerStateRef = GetPlayerState<AECMPlayerState>();
 	check(PlayerStateRef);
 	
-	// Get Ability System Component
-	SetAbilitySystemComponent(PlayerStateRef->GetAbilitySystemComponent());
-	check(GetAbilitySystemComponent());
+	PlayerStateRef->GetAbilitySystemComponent()->InitAbilityActorInfo(PlayerStateRef, this);
 
-	// Get Attribute Set
-	SetAttributeSet(PlayerStateRef->GetAttributeSet());
-
-	InitializeAbilityActorInfo();
-
-	// Initialise Character, Attributes, Abilities and Tags
-	Super::InitializeCharacter();
-}
-
-// Additional Initialise for Controller Characters 
-void AECMCharacter::InitializeCharacterWithController() const
-{
-	if (!ControllerRef->IsLocalPlayerController()) return;
+	Cast<UECMAbilitySystemComponent>(PlayerStateRef->GetAbilitySystemComponent())->BindEffectApplied();
 	
-	// Initialise Player Camera Manager
-	InitPCM();
+	AbilitySystemComponent = PlayerStateRef->GetAbilitySystemComponent();
+	AttributeSet = PlayerStateRef->GetAttributeSet();
 	
-	// Initialise HUD Overlay widget Controller
-	InitHUD();
+	ControllerRef = Cast<AECMPlayerController>(GetController());
+	if ( ControllerRef  != nullptr)
+	{
+		InitDefaultGameplayTags();
+
+		InitPCM();
+
+		InitHUD();
+	}
+	
+	InitDefaultAttributes();
 }
 
 // Setup Default Attributes, Abilities & Tags
@@ -85,12 +73,14 @@ void AECMCharacter::InitDefaultAttributes()
 	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
 }
+
 void AECMCharacter::InitDefaultAbilities() 
 {
 	if(!HasAuthority() || DefaultCharacterAbilities.IsEmpty()) return;
 	
 	GetECMASC()->AddGameplayAbilities(DefaultCharacterAbilities);
 }
+
 void AECMCharacter::InitDefaultGameplayTags()
 {
 	GetECMASC()->AddGameplayTags(DefaultCharacterTags);
@@ -119,7 +109,7 @@ void AECMCharacter::InitHUD() const
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("HUD not found for [%s]"), *this->GetActorNameOrLabel())
+		UE_LOG(LogECM, Warning, TEXT("HUD not found for [%s]"), *this->GetActorNameOrLabel())
 	}
 }
 

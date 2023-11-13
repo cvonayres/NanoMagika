@@ -18,7 +18,7 @@ class UGameplayEffect;
 class UAttributeSet;
 class UAbilitySystemComponent;
 
-// TODO reorganise character with three init, init_all [health bar on enemy, register asset, init_Server [ability system, etc], init_LocalControlled [HMI, Camera]
+// TODO reorganise character with three init, init_all [health bar on enemy, register asset], init_Server [ability system, etc], init_LocalControlled [HMI, Camera]
 
 UCLASS(Abstract)
 class NANOMAGIKA_API AECMCharacterBase : public ACharacter, public IAbilitySystemInterface, public IECMCombatInterface, public IGameplayTagAssetInterface
@@ -55,14 +55,15 @@ public:
 	virtual bool HasAnyMatchingGameplayTags(const FGameplayTagContainer& TagContainer) const override;
 	/** end Gameplay Tag Interface */
 	
-	virtual void PreInitializeComponents() override;
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
-
 	UFUNCTION(NetMulticast, Reliable)
 	virtual void MulticastHandleDeath();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
+
+	virtual void PreInitializeComponents() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
 	
 protected:
 
@@ -77,10 +78,13 @@ protected:
 	FName RightHandSocketName;
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	FName LeftHandSocketName;
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	FName TailSocketName;
+
+	bool bIsDead = false;
 
 	// Initiate Ability System [overridden in child classes]
 	void InitializeAbilityActorInfo();
-	virtual void InitializeCharacter();
 	virtual void InitDefaultAttributes() { };
 	virtual void InitDefaultAbilities() { };
 	virtual void InitDefaultGameplayTags() { };
@@ -107,5 +111,4 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void StartDissolveTimeline(UMaterialInstanceDynamic* DynamicMaterialInstance, UMaterialInstanceDynamic* WeaponDynamicMaterialInstance);
 
-	bool bIsDead = false;
 };

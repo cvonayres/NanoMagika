@@ -14,6 +14,7 @@ class NANOMAGIKA_API UECMAttributeMenuWidgetController : public UECMWidgetContro
 public:
 	// Overridden Functions
 	virtual void BindCallbacksToDependencies() override;
+	
 	UFUNCTION(BlueprintCallable)
 	virtual void BroadcastInitialValues() override;
 

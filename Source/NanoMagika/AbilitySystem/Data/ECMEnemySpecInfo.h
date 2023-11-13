@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
+#include "ScalableFloat.h"
 #include "Engine/DataAsset.h"
 #include "ECMEnemySpecInfo.generated.h"
 
@@ -43,5 +44,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Misc.")
 	float DefaultWalkingSpeed = 200.f;
+
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Reward")
+	FScalableFloat XPReward = 0.f;
 	
 };

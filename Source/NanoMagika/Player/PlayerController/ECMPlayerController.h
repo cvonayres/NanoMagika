@@ -17,6 +17,7 @@ class UECMAbilitySystemComponent;
 struct FInputActionValue;
 class USplineComponent;
 
+//TODO create a input mapping TMap which updates abiilties with the correct input key and works with the HMI>
 UCLASS()
 class NANOMAGIKA_API AECMPlayerController : public APlayerController
 {

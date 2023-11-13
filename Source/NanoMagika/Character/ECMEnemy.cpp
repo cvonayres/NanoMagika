@@ -15,77 +15,69 @@
 #include "NanoMagika/AI/ECMAIController.h"
 #include "NanoMagika/UI/Widget/ECMUserWidget.h"
 
-
 // TODO BUG 1) Healthbar not changing on client
 // TODO BUG 1) Ememy not reacting to character on client
 
 AECMEnemy::AECMEnemy()
 {
-	SetAbilitySystemComponent(CreateDefaultSubobject<UECMAbilitySystemComponent>("AbilitySystemComponent"));
-	AECMCharacterBase::GetAbilitySystemComponent()->SetIsReplicated(true);
-	AECMCharacterBase::GetAbilitySystemComponent()->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
-
-	AttributeSet = CreateDefaultSubobject<UECMAttributeSet>("AttributeSet");
-	
-	HealthBar = CreateDefaultSubobject<UWidgetComponent>("HealthBar");
-	HealthBar->SetupAttachment(GetRootComponent());
-
-	GetCharacterMovement()->bUseControllerDesiredRotation;
-	GetCharacterMovement()->RotationRate = FRotator(0,360,0);
+	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
+	GetCharacterMovement()->bUseControllerDesiredRotation;
+	
+	AbilitySystemComponent = CreateDefaultSubobject<UECMAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+
+	AttributeSet = CreateDefaultSubobject<UECMAttributeSet>("AttributeSet");
+
+	HealthBar = CreateDefaultSubobject<UWidgetComponent>("HealthBar");
+	HealthBar->SetupAttachment(GetRootComponent());
 }
 
 // Server side ready
 void AECMEnemy::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-
+	
 	if(!HasAuthority()) return; // Only on server
 	AIController = Cast<AECMAIController>(NewController);
-	
-	BlackboardComponentRef = AIController->GetBlackboardComponent();
-	check(BlackboardComponentRef);
-	BlackboardComponentRef->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
+	AIController->GetBlackboardComponent()->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
 	AIController->RunBehaviorTree(BehaviorTree);
-
-	ClassInfo = UECMAbilitySystemLibrary::GetCharacterClassInfo(this);
-	if(ClassInfo == nullptr ) return;
-	
-	ClassSpec =  UECMAbilitySystemLibrary::GetClassDefaultInfo(ClassInfo, EnemyTag);
-	if(ClassSpec == nullptr ) return;
-	
-	InitializeAbilityActorInfo();
-	
-	InitializeCharacter();	
-
 }
 
-// Client side ready
 void AECMEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	ClassInfo = UECMAbilitySystemLibrary::GetCharacterClassInfo(this);
-	if(ClassInfo == nullptr ) return;
+	if (ClassInfo && EnemyTag.IsValid() )
+	{
+		ClassSpec =  UECMAbilitySystemLibrary::GetClassDefaultInfo(ClassInfo, EnemyTag);
+	}
+	if (ClassSpec == nullptr) return;
 	
-	ClassSpec =  UECMAbilitySystemLibrary::GetClassDefaultInfo(ClassInfo, EnemyTag);
-	if(ClassSpec == nullptr ) return;
+	InitializeCharacter();
 	
-	InitializeAbilityActorInfo();
-	
-	InitializeCharacter();	
+	InitHealthBar_Implementation();
 }
 
 void AECMEnemy::InitializeCharacter()
 {
-	Super::InitializeCharacter();
-
-	InitHealthBar(); // Health Bar
+	InitializeAbilityActorInfo();
 	
-	if( GetAbilitySystemComponent() ) // Hit React
+	Cast<UECMAbilitySystemComponent>(AbilitySystemComponent)->BindEffectApplied();
+
+	if (HasAuthority())
+	{
+		InitDefaultAttributes();
+		InitDefaultAbilities();
+		InitDefaultGameplayTags();
+	}
+	
+	if( GetAbilitySystemComponent() ) // Bind for hit react
 	{
 		GetAbilitySystemComponent()->RegisterGameplayTagEvent(FECMGameplayTags::Get().Effect_HitReact, EGameplayTagEventType::NewOrRemoved).AddUObject(
 		this, &AECMEnemy::HitReactTagChanged);
@@ -98,7 +90,6 @@ void AECMEnemy::InitDefaultAttributes()
 
 	checkf(ClassSpec, TEXT("Class not found for enemy"));
 	GetCharacterMovement()->MaxWalkSpeed = ClassSpec->DefaultWalkingSpeed;
-
 }
 void AECMEnemy::InitDefaultAbilities()
 {
@@ -109,15 +100,13 @@ void AECMEnemy::InitDefaultGameplayTags()
 	UECMAbilitySystemLibrary::InitializeEnemyTags(this, EnemyTag, GetECMASC());
 }
 
-void AECMEnemy::InitHealthBar()
+void AECMEnemy::InitHealthBar_Implementation()
 {
-	auto* WidgetObject = HealthBar->GetUserWidgetObject();
-	UECMUserWidget* ECMUserWidget = Cast<UECMUserWidget>(WidgetObject);
-	if (ECMUserWidget )
+	if (UECMUserWidget* AuraUserWidget = Cast<UECMUserWidget>(HealthBar->GetUserWidgetObject()))
 	{
-		ECMUserWidget->SetWidgetControllerRef(this); // Setting Widget Controller To Self
+		AuraUserWidget->SetWidgetControllerRef(this);
 	}
-
+	
 	if (const UECMAttributeSet* ECMAS = Cast<UECMAttributeSet>(GetAttributeSet()) )
 	{
 		// Bind Health and Max health changes

@@ -36,8 +36,7 @@ public:
 	
 protected:
 	// Init Ability System
-	virtual void InitializeCharacter() override;
-	void InitializeCharacterWithController() const;
+	virtual void InitializeCharacter();
 	virtual void InitDefaultAttributes() override;
 	virtual void InitDefaultAbilities() override;
 	virtual void InitDefaultGameplayTags() override;

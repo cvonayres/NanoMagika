@@ -11,6 +11,7 @@
 #include "NanoMagika/Input/ECMInputComponent.h"
 #include "NanoMagika/Player/PlayerController/ECMPlayerController.h"
 
+// Call from Player Controller on Owning Local Client Only
 void AECMPlayerCameraManager::InitPCM(const ACharacter* Character)
 {
 	if(! Character->IsLocallyControlled() ) return;
@@ -19,13 +20,13 @@ void AECMPlayerCameraManager::InitPCM(const ACharacter* Character)
 	
 	checkf(CharacterRef, TEXT("Character const cast failed"));
 	
-	StartingViewMode(); // Update setting with ViewMode from Tag in Player Character
+	InitaliseFromDA(); // Update setting with ViewMode from Tag in Player Character
 	
 	BindInputs(); // Bind inputs for this class
 }
 
 // Call Specific View Mode dependent on Character Starting Tag
-void AECMPlayerCameraManager::StartingViewMode()
+void AECMPlayerCameraManager::InitaliseFromDA()
 {
 	if( !UECMAbilitySystemLibrary::ActorHasASC(CharacterRef) ) return;
 
@@ -36,7 +37,39 @@ void AECMPlayerCameraManager::StartingViewMode()
 			UpdateCameraMode(Pair.Value);
 			return;
 		}
-		UE_LOG(LogTemp, Warning, TEXT("Player CameraMode Tag not found, check initial character tag includes CameraMode FPV,TPV or TDV"))
+	}
+	
+	UE_LOG(LogTemp, Warning, TEXT("Player CameraMode Tag not found, check initial character tag includes CameraMode FPV,TPV or TDV"))
+}
+
+// Bind Enhanced Inputs
+void AECMPlayerCameraManager::BindInputs()
+{
+	if (const AECMPlayerController* ECMPC = Cast<AECMPlayerController>(PCOwner))
+	{
+		if (UECMInputComponent* ECMInputComponent = ECMPC->GetInputComponent())
+		{
+			ECMInputComponent->BindAction(ZoomAction, ETriggerEvent::Triggered, this, &AECMPlayerCameraManager::ZoomCamera);
+			ECMInputComponent->BindActionToTagOnStarted(ECMPC->GetInputConfig(), this, &AECMPlayerCameraManager::AbilityInputTagPressed);
+		}
+	}
+}
+
+// Call Update ViewMode on Tags activation
+void AECMPlayerCameraManager::AbilityInputTagPressed(FGameplayTag InputTag){
+	const FGameplayTag CameraParentTag = FGameplayTag::RequestGameplayTag(FName("Input.Action.CameraMode"));
+	if ( InputTag.MatchesTag( CameraParentTag ) )
+	{
+		const FGameplayTag CameraTag = CameraTags.GetCameraTagFromInputTag(InputTag);
+
+		const TObjectPtr<UDA_CameraMode> CameraDA = CameraTags.GetSettingFromTag(CameraTag);
+		if ( CameraDA == nullptr ) return;
+	
+		UECMAbilitySystemLibrary::AddTagToActor(CharacterRef, CameraDA->CameraTags.GameplayTag);
+		UECMAbilitySystemLibrary::RemoveTagFromActor(CharacterRef, CameraDA->CameraTags.TagToRemove1);
+		UECMAbilitySystemLibrary::RemoveTagFromActor(CharacterRef, CameraDA->CameraTags.TagToRemove2);
+	
+		UpdateCameraMode(CameraDA);
 	}
 }
 
@@ -44,15 +77,9 @@ void AECMPlayerCameraManager::StartingViewMode()
 void AECMPlayerCameraManager::UpdateCameraMode(TObjectPtr<UDA_CameraMode> CameraDA )
 {
 	if ( CameraDA == nullptr ) return;
-	
-	if( CharacterRef && IsCameraValid() )
-	{
-		bCanCheckForFade = CameraDA->bCanCheckForFadeActors;
-	}
-	else
-	{
-		bCanCheckForFade = false;
-	}
+
+	// Turns on CanCheckForFaceActors that it used in BP
+	if( CharacterRef && IsCameraValid() )  { bCanCheckForFade = CameraDA->bCanCheckForFadeActors; }
 	
 	if(IsSpringArmValid()) // Set spring arm properties from Data Asset
 		{
@@ -85,36 +112,6 @@ void AECMPlayerCameraManager::UpdateCameraMode(TObjectPtr<UDA_CameraMode> Camera
 			CharacterCMC->bSnapToPlaneAtStart = CameraDA->CharacterMC.SnapToPlaneAtStart;
 		}
 	}
-}
-
-// Bind Enhanced Inputs
-void AECMPlayerCameraManager::BindInputs()
-{
-	if (AECMPlayerController* ECMPC = Cast<AECMPlayerController>(PCOwner))
-	{
-		if (UECMInputComponent* ECMInputComponent = ECMPC->GetInputComponent())
-		{
-			ECMInputComponent->BindAction(ZoomAction, ETriggerEvent::Triggered, this, &AECMPlayerCameraManager::ZoomCamera);
-			ECMInputComponent->BindActionToTagOnStarted(ECMPC->GetInputConfig(), this, &AECMPlayerCameraManager::AbilityInputTagPressed);
-		}
-	}
-}
-
-// Call Update ViewMode on Tags activation
-void AECMPlayerCameraManager::AbilityInputTagPressed(FGameplayTag InputTag){
-	
-	if( !InputTag.MatchesTag(CameraTags.InputTag_CameraMode)) { return; }
-
-	const FGameplayTag CameraTag = CameraTags.GetCameraTagFromInputTag(InputTag);
-
-	const TObjectPtr<UDA_CameraMode> CameraDA = CameraTags.GetSettingFromTag(CameraTag);
-	if ( CameraDA == nullptr ) return;
-	
-	UECMAbilitySystemLibrary::AddTagToActor(CharacterRef, CameraDA->CameraTags.GameplayTag);
-	UECMAbilitySystemLibrary::RemoveTagFromActor(CharacterRef, CameraDA->CameraTags.TagToRemove1);
-	UECMAbilitySystemLibrary::RemoveTagFromActor(CharacterRef, CameraDA->CameraTags.TagToRemove2);
-	
-	UpdateCameraMode(CameraDA);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst - due to use in input binding.

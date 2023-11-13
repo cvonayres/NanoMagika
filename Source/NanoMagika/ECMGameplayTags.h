@@ -61,12 +61,19 @@ public:
 	DECLARE_GAMEPLAY_TAG(Input_Key_Num4)
 #pragma endregion Input
 
-#pragma region Abilitities
-	/** Declares the "Inputs" gameplay tag. */
+#pragma region Abilities
+	/** Declares the "Abiliity" gameplay tag. */
 	DECLARE_GAMEPLAY_TAG(Abilities_Attack_Melee)
 	DECLARE_GAMEPLAY_TAG(Abilities_Attack_Ranged)
+	DECLARE_GAMEPLAY_TAG(Abilities_Fire_Firebolt)
+#pragma endregion Abiltiies
 
-#pragma endregion Abilitities
+#pragma region Cooldown
+	/** Declares the "Cooldown" gameplay tag. */
+	
+	DECLARE_GAMEPLAY_TAG(CoolDown_Fire_Firebolt)
+
+#pragma endregion Cooldown
 
 #pragma region Attributes
 	/** Declares the "Vital Attributes" gameplay tag. */

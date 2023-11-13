@@ -4,7 +4,7 @@
 
 #include "Abilities/ECMGameplayAbility.h"
 #include "NanoMagika/ECMGameplayTags.h"
-#include "NanoMagika/Character/ECMCharacter.h"
+#include "NanoMagika/ECMLogChannels.h"
 
 // Bind Effect Applied to callback on ASC Effect Applied To Self.
 void UECMAbilitySystemComponent::BindEffectApplied()
@@ -51,6 +51,8 @@ void UECMAbilitySystemComponent::AddGameplayAbilities(const TArray<TSubclassOf<U
 		// Give the ability to the component
 		GiveAbility(AbilitySpec);
 	}
+	bStartupAbiltiesGiven = true;
+	AbilitiesGivenDelegate.Broadcast(this);
 }
 
 // Adds Gameplay Tags loosely
@@ -65,13 +67,12 @@ void UECMAbilitySystemComponent::AddGameplayTags(const TArray<FGameplayTag>& Tag
 }
 
 // Broadcast on EffectApplied
-void UECMAbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& EffectSpec,
-											   FActiveGameplayEffectHandle ActiveEffectHandle) const
+void UECMAbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle) const
 {
 	FGameplayTagContainer TagContainer;
 	EffectSpec.GetAllAssetTags(TagContainer);
 
-	EffectAssetTags.Broadcast(TagContainer);
+	EffectAssetTagsDelegate.Broadcast(TagContainer);
 }
 
 // Check if valid, then get all activatable abilities, for each check against tag and if match and not active try to activate.
@@ -103,5 +104,57 @@ void UECMAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& Inp
 		{
 			AbilitySpecInputReleased(AbilitySpec);
 		}
+	}
+}
+
+void UECMAbilitySystemComponent::ForEachAbilitiy(const FForEachAbility& Delegate)
+{
+	FScopedAbilityListLock ActiveScopeLock(*this);
+	for (const FGameplayAbilitySpec AbilitySpec : GetActivatableAbilities() )
+	{
+		if ( !Delegate.ExecuteIfBound(AbilitySpec) )
+		{
+			UE_LOG(LogECM, Error, TEXT("Failed to execute delegate in %hs"), __FUNCTION__)
+		}
+	}
+}
+
+FGameplayTag UECMAbilitySystemComponent::GetAbilityTagFromSpec(const FGameplayAbilitySpec& AbilitySpec)
+{
+	if (AbilitySpec.Ability)
+	{
+		FGameplayTagContainer AbilityTags = AbilitySpec.Ability.Get()->AbilityTags;
+		for (FGameplayTag Tag : AbilityTags)
+		{
+			if (Tag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Abilities"))))
+			{
+				return Tag;
+			}
+		}
+	}
+	return FGameplayTag();
+}
+
+FGameplayTag UECMAbilitySystemComponent::GetInputTagFromSpec(const FGameplayAbilitySpec& AbilitySpec)
+{
+	for (FGameplayTag Tag : AbilitySpec.DynamicAbilityTags)
+	{
+		if (Tag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Input"))))
+		{
+			return Tag;
+		}
+	}
+	return FGameplayTag();
+}
+
+// TODO investigate this lesson 242 for solution to healthbar not replicating
+void UECMAbilitySystemComponent::OnRep_ActivateAbilities()
+{
+	Super::OnRep_ActivateAbilities();
+
+	if ( !bStartupAbiltiesGiven )
+	{
+		bStartupAbiltiesGiven = true;
+		AbilitiesGivenDelegate.Broadcast(this);
 	}
 }

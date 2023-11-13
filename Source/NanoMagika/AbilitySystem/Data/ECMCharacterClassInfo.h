@@ -39,6 +39,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="CommonClassDefaults|Lifetime")
 	float LifeSpan = 5.f;
 	
-	TObjectPtr<UECMEnemySpecInfo> GetClassDefaultInfo(FGameplayTag EnemyTag);
+	TObjectPtr<UECMEnemySpecInfo> GetClassDefaultInfo(FGameplayTag EnemyTag) const;
 	
 };

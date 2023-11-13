@@ -21,36 +21,14 @@ AECMCharacterBase::AECMCharacterBase()
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
 	Weapon->SetupAttachment(GetMesh(), FName("WeaponHandSocket"));
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-
-	NetUpdateFrequency = 100.f;
 }
+
+void AECMCharacterBase::BeginPlay() { Super::BeginPlay(); }
 
 void AECMCharacterBase::PreInitializeComponents()
 {
 	Super::PreInitializeComponents();
 	UGameFrameworkComponentManager::AddGameFrameworkComponentReceiver(this); 	
-}
-
-void AECMCharacterBase::BeginPlay() { Super::BeginPlay(); }
-
-// Set callbacks on ECM Ability System Component and native ASC
-void AECMCharacterBase::InitializeAbilityActorInfo()
-{
-	GetAbilitySystemComponent()->InitAbilityActorInfo(this, this);
-}
-
-// Initialise Default Attributes, Abilities and Gameplay tags
-void AECMCharacterBase::InitializeCharacter()
-{
-	if (HasAuthority())	{
-		
-		GetECMASC()->BindEffectApplied();
-
-		InitDefaultAttributes();
-		InitDefaultAbilities();
-	}
-	
-	InitDefaultGameplayTags();
 }
 
 void AECMCharacterBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -59,6 +37,13 @@ void AECMCharacterBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 	Super::EndPlay(EndPlayReason);
 }
+
+// Set callbacks on ECM Ability System Component and native ASC
+void AECMCharacterBase::InitializeAbilityActorInfo()
+{
+	GetAbilitySystemComponent()->InitAbilityActorInfo(this, this);
+}
+
 
 // Generic Apply Effect To Self
 void AECMCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const
@@ -73,14 +58,6 @@ void AECMCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> Gam
 
 	// Apply gameplay effect to Self
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(),AbilitySystemComponent);
-}
-
-//TODO check if needed
-// Helper function to Get ECM version of ASC & AS, if not available cast from default ASC.
-UECMAbilitySystemComponent* AECMCharacterBase::GetECMASC() const
-{
-	if(ECMAbilitySystemComponent) return ECMAbilitySystemComponent;
-	return CastChecked<UECMAbilitySystemComponent>(GetAbilitySystemComponent());
 }
 
 // Helper function to Get Socket Location on weapon to spawn projectiles from
@@ -149,6 +126,13 @@ void AECMCharacterBase::Dissolve()
 	}
 }
 
+//TODO check if needed
+// Helper function to Get ECM version of ASC & AS, if not available cast from default ASC.
+UECMAbilitySystemComponent* AECMCharacterBase::GetECMASC() const
+{
+	if(ECMAbilitySystemComponent) return ECMAbilitySystemComponent;
+	return CastChecked<UECMAbilitySystemComponent>(GetAbilitySystemComponent());
+}
 
 void AECMCharacterBase::GetOwnedGameplayTags(FGameplayTagContainer& TagContainer) const
 {
@@ -157,7 +141,6 @@ void AECMCharacterBase::GetOwnedGameplayTags(FGameplayTagContainer& TagContainer
 		ASC->GetOwnedGameplayTags(TagContainer);
 	}
 }
-
 bool AECMCharacterBase::HasMatchingGameplayTag(FGameplayTag TagToCheck) const
 {
 	if (const UAbilitySystemComponent* ASC = GetAbilitySystemComponent())
@@ -167,7 +150,6 @@ bool AECMCharacterBase::HasMatchingGameplayTag(FGameplayTag TagToCheck) const
 
 	return false;
 }
-
 bool AECMCharacterBase::HasAllMatchingGameplayTags(const FGameplayTagContainer& TagContainer) const
 {
 	if (const UAbilitySystemComponent* ASC = GetAbilitySystemComponent())
@@ -177,7 +159,6 @@ bool AECMCharacterBase::HasAllMatchingGameplayTags(const FGameplayTagContainer& 
 
 	return false;
 }
-
 bool AECMCharacterBase::HasAnyMatchingGameplayTags(const FGameplayTagContainer& TagContainer) const
 {
 	if (const UAbilitySystemComponent* ASC = GetAbilitySystemComponent())
@@ -187,4 +168,3 @@ bool AECMCharacterBase::HasAnyMatchingGameplayTags(const FGameplayTagContainer& 
 
 	return false;
 }
-

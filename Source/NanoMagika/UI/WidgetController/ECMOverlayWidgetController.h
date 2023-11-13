@@ -5,8 +5,11 @@
 #include "CoreMinimal.h"
 #include "ECMWidgetController.h"
 #include "GameplayTagContainer.h"
+#include "NanoMagika/AbilitySystem/ECMAbilitySystemComponent.h"
+#include "NanoMagika/AbilitySystem/Data/ECMAbilityInformation.h"
 #include "ECMOverlayWidgetController.generated.h"
 
+struct FECMAbilityInfo;
 class UECMUserWidget;
 
 // To define table structure
@@ -29,6 +32,7 @@ struct FUIWidgetRow : public FTableRowBase
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageWidgetRowSignature, FUIWidgetRow, Row);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAbiltiyInfoSignature, const FECMAbilityInfo, Info);
 
 UCLASS(BlueprintType, Blueprintable)
 class NANOMAGIKA_API UECMOverlayWidgetController : public UECMWidgetController
@@ -41,6 +45,10 @@ public:
 	virtual void BroadcastInitialValues() override;
 	
 	// Delegates for binding
+	UPROPERTY(BlueprintAssignable, Category="GAS|XP")
+	FOnAttributeChangedSignature OnXPPercentChangeDelegate;
+
+	
 	UPROPERTY(BlueprintAssignable, Category="GAS|Vital Attributes")
 	FOnAttributeChangedSignature OnVitalityMatrixChangedDelegate;
 	UPROPERTY(BlueprintAssignable, Category="GAS|Vital Attributes")
@@ -53,12 +61,23 @@ public:
 	UPROPERTY(BlueprintAssignable, Category="GAS|Messages")
 	FMessageWidgetRowSignature MessageWidgetRowDelegate;
 
+	UPROPERTY(BlueprintAssignable, Category="GAS|Messages")
+	FAbiltiyInfoSignature AbiltyInfoDelegate;
+
+	
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="WidgetData")
 	TObjectPtr<UDataTable> MessageWidgetDataTable;
+
 	
 	template<typename T>
 	static T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag);
+
+	UFUNCTION(BlueprintCallable)
+	void OnInitializedStartupAbilities(UECMAbilitySystemComponent* ASC) const;
+
+	void OnXPChanged(int32 NewXP) const;
+
 };
 
 template <typename T>

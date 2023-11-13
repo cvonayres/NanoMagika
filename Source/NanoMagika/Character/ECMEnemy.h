@@ -12,6 +12,7 @@
 #include "ECMEnemy.generated.h"
 
 class FOnAttributeChangedSignature;
+// TODO fix enemy class most likely broke when fixing player
 
 UCLASS()
 class NANOMAGIKA_API AECMEnemy : public AECMCharacterBase, public IECMEnemyInterface
@@ -68,12 +69,12 @@ protected:
 	int32 Level = 1;
 
 	virtual void BeginPlay() override;
-	
-	virtual void InitializeCharacter() override;
+	virtual void InitializeCharacter();
 	virtual void InitDefaultAttributes() override;
 	virtual void InitDefaultAbilities() override;
 	virtual void InitDefaultGameplayTags() override;
 
+	UFUNCTION(NetMulticast, Reliable)
 	void InitHealthBar();
 
 	UPROPERTY()
